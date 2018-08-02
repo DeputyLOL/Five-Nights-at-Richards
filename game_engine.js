@@ -4,7 +4,7 @@
 function GameEngine() {
 	//A list of scenes we can switch between
 	this.lstScenes = [];
-	this.intFPS = 30;
+	this.intFPS = 25;
 	this.scnActive = null;
 	/**
 	 * Add a scene
@@ -54,7 +54,7 @@ function GameEngine() {
 	/**
 	 * Start the game
 	 */
-	this.fnStart = function(fps = 30) {
+	this.fnStart = function(fps = 25) {
 		this.intFPS = fps;
 		//Start the game
 		this.fnLoop();
@@ -69,7 +69,7 @@ function GameEngine() {
 			this.scnActive.fnRender();
 		}
 		//The timeout is based on the FPS
-		setTimeout( this.fnLoop, 60000 / this.intFPS );
+		setTimeout( this.fnLoop, 1000 / this.intFPS );
 	}
 }
 
