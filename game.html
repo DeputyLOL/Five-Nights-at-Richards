@@ -1,0 +1,22 @@
+<html>
+	<head>
+		<title>Five nights at Richard's</title>
+	</head>
+	<script src="./game_engine.js"></script>
+	
+	<body>
+			
+	</body>
+	<!--
+	  --
+	  -- THE GAME
+	  --
+	  -->
+	<script>
+		var game = new Game();
+		var scnMenu = new Scene("Menu");
+		game.fnAddScene( scnMenu );
+		game.fnChangeScene ( "Menu" );
+		game.fnStart();
+	</script>
+</html>
