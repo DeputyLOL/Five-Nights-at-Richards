@@ -1,7 +1,8 @@
 /**
  * The game engine class
  */
-function GameEngine() {
+function GameEngine() 
+{
 	//A list of scenes we can switch between
 	this.lstScenes = [];
 	this.intFPS = 25;
