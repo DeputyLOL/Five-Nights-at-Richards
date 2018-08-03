@@ -57,6 +57,7 @@ function GameEngine()
 	 */
 	this.fnStart = function(fps = 25) {
 		this.intFPS = fps;
+		console.log("Starting Game");
 		//Start the game
 		this.fnLoop();
 	}
@@ -64,13 +65,18 @@ function GameEngine()
 	 * The game loop
 	 */
 	this.fnLoop = function() {
+		
 		//Update and draw the active scene if we have it
 		if ( this.scnActive != null ) {
 			this.scnActive.fnUpdate();
 			this.scnActive.fnDraw();
+		} else { 
+			
 		}
 		//The timeout is based on the FPS
-		setTimeout( this.fnLoop, 1000 / this.intFPS );
+		var t = 1000 / this.intFPS;
+		var _this = this;
+		setTimeout(function() { _this.fnLoop(); }, t);
 	}
 }
 
@@ -105,13 +111,17 @@ function Scene(name) {
 	 * Update function
 	 */
 	this.fnUpdate = function() {
-		
+		for ( var i =0; i < this.lstSprites.length; i++) {
+			this.lstSprites[i].fnUpdate();
+		}
 	}
 	/**
 	 * Draw this to screen
 	 */
 	this.fnDraw = function() {
-		
+		for ( var i =0; i < this.lstSprites.length; i++) {
+			this.lstSprites[i].fnDraw();
+		}
 	}
 	/**
 	 * Delete a scene.  Gets called when removed.  Clean up objects etc and garbage collect
