@@ -183,8 +183,8 @@ function Sprite(name) {
 		//Here we must update the this.img.style properties so it's in the correct location
 		//We want (x,y) to represent the centre of the object.  HTML works on top left of image
 		//however.  Also must convert to integer then to string so can add "px" to it to tell HTML it's in pixels.
-		this.img.style.left = parseInt(this.x - this.width / 2).toString() + "px";
-		this.img.style.top = "px";
+		this.img.style.left = parseInt(this.x + this.width / 2).toString() + "px";
+		this.img.style.top = parseInt(this.y - this.height / 2).toString() + "px";
 		this.img.style.width = "px";
 		this.img.style.height = "px";
 		
