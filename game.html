@@ -28,8 +28,18 @@
 		imgStatic.width = 100;
 		imgStatic.height = 100;
 		
-		scnMenu.fnAddSprite(imgStatic);
+		var imgTitle = new Sprite("Title");
+		imgTitle.fnLoadImage("./assets/img/title.jpg");
+		imgTitle.x = 200;
+		imgTitle.y = 400;
+		imgTitle.width = 100;
+		imgTitle.height = 100;
 		
+	
+			
+		
+		scnMenu.fnAddSprite(imgStatic);
+		scnMenu.fnAddSprite(imgTitle);		
 		
 		game.fnAddScene( scnMenu );
 		game.fnChangeScene ( "Menu" );

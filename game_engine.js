@@ -174,7 +174,7 @@ function Sprite(name) {
 	 * Update function
 	 */
 	this.fnUpdate = function() {
-		this.x++;
+		//this.x++; err merrr gerrrd
 	}
 	/**
 	 * Draw this to screen
