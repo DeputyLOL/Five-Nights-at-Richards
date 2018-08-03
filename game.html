@@ -1,7 +1,10 @@
+<!DOCTYPE html>
 <html>
+	<meta charset="utf-8">
 	<head>
 		<title>Five nights at Richard's</title>
 	</head>
+	<link rel="stylesheet" type="text/css" href="assets/style/style.css">
 	<script src="./game_engine.js"></script>
 	
 	<body>
@@ -13,10 +16,24 @@
 	  --
 	  -->
 	<script>
-		var game = new Game();
+		//Create game object
+		var game = new GameEngine();
+		//Create scene object
 		var scnMenu = new Scene("Menu");
+		//Add sprite
+		var imgStatic = new Sprite("Static");
+		imgStatic.fnLoadImage("./assets/img/static.jpeg");
+		imgStatic.x = 200;
+		imgStatic.y = 400;
+		imgStatic.width = 100;
+		imgStatic.height = 100;
+		
+		scnMenu.fnAddSprite(imgStatic);
+		
+		
 		game.fnAddScene( scnMenu );
 		game.fnChangeScene ( "Menu" );
 		game.fnStart();
+		
 	</script>
 </html>
