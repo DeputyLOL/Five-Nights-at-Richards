@@ -21,53 +21,139 @@
 		//Create scene object
 		var scnMenu = new Scene("Menu");
 		//Add sprite
-		var imgStatic = new Sprite("Static");
-		imgStatic.fnLoadImage("./assets/img/static.jpeg");
-		imgStatic.x = 0;
-		imgStatic.y = 0;
-		imgStatic.width = 1940;
-		imgStatic.height = 1080;
+		var imgLoad = new Sprite("Background");
+		imgLoad.fnLoadImage("./assets/img/Console/DesktopBackground.png");
+		imgLoad.x = 0;
+		imgLoad.y = 0;
+		imgLoad.width = 800;
+		imgLoad.height = 600;
+		scnMenu.fnAddSprite(imgLoad);	
 		
-		var imgTitle = new Sprite("Title");
-		imgTitle.fnLoadImage("./assets/img/title.png");
-		imgTitle.x = 100;
-		imgTitle.y = 100;
-		imgTitle.width = 930;
-		imgTitle.height = 360;
+		var imgLoad = new Sprite("UserWindow");
+		imgLoad.fnLoadImage("./assets/img/Console/Windows_User.png");
+		imgLoad.x = 209;
+		imgLoad.y = 97;
+		imgLoad.width = 365;
+		imgLoad.height = 387;
+		scnMenu.fnAddSprite(imgLoad);		
 		
-		scnMenu.fnAddSprite(imgStatic);
-		scnMenu.fnAddSprite(imgTitle);		
+		var imgLoad = new Sprite("Button1");
+		imgLoad.fnLoadImage("./assets/img/Console/Button.png");
+		imgLoad.x = 236;
+		imgLoad.y = 402;
+		imgLoad.width = 154;
+		imgLoad.height = 35;
+		scnMenu.fnAddSprite(imgLoad);
 		
+		var imgLoad = new Sprite("Button2");
+		imgLoad.fnLoadImage("./assets/img/Console/Button.png");
+		imgLoad.x = 393;
+		imgLoad.y = 402;
+		imgLoad.width = 154;
+		imgLoad.height = 35;
+		scnMenu.fnAddSprite(imgLoad);
+
+		var imgLoad = new Sprite("Button3");
+		imgLoad.fnLoadImage("./assets/img/Console/Button.png");
+		imgLoad.x = 236;
+		imgLoad.y = 439;
+		imgLoad.width = 154;
+		imgLoad.height = 35;
+		scnMenu.fnAddSprite(imgLoad);
+		
+		var imgLoad = new Sprite("Button4");
+		imgLoad.fnLoadImage("./assets/img/Console/Button.png");
+		imgLoad.x = 393;
+		imgLoad.y = 439;
+		imgLoad.width = 154;
+		imgLoad.height = 35;
+		scnMenu.fnAddSprite(imgLoad);	
+
+		var imgLoad = new Sprite("Button1_Label");
+		imgLoad.fnLoadImage("./assets/img/Console/Button_Start.png");
+		imgLoad.x = 236;
+		imgLoad.y = 402;
+		imgLoad.width = 154;
+		imgLoad.height = 35;
+		scnMenu.fnAddSprite(imgLoad);
+		
+		var imgLoad = new Sprite("Button2_Label");
+		imgLoad.fnLoadImage("./assets/img/Console/Button_Help.png");
+		imgLoad.x = 393;
+		imgLoad.y = 402;
+		imgLoad.width = 154;
+		imgLoad.height = 35;
+		scnMenu.fnAddSprite(imgLoad);
+
+		var imgLoad = new Sprite("Button3");
+		imgLoad.fnLoadImage("./assets/img/Console/Button_Options.png");
+		imgLoad.x = 236;
+		imgLoad.y = 439;
+		imgLoad.width = 154;
+		imgLoad.height = 35;
+		scnMenu.fnAddSprite(imgLoad);
+		
+		var imgLoad = new Sprite("Button4");
+		imgLoad.fnLoadImage("./assets/img/Console/Button_Shutdown.png");
+		imgLoad.x = 393;
+		imgLoad.y = 439;
+		imgLoad.width = 154;
+		imgLoad.height = 35;
+		scnMenu.fnAddSprite(imgLoad);	
+
+		var imgLoad = new Sprite("Menu1");
+		imgLoad.fnLoadImage("./assets/img/Console/Windows_User_Administrator.png");
+		imgLoad.x = 238;
+		imgLoad.y = 233;
+		imgLoad.width = 307;
+		imgLoad.height = 26;
+		scnMenu.fnAddSprite(imgLoad);
+		
+		var imgLoad = new Sprite("Button2");
+		imgLoad.fnLoadImage("./assets/img/Console/Windows_User_Supervisor.png");
+		imgLoad.x = 238;
+		imgLoad.y = 260;
+		imgLoad.width = 307;
+		imgLoad.height = 26;
+		scnMenu.fnAddSprite(imgLoad);
+
+		var imgLoad = new Sprite("Button3");
+		imgLoad.fnLoadImage("./assets/img/Console/Windows_User_Guest.png");
+		imgLoad.x = 238;
+		imgLoad.y = 287;
+		imgLoad.width = 307;
+		imgLoad.height = 26;
+		scnMenu.fnAddSprite(imgLoad);
 		
 		//Create Loading screen scene
 		var scnLoading = new Scene("Loading");
 		//Splash
-		var imgLoad = new Sprite("LoadGif");
-		imgLoad.fnLoadImage("./assets/img/Console/SYSTEM_SPLASHSCREEN.png");
+		var imgLoad = new Sprite("Background");
+		imgLoad.fnLoadImage("./assets/img/Console/Startup_Background.png");
 		imgLoad.x = 0;
 		imgLoad.y = 0;
-		imgLoad.width = 1940;
-		imgLoad.height = 1080;
+		imgLoad.width = 800;
+		imgLoad.height = 600;
 		
 		scnLoading.fnAddSprite(imgLoad);
 		//Text
-		imgLoad = new Sprite("LoadGif");
-		imgLoad.fnLoadImage("./assets/img/Console/SYSTEM_SPLASHSCREEN_SETUP.png");
-		imgLoad.x = 400;
-		imgLoad.y = 700;
-		imgLoad.width = 1000;
-		imgLoad.height = 40;
+		imgLoad = new Sprite("SetUp");
+		imgLoad.fnLoadImage("./assets/img/Console/Startup_Setup.png");
+		imgLoad.x = 160;
+		imgLoad.y = 328;
+		imgLoad.width = 403;
+		imgLoad.height = 17;
 		
 		scnLoading.fnAddSprite(imgLoad);
 		
-		
-		//Dots
-		imgLoad = new Sprite("LoadGif");
-		imgLoad.fnLoadImage("./assets/img/Console/DotLoad.gif");
-		imgLoad.x = 800;
-		imgLoad.y = 800;
-		imgLoad.width = 200;
-		imgLoad.height = 100;
+
+		//Text
+		imgLoad = new Sprite("LoadingDots");
+		imgLoad.fnLoadImage("./assets/img/Console/Startup_LoadDots.gif");
+		imgLoad.x = 564;
+		imgLoad.y = 328;
+		imgLoad.width = 33;
+		imgLoad.height = 17;
 		
 		scnLoading.fnAddSprite(imgLoad);
 		
