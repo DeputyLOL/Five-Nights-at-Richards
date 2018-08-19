@@ -35,15 +35,49 @@
 		imgTitle.width = 930;
 		imgTitle.height = 360;
 		
-	
-			
-		
 		scnMenu.fnAddSprite(imgStatic);
 		scnMenu.fnAddSprite(imgTitle);		
 		
+		
+		//Create Loading screen scene
+		var scnLoading = new Scene("Loading");
+		//Splash
+		var imgLoad = new Sprite("LoadGif");
+		imgLoad.fnLoadImage("./assets/img/Console/SYSTEM_SPLASHSCREEN.png");
+		imgLoad.x = 0;
+		imgLoad.y = 0;
+		imgLoad.width = 1940;
+		imgLoad.height = 1080;
+		
+		scnLoading.fnAddSprite(imgLoad);
+		//Text
+		imgLoad = new Sprite("LoadGif");
+		imgLoad.fnLoadImage("./assets/img/Console/SYSTEM_SPLASHSCREEN_SETUP.png");
+		imgLoad.x = 400;
+		imgLoad.y = 700;
+		imgLoad.width = 1000;
+		imgLoad.height = 40;
+		
+		scnLoading.fnAddSprite(imgLoad);
+		
+		
+		//Dots
+		imgLoad = new Sprite("LoadGif");
+		imgLoad.fnLoadImage("./assets/img/Console/DotLoad.gif");
+		imgLoad.x = 800;
+		imgLoad.y = 800;
+		imgLoad.width = 200;
+		imgLoad.height = 100;
+		
+		scnLoading.fnAddSprite(imgLoad);
+		
+		//Start the game
 		game.fnAddScene( scnMenu );
-		game.fnChangeScene ( "Menu" );
+		game.fnAddScene( scnLoading );
+		game.fnChangeScene ( "Loading" );
 		game.fnStart();
 		
+		//Timeout
+		setTimeout( function() { game.fnChangeScene("Menu");}, 5000);
 	</script>
 </html>
