@@ -18,7 +18,39 @@
 	<script>
 		//Create game object
 		var game = new GameEngine();
-		//Create scene object
+				
+		//Create Loading screen scene
+		var scnLoading = new Scene("Loading");
+		//Splash
+		var imgLoad = new Sprite("Background");
+		imgLoad.fnLoadImage("./assets/img/Console/Startup_Background.png");
+		imgLoad.x = 0;
+		imgLoad.y = 0;
+		imgLoad.width = 800;
+		imgLoad.height = 600;		
+		scnLoading.fnAddSprite(imgLoad);
+		
+		//Text
+		imgLoad = new Sprite("SetUp");
+		imgLoad.fnLoadImage("./assets/img/Console/Startup_Setup.png");
+		imgLoad.x = 160;
+		imgLoad.y = 328;
+		imgLoad.width = 403;
+		imgLoad.height = 17;		
+		scnLoading.fnAddSprite(imgLoad);
+		
+		//Text
+		imgLoad = new Sprite("LoadingDots");
+		imgLoad.fnLoadImage("./assets/img/Console/Startup_LoadDots.gif");
+		imgLoad.x = 564;
+		imgLoad.y = 328;
+		imgLoad.width = 33;
+		imgLoad.height = 17;		
+		scnLoading.fnAddSprite(imgLoad);
+
+
+		
+		//Create Menu scene
 		var scnMenu = new Scene("Menu");
 		//Add sprite
 		var imgLoad = new Sprite("Background");
@@ -85,7 +117,7 @@
 		imgLoad.height = 35;
 		scnMenu.fnAddSprite(imgLoad);
 
-		var imgLoad = new Sprite("Button3");
+		var imgLoad = new Sprite("Button3_Label");
 		imgLoad.fnLoadImage("./assets/img/Console/Button_Options.png");
 		imgLoad.x = 236;
 		imgLoad.y = 439;
@@ -93,7 +125,7 @@
 		imgLoad.height = 35;
 		scnMenu.fnAddSprite(imgLoad);
 		
-		var imgLoad = new Sprite("Button4");
+		var imgLoad = new Sprite("Button4_Label");
 		imgLoad.fnLoadImage("./assets/img/Console/Button_Shutdown.png");
 		imgLoad.x = 393;
 		imgLoad.y = 439;
@@ -124,46 +156,54 @@
 		imgLoad.width = 307;
 		imgLoad.height = 26;
 		scnMenu.fnAddSprite(imgLoad);
+
+		
 		
 		//Create Loading screen scene
-		var scnLoading = new Scene("Loading");
+		var scnLoadingGame = new Scene("Logging In");
 		//Splash
 		var imgLoad = new Sprite("Background");
-		imgLoad.fnLoadImage("./assets/img/Console/Startup_Background.png");
+		imgLoad.fnLoadImage("./assets/img/Console/DesktopBackground.png");
 		imgLoad.x = 0;
 		imgLoad.y = 0;
 		imgLoad.width = 800;
 		imgLoad.height = 600;
-		
-		scnLoading.fnAddSprite(imgLoad);
+		scnLoadingGame.fnAddSprite(imgLoad);	
+			
 		//Text
-		imgLoad = new Sprite("SetUp");
-		imgLoad.fnLoadImage("./assets/img/Console/Startup_Setup.png");
-		imgLoad.x = 160;
-		imgLoad.y = 328;
-		imgLoad.width = 403;
-		imgLoad.height = 17;
+		imgLoad = new Sprite("LogInWindow");
+		imgLoad.fnLoadImage("./assets/img/Console/Windows_LogIn.png");
+		imgLoad.x = 209;
+		imgLoad.y = 180;
+		imgLoad.width = 365;
+		imgLoad.height = 142;		
+		scnLoadingGame.fnAddSprite(imgLoad);
 		
-		scnLoading.fnAddSprite(imgLoad);
+		imgLoad = new Sprite("LoadingBarBoarder");
+		imgLoad.fnLoadImage("./assets/img/Console/LoadBarLoopBoarder.png");
+		imgLoad.x = 221;
+		imgLoad.y = 268;
+		imgLoad.width = 341;
+		imgLoad.height = 47;		
+		scnLoadingGame.fnAddSprite(imgLoad);
 		
-
-		//Text
-		imgLoad = new Sprite("LoadingDots");
-		imgLoad.fnLoadImage("./assets/img/Console/Startup_LoadDots.gif");
-		imgLoad.x = 564;
-		imgLoad.y = 328;
-		imgLoad.width = 33;
-		imgLoad.height = 17;
-		
-		scnLoading.fnAddSprite(imgLoad);
+		imgLoad = new Sprite("LoadingBar");
+		imgLoad.fnLoadImage("./assets/img/Console/LoadBarLoop.gif");
+		imgLoad.x = 221;
+		imgLoad.y = 268;
+		imgLoad.width = 341;
+		imgLoad.height = 47;		
+		scnLoadingGame.fnAddSprite(imgLoad);
 		
 		//Start the game
 		game.fnAddScene( scnMenu );
 		game.fnAddScene( scnLoading );
+		game.fnAddScene( scnLoadingGame );		
 		game.fnChangeScene ( "Loading" );
 		game.fnStart();
 		
 		//Timeout
 		setTimeout( function() { game.fnChangeScene("Menu");}, 5000);
+		setTimeout( function() { game.fnChangeScene("Logging In");}, 10000);
 	</script>
 </html>
