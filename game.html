@@ -18,7 +18,17 @@
 	<script>
 		//Create game object
 		var game = new GameEngine();
-				
+		
+		// Load Sounds
+		game.fnAddSound( "BOOT_GOOD", "./assets/audio/SYSTEM_BOOTGOOD.ogg");
+		game.fnAddSound( "SYSTEM_START", "./assets/audio/SYSTEM_START.ogg");
+		game.fnAddSound( "FAN_LOOP", "./assets/audio/SYSTEM_FANLOOP.ogg");
+		game.fnAddSound( "FAN_BUSY", "./assets/audio/SYSTEM_FANBUSY.ogg");
+		game.fnAddSound( "BUTTON", "./assets/audio/SYSTEM_BUTTON.ogg");
+		game.fnAddSound( "CLICK", "./assets/audio/SYSTEM_CLICK.ogg");
+		game.fnPlaySound("BOOT_GOOD");
+		game.fnPlaySound("FAN_LOOP",true);
+		game.fnPlaySound("FAN_BUSY",true);
 		//Create Loading screen scene
 		var scnLoading = new Scene("Loading");
 		//Splash
@@ -47,120 +57,12 @@
 		imgLoad.width = 33;
 		imgLoad.height = 17;		
 		scnLoading.fnAddSprite(imgLoad);
-
-
-		
-		//Create Menu scene
-		var scnMenu = new Scene("Menu");
-		//Add sprite
-		var imgLoad = new Sprite("Background");
-		imgLoad.fnLoadImage("./assets/img/Console/DesktopBackground.png");
-		imgLoad.x = 0;
-		imgLoad.y = 0;
-		imgLoad.width = 800;
-		imgLoad.height = 600;
-		scnMenu.fnAddSprite(imgLoad);	
-		
-		var imgLoad = new Sprite("UserWindow");
-		imgLoad.fnLoadImage("./assets/img/Console/Windows_User.png");
-		imgLoad.x = 209;
-		imgLoad.y = 97;
-		imgLoad.width = 365;
-		imgLoad.height = 387;
-		scnMenu.fnAddSprite(imgLoad);		
-		
-		var imgLoad = new Sprite("Button1");
-		imgLoad.fnLoadImage("./assets/img/Console/Button.png");
-		imgLoad.x = 236;
-		imgLoad.y = 402;
-		imgLoad.width = 154;
-		imgLoad.height = 35;
-		scnMenu.fnAddSprite(imgLoad);
-		
-		var imgLoad = new Sprite("Button2");
-		imgLoad.fnLoadImage("./assets/img/Console/Button.png");
-		imgLoad.x = 393;
-		imgLoad.y = 402;
-		imgLoad.width = 154;
-		imgLoad.height = 35;
-		scnMenu.fnAddSprite(imgLoad);
-
-		var imgLoad = new Sprite("Button3");
-		imgLoad.fnLoadImage("./assets/img/Console/Button.png");
-		imgLoad.x = 236;
-		imgLoad.y = 439;
-		imgLoad.width = 154;
-		imgLoad.height = 35;
-		scnMenu.fnAddSprite(imgLoad);
-		
-		var imgLoad = new Sprite("Button4");
-		imgLoad.fnLoadImage("./assets/img/Console/Button.png");
-		imgLoad.x = 393;
-		imgLoad.y = 439;
-		imgLoad.width = 154;
-		imgLoad.height = 35;
-		scnMenu.fnAddSprite(imgLoad);	
-
-		var imgLoad = new Sprite("Button1_Label");
-		imgLoad.fnLoadImage("./assets/img/Console/Button_Start.png");
-		imgLoad.x = 236;
-		imgLoad.y = 402;
-		imgLoad.width = 154;
-		imgLoad.height = 35;
-		scnMenu.fnAddSprite(imgLoad);
-		
-		var imgLoad = new Sprite("Button2_Label");
-		imgLoad.fnLoadImage("./assets/img/Console/Button_Help.png");
-		imgLoad.x = 393;
-		imgLoad.y = 402;
-		imgLoad.width = 154;
-		imgLoad.height = 35;
-		scnMenu.fnAddSprite(imgLoad);
-
-		var imgLoad = new Sprite("Button3_Label");
-		imgLoad.fnLoadImage("./assets/img/Console/Button_Options.png");
-		imgLoad.x = 236;
-		imgLoad.y = 439;
-		imgLoad.width = 154;
-		imgLoad.height = 35;
-		scnMenu.fnAddSprite(imgLoad);
-		
-		var imgLoad = new Sprite("Button4_Label");
-		imgLoad.fnLoadImage("./assets/img/Console/Button_Shutdown.png");
-		imgLoad.x = 393;
-		imgLoad.y = 439;
-		imgLoad.width = 154;
-		imgLoad.height = 35;
-		scnMenu.fnAddSprite(imgLoad);	
-
-		var imgLoad = new Sprite("Menu1");
-		imgLoad.fnLoadImage("./assets/img/Console/Windows_User_Administrator.png");
-		imgLoad.x = 238;
-		imgLoad.y = 233;
-		imgLoad.width = 307;
-		imgLoad.height = 26;
-		scnMenu.fnAddSprite(imgLoad);
-		
-		var imgLoad = new Sprite("Button2");
-		imgLoad.fnLoadImage("./assets/img/Console/Windows_User_Supervisor.png");
-		imgLoad.x = 238;
-		imgLoad.y = 260;
-		imgLoad.width = 307;
-		imgLoad.height = 26;
-		scnMenu.fnAddSprite(imgLoad);
-
-		var imgLoad = new Sprite("Button3");
-		imgLoad.fnLoadImage("./assets/img/Console/Windows_User_Guest.png");
-		imgLoad.x = 238;
-		imgLoad.y = 287;
-		imgLoad.width = 307;
-		imgLoad.height = 26;
-		scnMenu.fnAddSprite(imgLoad);
-
-		
-		
+	</script>	
+		<script src = "menu.js"></script>
+	<script>	
 		//Create Loading screen scene
 		var scnLoadingGame = new Scene("Logging In");
+		
 		//Splash
 		var imgLoad = new Sprite("Background");
 		imgLoad.fnLoadImage("./assets/img/Console/DesktopBackground.png");
@@ -192,7 +94,7 @@
 		imgLoad.x = 221;
 		imgLoad.y = 268;
 		imgLoad.width = 341;
-		imgLoad.height = 47;		
+		imgLoad.height = 47;
 		scnLoadingGame.fnAddSprite(imgLoad);
 		
 		//Start the game
@@ -203,7 +105,12 @@
 		game.fnStart();
 		
 		//Timeout
-		setTimeout( function() { game.fnChangeScene("Menu");}, 5000);
-		setTimeout( function() { game.fnChangeScene("Logging In");}, 10000);
+		setTimeout( function() 
+		{ 
+			game.fnChangeScene("Menu");
+			game.fnPauseSound("FAN_BUSY");
+			game.fnPlaySound("SYSTEM_START");
+		}, 3000);
+
 	</script>
 </html>

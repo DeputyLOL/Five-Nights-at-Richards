@@ -7,6 +7,7 @@ function GameEngine()
 	this.lstScenes = [];
 	this.intFPS = 25;
 	this.scnActive = null;
+	this.dicSounds = {};
 	/**
 	 * Add a scene
 	 */
@@ -78,8 +79,57 @@ function GameEngine()
 		var _this = this;
 		setTimeout(function() { _this.fnLoop(); }, t);
 	}
-}
+	/**
+	 * Add sound
+	 */
+	this.fnAddSound = function( strName, strFile ) {
+		try {
+			this.dicSounds[ strName ] = new Audio(strFile);
+		} catch ( error ) {
+			
+		}
+	}
+	/**
+	 * Play sound
+	 */
+	this.fnPlaySound = function( strName , loop = false) {
+		this.dicSounds[strName].loop = loop;
+		this.dicSounds[strName].play();
+	}
+	
+	/**
+	 * Pause sound
+	 */
+	this.fnPauseSound = function( strName ) {
+		this.dicSounds[strName].pause();
+	}
+	
+	/**
+	 * Stop sound
+	 */
+	this.fnStopSound = function( strName ) {
+		if (strName == "ALL")
+		{
+			for (key in this.dicSounds) 
+			{
+				this.dicSounds[key].pause();
+				this.dicSounds[key].currentTime = 0;
+			}
+		}
+		else
+		{
+			this.dicSounds[strName].pause();
+			this.dicSounds[strName].currentTime = 0;
+		}
+	}
+	
+	/**
+	 * Stop All sound
+	 */
+	this.fnStopAllSound = function() {
 
+	}
+}
 /**
  * The scene class
  */
@@ -100,6 +150,14 @@ function Scene(name) {
 	this.fnAddSprite = function (s ) {
 		this.lstSprites.push(s);
 		this.domObject.appendChild(s.img);
+	}
+	/**
+	 * Add button
+	 */
+	this.fnAddButton = function ( s ) {
+		this.lstSprites.push(s);
+		this.domObject.appendChild(s.img);
+		this.domObject.appendChild(s.label);
 	}
 	/**
 	 * Reset the scene, like restart level etc.
@@ -169,6 +227,7 @@ function Sprite(name) {
 	this.fnLoadImage = function(strFile) {
 		this.img = document.createElement('img');
 		this.img.src = strFile;
+		this.img.container = this;
 	}
 	/**
 	 * Update function
@@ -192,3 +251,74 @@ function Sprite(name) {
 		
 	}
 }
+
+/**
+ * Button
+ */
+function Button(strName) {
+	//Initialise the sprite class
+	Sprite.call(this, strName);
+	this.dicFrames = { "default" : null, "mouse_over" : null, "mouse_click" : null};
+	/**
+	 * Add the images
+	 */
+	this.fnLoadImage = function( strDefault, strMouseOver, strMouseClick, strLabel) {
+		//Load up the four images here...
+		this.dicFrames["default"] = strDefault;
+		this.dicFrames["mouse_over"] = strMouseOver;
+		this.dicFrames["mouse_click"] = strMouseClick;
+		this.dicFrames["mouse_over"] = strMouseOver;	
+		//Set img tag to show default one
+		this.img = document.createElement('img');
+		this.img.src = strDefault;
+		this.img.container = this;
+		this.img.style.zIndex = 0;
+		
+		this.label = document.createElement('img');
+		this.label.src = strLabel;
+
+		this.label.container = this;
+		this.label.style.zIndex = 1;
+		document.body.appendChild(this.label);
+		
+		//Set up event handlers
+		this.label.onmouseover = function() {
+			
+			this.container.img.src = strMouseOver;
+		}
+		this.label.onmouseout = function() {
+			this.container.img.src = strDefault;
+		}
+		this.label.onmousedown = function() {
+			this.container.img.src = strMouseClick;			
+		}
+		this.label.onmouseup = function() {
+			this.container.img.src = strMouseOver;
+			this.container.fnClickEvent();
+		}
+		
+		
+	}
+	/**
+	 * Draw this to screen
+	 */
+	this.fnDraw = function() {
+		//Here we must update the this.img.style properties so it's in the correct location
+		//We want (x,y) to represent the centre of the object.  HTML works on top left of image
+		//however.  Also must convert to integer then to string so can add "px" to it to tell HTML it's in pixels.
+		//this.img.style.left = parseInt(this.x - this.width / 2).toString() + "px";
+		//this.img.style.top = parseInt(this.y + this.height / 2).toString() + "px";
+		this.img.style.left = parseInt(this.x).toString() + "px";
+		this.img.style.top = parseInt(this.y).toString() + "px";
+		this.img.style.width = parseInt(this.width).toString() + "px";
+		this.img.style.height = parseInt(this.height).toString() + "px";
+		
+		this.label.style.left = parseInt(this.x).toString() + "px";
+		this.label.style.top = parseInt(this.y).toString() + "px";
+		this.label.style.width = parseInt(this.width).toString() + "px";
+		this.label.style.height = parseInt(this.height).toString() + "px";
+		
+	}
+}
+Button.prototype = Object.create(Sprite.prototype);
+
