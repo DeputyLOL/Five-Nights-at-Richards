@@ -173,7 +173,14 @@
 	"./assets/img/Console/null.png"
 	);
 	imgLoad.fnClickEvent = function () {
+		
 	}
 	scnMenu.fnAddButton(imgLoad);
 	mainmenu.fnAddMenuButton(imgLoad);
 			
+
+	//Screen
+	scnMenu.intOffsetX = intScreenOffsetX;
+	scnMenu.intOffsetY = intScreenOffsetY;
+	scnMenu.fnSetLayer(1);
+

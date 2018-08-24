@@ -30,7 +30,7 @@ function GameEngine()
 			if (this.lstScenes[i].strName == strName ) {
 				this.lstScenes[i].fnDelete();
 				//Remove from list
-				this.lstScenes = this.lstScenes,splice(i,1);
+				this.lstScenes = this.lstScenes.splice(i,1);
 			}
 		}
 	}
@@ -181,7 +181,8 @@ function Scene(name) {
 	this.fnRemoveSubScene = function ( strName ) {
 		for ( x in this.lstSubScenes ) {
 			if ( this.lstSubScenes[x].strName == strName ) {
-				this.lstSubScenes.remove( this.lstSubScenes[x] );
+				this.domObject.removeChild(this.lstSubScenes[x].domObject);
+				this.lstSubScenes = this.lstSubScenes.splice(x,1);
 				return;
 			}
 		}
@@ -229,7 +230,7 @@ function Scene(name) {
 		
 		//Pass through the offset
 		for ( var i =0; i < this.lstSprites.length; i++) {
-			this.lstSprites[i].fnDraw(xOffset, yOffset,this.intLayerNumber);
+			this.lstSprites[i].fnDraw(xOffset, yOffset,this.intLayerNumber*10);
 		}
 		
 		/////
@@ -373,7 +374,7 @@ function Button(strName) {
 		this.label.src = strLabel;
 
 		this.label.container = this;
-		this.LabelzIndex = 0.1;
+		this.LabelzIndex = 1;
 		document.body.appendChild(this.label);
 		
 		//Set up event handlers
@@ -447,7 +448,7 @@ function MenuButton(strName) {
 		this.label.src = strLabel;
 
 		this.label.container = this;
-		this.LabelzIndex = 0.1;
+		this.LabelzIndex = 1;
 		document.body.appendChild(this.label);
 		
 		this.buttonActive = false;
@@ -502,7 +503,7 @@ function MenuButton(strName) {
 		this.label.style.top = parseInt(this.y + yOffset).toString() + "px";
 		this.label.style.width = parseInt(this.width).toString() + "px";
 		this.label.style.height = parseInt(this.height).toString() + "px";
-		this.label.style.zIndex = (this.LabelzIndex + this.zIndex + zIndex).toString();
+		this.label.style.zIndex = parseFloat(this.LabelzIndex + this.zIndex + zIndex).toString();
 	}
 }
 Button.prototype = Object.create(Sprite.prototype);

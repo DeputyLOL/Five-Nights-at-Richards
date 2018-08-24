@@ -35,7 +35,20 @@
 		game.fnPlaySound("BOOT_GOOD");
 		game.fnPlaySound("FAN_LOOP",true);
 		game.fnPlaySound("FAN_BUSY",true);
-		//Create Loading screen scene
+		
+		//Set up the screen
+		var scnScreen = new Scene("Screen");
+		var imgScreen = new Sprite("Screen");
+		imgScreen.fnLoadImage("./assets/img/test_screen.png");
+		imgScreen.width = 1369;
+		imgScreen.height = 756;
+		scnScreen.fnAddSprite(imgScreen);
+		var intScreenOffsetX = 294;
+		var intScreenOffsetY = 72;
+		
+		
+		game.fnAddScene( scnScreen );
+		
 	</script>	
 		<script src = "loading.js"></script>
 		<script src = "menu.js"></script>
@@ -54,16 +67,21 @@
 		game.fnAddScene( scnDeviceMonitor );				
 		game.fnAddScene( scnDesktop );
 		game.fnAddScene( scnHelpMenu );		
-		game.fnAddScene( scnOptions );		
-
-		game.fnChangeScene ( "Loading" );
+		game.fnAddScene( scnOptions );
+		
+		scnScreen.fnAddSubScene(scnLoading);
+		game.fnChangeScene ( "Screen" );
+		
 		game.fnStart();
 		
 		
 		//Timeout
 		setTimeout( function() 
 		{ 
-			game.fnChangeScene("Menu");
+			scnScreen.fnRemoveSubScene("Loading");
+			scnScreen.fnAddSubScene(scnMenu);
+			
+			//game.fnChangeScene("Menu");
 			game.fnPauseSound("FAN_BUSY");
 		}, 3000);
 
