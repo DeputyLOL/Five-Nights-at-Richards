@@ -22,7 +22,10 @@
 		imgLoad.y = 402;
 		imgLoad.width = 154;
 		imgLoad.height = 35;
-		imgLoad.fnLoadImage("./assets/img/Console/Button.png", "./assets/img/Console/ButtonHighlighted.png","./assets/img/Console/ButtonPressed.png","./assets/img/Console/Button_Start.png");
+		imgLoad.fnLoadImage("./assets/img/Console/Button.png", 
+		"./assets/img/Console/ButtonHighlighted.png",
+		"./assets/img/Console/ButtonPressed.png",
+		"./assets/img/Console/Button_Start.png");
 		imgLoad.fnClickEvent = function () {
 			game.fnPlaySound("BUTTON");
 			game.fnPlaySound("FAN_BUSY",true);					
@@ -41,7 +44,10 @@
 		imgLoad.y = 402;
 		imgLoad.width = 154;
 		imgLoad.height = 35;
-		imgLoad.fnLoadImage("./assets/img/Console/Button.png", "./assets/img/Console/ButtonHighlighted.png","./assets/img/Console/ButtonPressed.png","./assets/img/Console/Button_Help.png");
+		imgLoad.fnLoadImage("./assets/img/Console/Button.png", 
+		"./assets/img/Console/ButtonHighlighted.png",
+		"./assets/img/Console/ButtonPressed.png",
+		"./assets/img/Console/Button_Help.png");
 		imgLoad.fnClickEvent = function () {
 			game.fnPlaySound("BUTTON");	
 		}
@@ -52,7 +58,10 @@
 		imgLoad.y = 439;
 		imgLoad.width = 154;
 		imgLoad.height = 35;
-		imgLoad.fnLoadImage("./assets/img/Console/Button.png", "./assets/img/Console/ButtonHighlighted.png","./assets/img/Console/ButtonPressed.png","./assets/img/Console/Button_Options.png");
+		imgLoad.fnLoadImage("./assets/img/Console/Button.png", 
+		"./assets/img/Console/ButtonHighlighted.png",
+		"./assets/img/Console/ButtonPressed.png",
+		"./assets/img/Console/Button_Options.png");
 		imgLoad.fnClickEvent = function () {
 			game.fnPlaySound("BUTTON");	
 		}
@@ -63,9 +72,14 @@
 		imgLoad.y = 439;
 		imgLoad.width = 154;
 		imgLoad.height = 35;
-		imgLoad.fnLoadImage("./assets/img/Console/Button.png", "./assets/img/Console/ButtonHighlighted.png","./assets/img/Console/ButtonPressed.png","./assets/img/Console/Button_Shutdown.png");
+		imgLoad.fnLoadImage("./assets/img/Console/Button.png", 
+		"./assets/img/Console/ButtonHighlighted.png",
+		"./assets/img/Console/ButtonPressed.png",
+		"./assets/img/Console/Button_Shutdown.png");
 		imgLoad.fnClickEvent = function () {
-			game.fnPlaySound("BUTTON");	
+			game.fnPlaySound("BUTTON");
+			window.location.href = "http:www.richardhowellpeak.com/GameDesign";
+		
 		}
 		scnMenu.fnAddButton(imgLoad);
 		
