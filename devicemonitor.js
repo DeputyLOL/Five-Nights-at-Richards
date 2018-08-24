@@ -31,3 +31,97 @@
 			game.fnChangeScene("Desktop");
 		}
 		scnDeviceMonitor.fnAddButton(imgLoad);
+			
+		var deviceMonitorTab = new MenuButtonGroup();
+				
+		var imgLoad = new MenuButton("Overview");
+		imgLoad.x = 12;
+		imgLoad.y = 63;
+		imgLoad.width = 140;
+		imgLoad.height = 40;
+		imgLoad.fnLoadImage(
+		"./assets/img/Console/null.png",
+		"./assets/img/Console/null.png",
+		"./assets/img/Console/Tab_Overview.png",
+		"./assets/img/Console/Tab_Overview.png",
+		"./assets/img/Console/null.png"
+		);
+		imgLoad.fnClickEvent = function () {
+			game.fnPlaySound("BUTTON");				
+		}
+		scnDeviceMonitor.fnAddButton(imgLoad);
+		deviceMonitorTab.fnAddMenuButton(imgLoad);
+		imgLoad.fnButtonActive();
+		
+		var imgLoad = new MenuButton("Network");
+		imgLoad.x = 152;
+		imgLoad.y = 63;
+		imgLoad.width = 140;
+		imgLoad.height = 40;
+		imgLoad.fnLoadImage(
+		"./assets/img/Console/null.png",
+		"./assets/img/Console/null.png",
+		"./assets/img/Console/Tab_Network.png",
+		"./assets/img/Console/Tab_Network.png",
+		"./assets/img/Console/null.png"
+		);
+		imgLoad.fnClickEvent = function () {
+			game.fnPlaySound("BUTTON");	
+		}
+		scnDeviceMonitor.fnAddButton(imgLoad);
+		deviceMonitorTab.fnAddMenuButton(imgLoad);
+	
+	
+		var imgLoad = new MenuButton("Power");
+		imgLoad.x = 292;
+		imgLoad.y = 63;
+		imgLoad.width = 140;
+		imgLoad.height = 40;
+		imgLoad.fnLoadImage(
+		"./assets/img/Console/null.png",
+		"./assets/img/Console/null.png",
+		"./assets/img/Console/Tab_Power.png",
+		"./assets/img/Console/Tab_Power.png",
+		"./assets/img/Console/null.png"
+		);
+		imgLoad.fnClickEvent = function () {
+			game.fnPlaySound("BUTTON");	
+		}
+		scnDeviceMonitor.fnAddButton(imgLoad);
+		deviceMonitorTab.fnAddMenuButton(imgLoad);
+		
+		var imgLoad = new MenuButton("Camera");
+		imgLoad.x = 432;
+		imgLoad.y = 63;
+		imgLoad.width = 140;
+		imgLoad.height = 40;
+		imgLoad.fnLoadImage(
+		"./assets/img/Console/null.png",
+		"./assets/img/Console/null.png",
+		"./assets/img/Console/Tab_Cameras.png",
+		"./assets/img/Console/Tab_Cameras.png",
+		"./assets/img/Console/null.png"
+		);
+		imgLoad.fnClickEvent = function () {
+			game.fnPlaySound("BUTTON");	
+		}
+		scnDeviceMonitor.fnAddButton(imgLoad);
+		deviceMonitorTab.fnAddMenuButton(imgLoad);
+		
+		var imgLoad = new MenuButton("Lights");
+		imgLoad.x = 572;
+		imgLoad.y = 63;
+		imgLoad.width = 140;
+		imgLoad.height = 40;
+		imgLoad.fnLoadImage(
+		"./assets/img/Console/null.png",
+		"./assets/img/Console/null.png",
+		"./assets/img/Console/Tab_Lights.png",
+		"./assets/img/Console/Tab_Lights.png",
+		"./assets/img/Console/null.png"
+		);
+		imgLoad.fnClickEvent = function () {
+			game.fnPlaySound("BUTTON");	
+		}
+		scnDeviceMonitor.fnAddButton(imgLoad);
+		deviceMonitorTab.fnAddMenuButton(imgLoad);
