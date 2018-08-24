@@ -362,12 +362,6 @@ function MenuButton(strName) {
 	 * Add the images
 	 */
 	this.fnLoadImage = function( strDefault, strMouseOver, strMouseClick, strSelected, strLabel) {
-		//Load up the five images here...
-		this.dicFrames["default"] = strDefault;
-		this.dicFrames["mouse_over"] = strMouseOver;
-		this.dicFrames["mouse_click"] = strMouseClick;
-		this.dicFrames["mouse_over"] = strMouseOver;
-		this.dicFrames["selected"] = strSelected;	
 		//Set img tag to show default one
 		this.img = document.createElement('img');
 		this.img.src = strDefault;
