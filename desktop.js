@@ -17,7 +17,7 @@
 	imgLoad.height = 34;
 	scnDesktop.fnAddSprite(imgLoad);
 	
-	var imgLoad = new Button("IconSystemMonitor");
+	var imgLoad = new Button("IconDeviceMonitor");
 	imgLoad.x = 20;
 	imgLoad.y = 20;
 	imgLoad.width = 100;
@@ -26,7 +26,7 @@
 	"./assets/img/Console/Desktop_Icon_DeviceMonitorHighLighted.png",
 	"./assets/img/Console/Desktop_Icon_DeviceMonitorSelected.png",
 	"./assets/img/Console/null.png");
-	imgLoad.fnClickEvent = function () {				
+	imgLoad.fnClickEvent = function () {			
 		game.fnChangeScene("DeviceMonitor");
 	}
 	scnDesktop.fnAddButton(imgLoad);
