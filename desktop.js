@@ -86,25 +86,25 @@
 	}
 	scnDesktop.fnAddButton(imgLoad);
 
-		var imgLoad = new Button("IconCameras");
-		imgLoad.x = 20;
-		imgLoad.y = 220;
-		imgLoad.width = 100;
-		imgLoad.height = 100;
-		imgLoad.fnLoadImage("./assets/img/Console/Desktop_Icon_Cameras.png", 
-		"./assets/img/Console/Desktop_Icon_CamerasHighlighted.png",
-		"./assets/img/Console/Desktop_Icon_CamerasSelected.png",
-		"./assets/img/Console/null.png"
-		);
-		imgLoad.fnClickEvent = function () {
-			game.fnPlaySound("BUTTON");
-			game.fnPlaySound("FAN_BUSY",true);					
-			game.fnChangeScene("Logging In");
-			setTimeout( function() 
-			{ 
-				game.fnChangeScene("Desktop");
-				game.fnPauseSound("FAN_BUSY");
-				game.fnPlaySound("SYSTEM_START");
-			}, 3000);
-		}
-		scnDesktop.fnAddButton(imgLoad);
+	var imgLoad = new Button("IconCameras");
+	imgLoad.x = 20;
+	imgLoad.y = 220;
+	imgLoad.width = 100;
+	imgLoad.height = 100;
+	imgLoad.fnLoadImage("./assets/img/Console/Desktop_Icon_Cameras.png", 
+	"./assets/img/Console/Desktop_Icon_CamerasHighlighted.png",
+	"./assets/img/Console/Desktop_Icon_CamerasSelected.png",
+	"./assets/img/Console/null.png"
+	);
+	imgLoad.fnClickEvent = function () {
+		game.fnPlaySound("BUTTON");
+		game.fnPlaySound("FAN_BUSY",true);					
+		game.fnChangeScene("Logging In");
+		setTimeout( function() 
+		{ 
+			game.fnChangeScene("Desktop");
+			game.fnPauseSound("FAN_BUSY");
+			game.fnPlaySound("SYSTEM_START");
+		}, 3000);
+	}
+	scnDesktop.fnAddButton(imgLoad);
