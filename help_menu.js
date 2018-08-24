@@ -1,5 +1,5 @@
 	//Create Menu scene
-	var scnDesktop = new Scene("Desktop");
+	var scnDesktop = new Scene("HelpMenu");
 	//Add sprite
 	var imgLoad = new Sprite("Background");
 	imgLoad.fnLoadImage("./assets/img/Console/DesktopBackground.png");
