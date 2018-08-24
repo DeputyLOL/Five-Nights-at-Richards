@@ -32,10 +32,18 @@
 		game.fnAddSound( "FAN_BUSY", "./assets/audio/SYSTEM_FANBUSY.ogg");
 		game.fnAddSound( "BUTTON", "./assets/audio/SYSTEM_BUTTON.ogg");
 		game.fnAddSound( "CLICK", "./assets/audio/SYSTEM_CLICK.ogg");
-		game.fnPlaySound("BOOT_GOOD");
 		game.fnPlaySound("FAN_LOOP",true);
-		game.fnPlaySound("FAN_BUSY",true);
-		
+
+		var scnStart = new Scene("GameStart");
+		//Splash
+		var imgLoad = new Sprite("MonitorUp");
+		imgLoad.fnLoadImage("./assets/img/MonitorUp.gif");
+		imgLoad.x = 0;
+		imgLoad.y = 0;
+		imgLoad.width = 1369;
+		imgLoad.height = 756;		
+		scnStart.fnAddSprite(imgLoad);
+	
 		//Set up the screen
 		var scnScreen = new Scene("Screen");
 		var imgScreen = new Sprite("Screen");
@@ -44,9 +52,7 @@
 		imgScreen.height = 756;
 		scnScreen.fnAddSprite(imgScreen);
 		var intScreenOffsetX = 294;
-		var intScreenOffsetY = 72;
-		
-		
+		var intScreenOffsetY = 72;	
 		game.fnAddScene( scnScreen );
 		
 	</script>	
@@ -60,7 +66,8 @@
 
 		
 		
-		//Start the game	
+		//Start the game
+		game.fnAddScene( scnStart );
 		game.fnAddScene( scnMenu );
 		game.fnAddScene( scnLoading );
 		game.fnAddScene( scnLoadingGame );
@@ -69,21 +76,31 @@
 		game.fnAddScene( scnHelpMenu );		
 		game.fnAddScene( scnOptions );
 		
-		scnScreen.fnAddSubScene(scnLoading);
-		game.fnChangeScene ( "Screen" );
+
+		game.fnChangeScene ( "GameStart" );
 		
 		game.fnStart();
 		
 		
 		//Timeout
+
 		setTimeout( function() 
-		{ 
-			scnScreen.fnRemoveSubScene("Loading");
-			scnScreen.fnAddSubScene(scnMenu);
-			
-			//game.fnChangeScene("Menu");
-			game.fnPauseSound("FAN_BUSY");
-		}, 3000);
+		{ 	
+			scnScreen.fnAddSubScene(scnLoading);
+
+			game.fnChangeScene("Screen");			
+			game.fnPlaySound("BOOT_GOOD");
+			game.fnPlaySound("FAN_BUSY",true);
+			setTimeout( function() 
+			{ 
+				scnScreen.fnRemoveSubScene("Loading");
+
+				scnScreen.fnAddSubScene(scnMenu);
+				
+				//game.fnChangeScene("Menu");
+				game.fnPauseSound("FAN_BUSY");
+			}, 3000);
+		}, 600);
 
 		
 		

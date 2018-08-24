@@ -28,7 +28,9 @@
 		"./assets/img/Console/null.png");
 		imgLoad.fnClickEvent = function () {
 			game.fnPlaySound("BUTTON");			
-			game.fnChangeScene("Desktop");
+			scnScreen.fnRemoveSubScene("DeviceMonitor");
+			scnScreen.fnAddSubScene(scnDesktop);
+			console.log(scnScreen);
 		}
 		scnDeviceMonitor.fnAddButton(imgLoad);
 			
@@ -125,3 +127,8 @@
 		}
 		scnDeviceMonitor.fnAddButton(imgLoad);
 		deviceMonitorTab.fnAddMenuButton(imgLoad);
+		
+		//Screen
+		scnDeviceMonitor.intOffsetX = intScreenOffsetX;
+		scnDeviceMonitor.intOffsetY = intScreenOffsetY;
+		scnDeviceMonitor.fnSetLayer(1);

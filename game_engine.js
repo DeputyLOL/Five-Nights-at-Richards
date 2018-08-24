@@ -186,6 +186,7 @@ function Scene(name) {
 				return;
 			}
 		}
+		console.log("ERROR: "+ strName);
 	}
 	/**
 	 * Reset the scene, like restart level etc.

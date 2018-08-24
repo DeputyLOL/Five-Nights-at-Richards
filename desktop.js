@@ -76,3 +76,8 @@
 		}, 3000);
 	}
 	scnDesktop.fnAddButton(imgLoad);
+	
+	//Screen
+	scnDesktop.intOffsetX = intScreenOffsetX;
+	scnDesktop.intOffsetY = intScreenOffsetY;
+	scnDesktop.fnSetLayer(1);

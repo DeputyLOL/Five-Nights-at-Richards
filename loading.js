@@ -74,3 +74,7 @@
 	scnLoading.intOffsetX = intScreenOffsetX;
 	scnLoading.intOffsetY = intScreenOffsetY;
 	scnLoading.fnSetLayer(1);
+	
+	scnLoadingGame.intOffsetX = intScreenOffsetX;
+	scnLoadingGame.intOffsetY = intScreenOffsetY;
+	scnLoadingGame.fnSetLayer(1);

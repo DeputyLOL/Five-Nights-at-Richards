@@ -36,15 +36,19 @@
 		//First, check which user is selected
 		var strActiveButton = mainmenu.fnWhichButtonActive();
 		if ( strActiveButton == "Menu Guest" ) {
-			
+			console.log(scnScreen);
 			game.fnPlaySound("BUTTON");
 			game.fnPlaySound("FAN_BUSY",true);					
-			game.fnChangeScene("Logging In");
+			scnScreen.fnRemoveSubScene("Menu");
+			scnScreen.fnAddSubScene(scnLoadingGame);
+			console.log(scnScreen);
 			setTimeout( function() 
 			{ 
-				game.fnChangeScene("Desktop");
+				scnScreen.fnRemoveSubScene("Logging In");
+				scnScreen.fnAddSubScene(scnDesktop);
 				game.fnPauseSound("FAN_BUSY");
 				game.fnPlaySound("SYSTEM_START");
+				console.log(scnScreen);
 			}, 3000);
 		} else {
 			alert ( "You do not have privileges to use that account");
