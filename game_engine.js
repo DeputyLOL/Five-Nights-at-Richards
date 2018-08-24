@@ -38,6 +38,7 @@ function GameEngine()
 	 * Change scene by choosing it's name
 	 */
 	this.fnChangeScene = function(strName) {
+		console.log("Changing Scene: " + strName);
 		//Loop through and try to delete scene
 		for ( var i=0; i < this.lstScenes.length; i++ ) {
 			//Match it by name
