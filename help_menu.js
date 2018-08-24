@@ -7,7 +7,7 @@
 	imgLoad.y = 0;
 	imgLoad.width = 800;
 	imgLoad.height = 600;
-	scnDesktop.fnAddSprite(imgLoad);	
+	scnHelpMenu.fnAddSprite(imgLoad);	
 
 	var imgLoad = new Sprite("TaskBar");
 	imgLoad.fnLoadImage("./assets/img/Console/Desktop_Taskbar.png");
@@ -15,7 +15,7 @@
 	imgLoad.y = 566;
 	imgLoad.width = 800;
 	imgLoad.height = 34;
-	scnDesktop.fnAddSprite(imgLoad);
+	scnHelpMenu.fnAddSprite(imgLoad);
 	
 	var imgLoad = new Button("IconSystemMonitor");
 	imgLoad.x = 20;
@@ -37,7 +37,7 @@
 			game.fnPlaySound("SYSTEM_START");
 		}, 3000);
 	}
-	scnDesktop.fnAddButton(imgLoad);
+	scnHelpMenu.fnAddButton(imgLoad);
 
 	var imgLoad = new Button("IconEmail");
 	imgLoad.x = 20;
@@ -60,7 +60,7 @@
 			game.fnPlaySound("SYSTEM_START");
 		}, 3000);
 	}
-	scnDesktop.fnAddButton(imgLoad);
+	scnHelpMenu.fnAddButton(imgLoad);
 
 	var imgLoad = new Button("IconCameras");
 	imgLoad.x = 20;
@@ -83,4 +83,4 @@
 			game.fnPlaySound("SYSTEM_START");
 		}, 3000);
 	}
-	scnDesktop.fnAddButton(imgLoad);
+	scnHelpMenu.fnAddButton(imgLoad);
