@@ -38,6 +38,7 @@ function GameEngine()
 	 * Change scene by choosing it's name
 	 */
 	this.fnChangeScene = function(strName) {
+		console.log("Changing Scene: " + strName);
 		//Loop through and try to delete scene
 		for ( var i=0; i < this.lstScenes.length; i++ ) {
 			//Match it by name
@@ -130,6 +131,13 @@ function GameEngine()
 
 	}
 }
+
+
+
+
+
+
+
 /**
  * The scene class
  */
@@ -205,6 +213,11 @@ function Scene(name) {
 
 
 
+
+
+
+
+
 /**
  * The game object class
  */
@@ -251,6 +264,15 @@ function Sprite(name) {
 		
 	}
 }
+
+
+
+
+
+
+////////////////////////////////////// BUTTONS ///////////////////////////////////////
+
+
 
 /**
  * Button
@@ -318,6 +340,15 @@ function Button(strName) {
 	}
 }
 Button.prototype = Object.create(Sprite.prototype);
+
+
+
+
+
+
+
+
+
 
 
 /**
@@ -404,21 +435,43 @@ function MenuButton(strName) {
 	}
 }
 Button.prototype = Object.create(Sprite.prototype);
+
+
+
+
 /**
  * Menu button group
  */
 function MenuButtonGroup() {
+	//
+	//Store a list of menu buttons
 	this.lstMenuButtons = [];
+	
+	//
+	//Add it to the list and save a reference back to the group manager
 	this.fnAddMenuButton = function ( b ) {
-		
 		b.buttonGroup = this;
 		this.lstMenuButtons.push(b);
 	}
+	
+	//
+	//Buttons call this and pass themselves in for group manager to handle
 	this.fnButtonPressed = function ( b ) {
 		for ( x in this.lstMenuButtons)
 		{
 			this.lstMenuButtons[x].fnButtonIdle();
 		}
 		b.fnButtonActive();
+	}
+	
+	//
+	//Which button was pressed?  Returns the name of it
+	this.fnWhichButtonActive = function( ) {
+		for ( x in this.lstMenuButtons) {
+			if ( this.lstMenuButtons[x].buttonActive ) {
+				//Found an active button so return name of it
+				return this.lstMenuButtons[x].strName;
+			}
+		}
 	}
 }
