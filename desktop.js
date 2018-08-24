@@ -22,7 +22,10 @@
 		imgLoad.y = 20;
 		imgLoad.width = 100;
 		imgLoad.height = 100;
-		imgLoad.fnLoadImage("./assets/img/Console/Desktop_Icon_SystemMonitor.png", "./assets/img/Console/Desktop_Icon_SystemMonitorHighLighted.png","./assets/img/Console/Desktop_Icon_SystemMonitorSelected.png","./assets/img/Console/null.png");
+		imgLoad.fnLoadImage("./assets/img/Console/Desktop_Icon_DeviceMonitor.png", 
+		"./assets/img/Console/Desktop_Icon_DeviceMonitorHighLighted.png",
+		"./assets/img/Console/Desktop_Icon_DeviceMonitorSelected.png",
+		"./assets/img/Console/null.png");
 		imgLoad.fnClickEvent = function () {
 			game.fnPlaySound("BUTTON");
 			game.fnPlaySound("FAN_BUSY",true);					
