@@ -295,9 +295,7 @@ function Button(strName) {
 		this.label.onmouseup = function() {
 			this.container.img.src = strMouseOver;
 			this.container.fnClickEvent();
-		}
-		
-		
+		}	
 	}
 	/**
 	 * Draw this to screen
@@ -316,9 +314,111 @@ function Button(strName) {
 		this.label.style.left = parseInt(this.x).toString() + "px";
 		this.label.style.top = parseInt(this.y).toString() + "px";
 		this.label.style.width = parseInt(this.width).toString() + "px";
-		this.label.style.height = parseInt(this.height).toString() + "px";
-		
+		this.label.style.height = parseInt(this.height).toString() + "px";	
 	}
 }
 Button.prototype = Object.create(Sprite.prototype);
 
+
+/**
+ * Menu Button
+ */
+function MenuButton(strName) {
+	//Initialise the sprite class
+	Sprite.call(this, strName);
+	this.dicFrames = { "default" : null, "mouse_over" : null, "mouse_click" : null};
+	/**
+	 * Add the images
+	 */
+	this.fnLoadImage = function( strDefault, strMouseOver, strMouseClick, strSelected, strLabel) {
+		//Load up the five images here...
+		this.dicFrames["default"] = strDefault;
+		this.dicFrames["mouse_over"] = strMouseOver;
+		this.dicFrames["mouse_click"] = strMouseClick;
+		this.dicFrames["mouse_over"] = strMouseOver;
+		this.dicFrames["selected"] = strSelected;	
+		//Set img tag to show default one
+		this.img = document.createElement('img');
+		this.img.src = strDefault;
+		this.img.container = this;
+		this.img.style.zIndex = 0;
+		
+		this.label = document.createElement('img');
+		this.label.src = strLabel;
+
+		this.label.container = this;
+		this.label.style.zIndex = 1;
+		document.body.appendChild(this.label);
+		
+		this.buttonActive = false;
+		
+		this.fnButtonIdle = function() {
+			this.img.src = strDefault;
+			this.buttonActive = false;		
+		}
+		
+		this.fnButtonActive = function() {
+			this.img.src = strSelected;
+			this.buttonActive = true;				
+		}
+		
+		//Set up event handlers
+		this.label.onmouseover = function() {			
+			if (this.buttonActive == false)
+			{
+				this.container.img.src = strMouseOver;			
+			}
+		}
+		this.label.onmouseout = function() {
+			if (this.buttonActive == false)
+			{
+				this.container.img.src = strDefault;				
+			}
+		}
+		this.label.onmousedown = function() {
+			this.container.buttonGroup.fnButtonPressed(this.container);
+			this.container.fnClickEvent();
+			this.container.img.src = strMouseClick;			
+		}
+		this.label.onmouseup = function() {
+		}	
+	}
+	/**
+	 * Draw this to screen
+	 */
+	this.fnDraw = function() {
+		//Here we must update the this.img.style properties so it's in the correct location
+		//We want (x,y) to represent the centre of the object.  HTML works on top left of image
+		//however.  Also must convert to integer then to string so can add "px" to it to tell HTML it's in pixels.
+		//this.img.style.left = parseInt(this.x - this.width / 2).toString() + "px";
+		//this.img.style.top = parseInt(this.y + this.height / 2).toString() + "px";
+		this.img.style.left = parseInt(this.x).toString() + "px";
+		this.img.style.top = parseInt(this.y).toString() + "px";
+		this.img.style.width = parseInt(this.width).toString() + "px";
+		this.img.style.height = parseInt(this.height).toString() + "px";
+		
+		this.label.style.left = parseInt(this.x).toString() + "px";
+		this.label.style.top = parseInt(this.y).toString() + "px";
+		this.label.style.width = parseInt(this.width).toString() + "px";
+		this.label.style.height = parseInt(this.height).toString() + "px";	
+	}
+}
+Button.prototype = Object.create(Sprite.prototype);
+/**
+ * Menu button group
+ */
+function MenuButtonGroup() {
+	this.lstMenuButtons = [];
+	this.fnAddMenuButton = function ( b ) {
+		
+		b.buttonGroup = this;
+		this.lstMenuButtons.push(b);
+	}
+	this.fnButtonPressed = function ( b ) {
+		for ( x in this.lstMenuButtons)
+		{
+			this.lstMenuButtons[x].fnButtonIdle();
+		}
+		b.fnButtonActive();
+	}
+}

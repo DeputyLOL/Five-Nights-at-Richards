@@ -27,6 +27,12 @@
 			game.fnPlaySound("BUTTON");
 			game.fnPlaySound("FAN_BUSY",true);					
 			game.fnChangeScene("Logging In");
+			setTimeout( function() 
+			{ 
+				game.fnChangeScene("Desktop");
+				game.fnPauseSound("FAN_BUSY");
+				game.fnPlaySound("SYSTEM_START");
+			}, 3000);
 		}
 		scnMenu.fnAddButton(imgLoad);
 
@@ -62,30 +68,57 @@
 			game.fnPlaySound("BUTTON");	
 		}
 		scnMenu.fnAddButton(imgLoad);
-
-		var imgLoad = new Button("Menu Administrator");
+		
+		var mainmenu = new MenuButtonGroup();
+		var imgLoad = new MenuButton("Menu Administrator");
 		imgLoad.x = 238;
 		imgLoad.y = 233;
 		imgLoad.width = 307;
 		imgLoad.height = 26;
-		imgLoad.fnLoadImage("./assets/img/Console/Windows_User_Administrator.png", "./assets/img/Console/Windows_User_Administrator.png","./assets/img/Console/Windows_User_AdministratorSelect.png","./assets/img/Console/null.png");
+		imgLoad.fnLoadImage(
+		"./assets/img/Console/Windows_User_Administrator.png",
+		"./assets/img/Console/Windows_User_Administrator.png",
+		"./assets/img/Console/Windows_User_AdministratorSelect.png",
+		"./assets/img/Console/Windows_User_AdministratorSelect.png",
+		"./assets/img/Console/null.png"
+		);
 		imgLoad.fnClickEvent = function () {
 		}
 		scnMenu.fnAddButton(imgLoad);
-		
+		mainmenu.fnAddMenuButton(imgLoad);
+		imgLoad.fnButtonActive();
 
-		var imgLoad = new Sprite("Button2");
-		imgLoad.fnLoadImage("./assets/img/Console/Windows_User_Supervisor.png");
+		var imgLoad = new MenuButton("Menu Supervisor");
 		imgLoad.x = 238;
 		imgLoad.y = 260;
 		imgLoad.width = 307;
 		imgLoad.height = 26;
-		scnMenu.fnAddSprite(imgLoad);
+		imgLoad.fnLoadImage(
+		"./assets/img/Console/Windows_User_Supervisor.png",
+		"./assets/img/Console/Windows_User_Supervisor.png",
+		"./assets/img/Console/Windows_User_SupervisorSelect.png",
+		"./assets/img/Console/Windows_User_SupervisorSelect.png",
+		"./assets/img/Console/null.png"
+		);
+		imgLoad.fnClickEvent = function () {
+		}
+		scnMenu.fnAddButton(imgLoad);
+		mainmenu.fnAddMenuButton(imgLoad);
 
-		var imgLoad = new Sprite("Button3");
-		imgLoad.fnLoadImage("./assets/img/Console/Windows_User_Guest.png");
+		var imgLoad = new MenuButton("Menu Supervisor");
 		imgLoad.x = 238;
 		imgLoad.y = 287;
 		imgLoad.width = 307;
 		imgLoad.height = 26;
-		scnMenu.fnAddSprite(imgLoad);
+		imgLoad.fnLoadImage(
+		"./assets/img/Console/Windows_User_Guest.png",
+		"./assets/img/Console/Windows_User_Guest.png",
+		"./assets/img/Console/Windows_User_GuestSelect.png",
+		"./assets/img/Console/Windows_User_GuestSelect.png",
+		"./assets/img/Console/null.png"
+		);
+		imgLoad.fnClickEvent = function () {
+		}
+		scnMenu.fnAddButton(imgLoad);
+		mainmenu.fnAddMenuButton(imgLoad);
+				
