@@ -139,19 +139,19 @@ function GameEngine()
 
 
 /**
- * The scene class
+ * The scene class.  Scenes can have an integer z-Index value.  This is effectively the "layer".  Higher layer numbers get rendered
+ * on top of lower ones.  0 is the lowest layer.
  */
 function Scene(name) {
 	//The name of the scene
 	this.strName = name;
 	this.lstSprites = [];
 	this.domObject = document.createElement("div");
-	/**
-	 * The load function, load images etc.
-	 */
-	this.fnLoad = function() {
-		
-	}
+	this.lstSubScenes = [];
+	this.intOffsetX = 0;
+	this.intOffsetY = 0;
+	this.scnParent = null;
+	this.intLayerNumber = 0;
 	/**
 	 * Add a sprite to the scene
 	 */
@@ -160,12 +160,31 @@ function Scene(name) {
 		this.domObject.appendChild(s.img);
 	}
 	/**
-	 * Add button
+	 * Add button - buttons have a lavel as well as the button image
 	 */
 	this.fnAddButton = function ( s ) {
 		this.lstSprites.push(s);
 		this.domObject.appendChild(s.img);
 		this.domObject.appendChild(s.label);
+	}
+	/**
+	 * Add Sub Scene.  Will update and render recursively
+	 */
+	this.fnAddSubScene = function ( s ) {
+		s.scnParent = this;
+		this.lstSubScenes.push ( s );
+		this.domObject.appendChild( s.domObject );
+	}
+	/**
+	 * Remove Sub Scene.
+	 */
+	this.fnRemoveSubScene = function ( strName ) {
+		for ( x in this.lstSubScenes ) {
+			if ( this.lstSubScenes[x].strName == strName ) {
+				this.lstSubScenes.remove( this.lstSubScenes[x] );
+				return;
+			}
+		}
 	}
 	/**
 	 * Reset the scene, like restart level etc.
@@ -177,16 +196,46 @@ function Scene(name) {
 	 * Update function
 	 */
 	this.fnUpdate = function() {
+		//Update yourself
 		for ( var i =0; i < this.lstSprites.length; i++) {
 			this.lstSprites[i].fnUpdate();
+		}
+		//Update subscenes
+		for ( var  i = 0; i < this.lstSubScenes.length; i++ ) {
+			this.lstSubScenes[i].fnUpdate();
 		}
 	}
 	/**
 	 * Draw this to screen
 	 */
 	this.fnDraw = function() {
+		/////
+		/////Draw self
+		
+		//Now have to handle nested offsets
+		xOffset = 0;
+		yOffset = 0;
+
+		if ( this.scnParent != null ) {
+			
+			xOffset = this.intOffsetX + this.scnParent.getOffsetX();
+			yOffset = this.intOffsetY + this.scnParent.getOffsetY();
+			
+		} else {
+			xOffset = this.intOffsetX;
+			yOffset = this.intOffsetY;
+			
+		}
+		
+		//Pass through the offset
 		for ( var i =0; i < this.lstSprites.length; i++) {
-			this.lstSprites[i].fnDraw();
+			this.lstSprites[i].fnDraw(xOffset, yOffset,this.intLayerNumber);
+		}
+		
+		/////
+		/////Draw subscenes
+		for ( var  i = 0; i < this.lstSubScenes.length; i++ ) {
+			this.lstSubScenes[i].fnDraw();
 		}
 	}
 	/**
@@ -209,6 +258,30 @@ function Scene(name) {
 		//Load all objects to DOM
 		document.body.appendChild(this.domObject);
 	}
+	/**
+	 * Recursively get offsets
+	 */
+	this.getOffsetX = function() {
+		if (this.scnParent != null) {
+			return this.scnParent.getOffsetX() + this.intOffsetX;
+		} else {
+			return this.intOffsetX;
+		}
+	}
+	this.getOffsetY = function() {
+		if (this.scnParent != null) {
+			return this.scnParent.getOffsetY() + this.intOffsetY;
+		}else {
+			return this.intOffsetY;
+		}
+	}
+	this.fnSetLayer = function ( intLayer ) {
+		this.intLayerNumber = parseInt(intLayer);
+		if ( this.intLayerNumber < 0 ) {
+			this.intLayerNumber = 0;
+		}
+	}
+//End of class
 }
 
 
@@ -219,7 +292,8 @@ function Scene(name) {
 
 
 /**
- * The game object class
+ * The game object class.  This can have a z-index from 0 - 0.9999999 etc.  The scene above will be +1 zIndex so risk mixing elements
+ * if you set zIndex = 1
  */
 function Sprite(name) {
 	//These are object attributes
@@ -229,6 +303,7 @@ function Sprite(name) {
 	this.width = 10;
 	this.height = 10;
 	this.rotation = 0;
+	this.zIndex = 0;
 	//The DOM, or "Document Object Model" are the things on the actual screen.
 	//In other words, the actual html document.  "body" is the main one, also "head" and "title" etc.
 	//Anything displayed on the screen needs to be a child element of "body"
@@ -251,21 +326,19 @@ function Sprite(name) {
 	/**
 	 * Draw this to screen
 	 */
-	this.fnDraw = function() {
+	this.fnDraw = function(xOffset, yOffset, zIndex) {
 		//Here we must update the this.img.style properties so it's in the correct location
 		//We want (x,y) to represent the centre of the object.  HTML works on top left of image
 		//however.  Also must convert to integer then to string so can add "px" to it to tell HTML it's in pixels.
 		//this.img.style.left = parseInt(this.x - this.width / 2).toString() + "px";
 		//this.img.style.top = parseInt(this.y + this.height / 2).toString() + "px";
-		this.img.style.left = parseInt(this.x).toString() + "px";
-		this.img.style.top = parseInt(this.y).toString() + "px";
+		this.img.style.left = parseInt(this.x + xOffset).toString() + "px";
+		this.img.style.top = parseInt(this.y + yOffset).toString() + "px";
 		this.img.style.width = parseInt(this.width).toString() + "px";
 		this.img.style.height = parseInt(this.height).toString() + "px";
-		
+		this.img.style.zIndex = (this.zIndex + zIndex).toString();
 	}
 }
-
-
 
 
 
@@ -294,13 +367,13 @@ function Button(strName) {
 		this.img = document.createElement('img');
 		this.img.src = strDefault;
 		this.img.container = this;
-		this.img.style.zIndex = 0;
+		
 		
 		this.label = document.createElement('img');
 		this.label.src = strLabel;
 
 		this.label.container = this;
-		this.label.style.zIndex = 1;
+		this.LabelzIndex = 0.1;
 		document.body.appendChild(this.label);
 		
 		//Set up event handlers
@@ -322,21 +395,23 @@ function Button(strName) {
 	/**
 	 * Draw this to screen
 	 */
-	this.fnDraw = function() {
+	this.fnDraw = function(xOffset, yOffset, zIndex) {
 		//Here we must update the this.img.style properties so it's in the correct location
 		//We want (x,y) to represent the centre of the object.  HTML works on top left of image
 		//however.  Also must convert to integer then to string so can add "px" to it to tell HTML it's in pixels.
 		//this.img.style.left = parseInt(this.x - this.width / 2).toString() + "px";
 		//this.img.style.top = parseInt(this.y + this.height / 2).toString() + "px";
-		this.img.style.left = parseInt(this.x).toString() + "px";
-		this.img.style.top = parseInt(this.y).toString() + "px";
+		this.img.style.left = parseInt(this.x + xOffset).toString() + "px";
+		this.img.style.top = parseInt(this.y + yOffset).toString() + "px";
 		this.img.style.width = parseInt(this.width).toString() + "px";
 		this.img.style.height = parseInt(this.height).toString() + "px";
+		this.img.style.zIndex = (this.zIndex + zIndex).toString();
 		
-		this.label.style.left = parseInt(this.x).toString() + "px";
-		this.label.style.top = parseInt(this.y).toString() + "px";
+		this.label.style.left = parseInt(this.x + xOffset).toString() + "px";
+		this.label.style.top = parseInt(this.y + yOffset).toString() + "px";
 		this.label.style.width = parseInt(this.width).toString() + "px";
-		this.label.style.height = parseInt(this.height).toString() + "px";	
+		this.label.style.height = parseInt(this.height).toString() + "px";
+		this.label.style.zIndex = (this.LabelzIndex + this.zIndex + zIndex).toString();
 	}
 }
 Button.prototype = Object.create(Sprite.prototype);
@@ -362,23 +437,17 @@ function MenuButton(strName) {
 	 * Add the images
 	 */
 	this.fnLoadImage = function( strDefault, strMouseOver, strMouseClick, strSelected, strLabel) {
-		//Load up the five images here...
-		this.dicFrames["default"] = strDefault;
-		this.dicFrames["mouse_over"] = strMouseOver;
-		this.dicFrames["mouse_click"] = strMouseClick;
-		this.dicFrames["mouse_over"] = strMouseOver;
-		this.dicFrames["selected"] = strSelected;	
 		//Set img tag to show default one
 		this.img = document.createElement('img');
 		this.img.src = strDefault;
 		this.img.container = this;
-		this.img.style.zIndex = 0;
+		
 		
 		this.label = document.createElement('img');
 		this.label.src = strLabel;
 
 		this.label.container = this;
-		this.label.style.zIndex = 1;
+		this.LabelzIndex = 0.1;
 		document.body.appendChild(this.label);
 		
 		this.buttonActive = false;
@@ -417,21 +486,23 @@ function MenuButton(strName) {
 	/**
 	 * Draw this to screen
 	 */
-	this.fnDraw = function() {
+	this.fnDraw = function(xOffset, yOffset, zIndex) {
 		//Here we must update the this.img.style properties so it's in the correct location
 		//We want (x,y) to represent the centre of the object.  HTML works on top left of image
 		//however.  Also must convert to integer then to string so can add "px" to it to tell HTML it's in pixels.
 		//this.img.style.left = parseInt(this.x - this.width / 2).toString() + "px";
 		//this.img.style.top = parseInt(this.y + this.height / 2).toString() + "px";
-		this.img.style.left = parseInt(this.x).toString() + "px";
-		this.img.style.top = parseInt(this.y).toString() + "px";
+		this.img.style.left = parseInt(this.x + xOffset).toString() + "px";
+		this.img.style.top = parseInt(this.y + yOffset).toString() + "px";
 		this.img.style.width = parseInt(this.width).toString() + "px";
 		this.img.style.height = parseInt(this.height).toString() + "px";
+		this.img.style.zIndex = (this.zIndex + zIndex).toString();
 		
-		this.label.style.left = parseInt(this.x).toString() + "px";
-		this.label.style.top = parseInt(this.y).toString() + "px";
+		this.label.style.left = parseInt(this.x + xOffset).toString() + "px";
+		this.label.style.top = parseInt(this.y + yOffset).toString() + "px";
 		this.label.style.width = parseInt(this.width).toString() + "px";
-		this.label.style.height = parseInt(this.height).toString() + "px";	
+		this.label.style.height = parseInt(this.height).toString() + "px";
+		this.label.style.zIndex = (this.LabelzIndex + this.zIndex + zIndex).toString();
 	}
 }
 Button.prototype = Object.create(Sprite.prototype);

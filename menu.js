@@ -83,8 +83,11 @@
 	"./assets/img/Console/Button_Options.png");
 	imgLoad.fnClickEvent = function () {
 		game.fnPlaySound("BUTTON");	
+		game.fnChangeScene("Options");
 	}
 	scnMenu.fnAddButton(imgLoad);
+	
+	
 	
 	//
 	//Shutdown Button

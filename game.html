@@ -42,18 +42,23 @@
 		<script src = "desktop.js"></script>
 	    <script src = "devicemonitor.js"></script>
 	    <script src = "help_menu.js"></script>
+	    <script src = "options.js"></script>
 	<script>
 
 		
-		//Start the game
+		
+		//Start the game	
 		game.fnAddScene( scnMenu );
 		game.fnAddScene( scnLoading );
 		game.fnAddScene( scnLoadingGame );
 		game.fnAddScene( scnDeviceMonitor );				
 		game.fnAddScene( scnDesktop );
-		game.fnAddScene( scnHelpMenu);		
+		game.fnAddScene( scnHelpMenu );		
+		game.fnAddScene( scnOptions );		
+
 		game.fnChangeScene ( "Loading" );
 		game.fnStart();
+		
 		
 		//Timeout
 		setTimeout( function() 

@@ -1,5 +1,5 @@
 	//Create Menu scene
-	var scnHelpMenu = new Scene("HelpMenu");
+	var scnOptions = new Scene("Options");
 	
 	//Add sprite
 	var imgLoad = new Sprite("Background");
@@ -8,7 +8,7 @@
 	imgLoad.y = 0;
 	imgLoad.width = 800;
 	imgLoad.height = 600;
-	scnHelpMenu.fnAddSprite(imgLoad);	
+	scnOptions.fnAddSprite(imgLoad);	
 
 	var imgLoad = new Sprite("TaskBar");
 	imgLoad.fnLoadImage("./assets/img/Console/Desktop_Taskbar.png");
@@ -16,7 +16,7 @@
 	imgLoad.y = 566;
 	imgLoad.width = 800;
 	imgLoad.height = 34;
-	scnHelpMenu.fnAddSprite(imgLoad);
+	scnOptions.fnAddSprite(imgLoad);
 	
 	var imgLoad = new Button("IconSystemMonitor");
 	imgLoad.x = 20;
@@ -38,7 +38,7 @@
 			game.fnPlaySound("SYSTEM_START");
 		}, 3000);
 	}
-	scnHelpMenu.fnAddButton(imgLoad);
+	scnOptions.fnAddButton(imgLoad);
 
 	var imgLoad = new Button("IconEmail");
 	imgLoad.x = 20;
@@ -61,7 +61,7 @@
 			game.fnPlaySound("SYSTEM_START");
 		}, 3000);
 	}
-	scnHelpMenu.fnAddButton(imgLoad);
+	scnOptions.fnAddButton(imgLoad);
 
 	var imgLoad = new Button("IconCameras");
 	imgLoad.x = 20;
@@ -84,4 +84,4 @@
 			game.fnPlaySound("SYSTEM_START");
 		}, 3000);
 	}
-	scnHelpMenu.fnAddButton(imgLoad);
+	scnOptions.fnAddButton(imgLoad);
