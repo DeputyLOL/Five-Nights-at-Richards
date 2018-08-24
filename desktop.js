@@ -26,16 +26,8 @@
 		"./assets/img/Console/Desktop_Icon_DeviceMonitorHighLighted.png",
 		"./assets/img/Console/Desktop_Icon_DeviceMonitorSelected.png",
 		"./assets/img/Console/null.png");
-		imgLoad.fnClickEvent = function () {
-			game.fnPlaySound("BUTTON");
-			game.fnPlaySound("FAN_BUSY",true);					
-			game.fnChangeScene("Logging In");
-			setTimeout( function() 
-			{ 
-				game.fnChangeScene("Desktop");
-				game.fnPauseSound("FAN_BUSY");
-				game.fnPlaySound("SYSTEM_START");
-			}, 3000);
+		imgLoad.fnClickEvent = function () {				
+			game.fnChangeScene("DeviceMonitor");
 		}
 		scnDesktop.fnAddButton(imgLoad);
 
