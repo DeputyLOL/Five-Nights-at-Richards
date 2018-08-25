@@ -34,7 +34,9 @@
 			scnCameraMonitor.fnRemoveSubScene("CameraViewport");
 			game.fnStopSound("CAM_BEEP");
 			game.fnStopSound("CAM_ACTIVE");
-			game.fnStopSound("CAM_TRANSFER");	
+			game.fnStopSound("CAM_TRANSFER");
+			game.fnStopSound("CAM_DANGER");
+			game.fnStopSound("CAM_STATIC");
 			scnScreen.fnAddSubScene(scnDesktop);
 		}
 		scnCameraMonitor.fnAddButton(imgLoad);
@@ -459,19 +461,19 @@
 		{
 			scnCameraMonitor.fnRemoveSubScene("CameraViewport");
 			scnCameraMonitor.fnAddSubScene(scnCameraViewport);
-
+			game.fnStopSound("CAM_BEEP");
+			game.fnPauseSound("CAM_STATIC");
+			game.fnPauseSound("CAM_ACTIVE");
+			game.fnPauseSound("CAM_DANGER");
 			var strActiveButton = cameraMonitorSelection.fnWhichButtonActive();	
 			if ( strActiveButton == "Map" ) {
-				game.fnStopSound("CAM_BEEP");
-				game.fnStopSound("CAM_STATIC");
+
 				game.fnPauseSound("CAM_ACTIVE");
 				scnCameraViewport.fnAddSubScene(scnCameraMap)
 			}
 			else {
 				game.fnPlaySound("CAM_TRANSFER");
 				game.fnPlaySound("CAM_STATIC",true);
-				game.fnStopSound("CAM_BEEP");
-				game.fnPauseSound("CAM_ACTIVE");
 				scnCameraViewport.fnAddSubScene(scnCameraTransfer);
 				setTimeout( function() 
 				{
@@ -494,6 +496,7 @@
 					}
 					else if( strActiveButton == "DemoStage" ) {
 						scnCameraViewport.fnAddSubScene(scnCameraDemo);
+						game.fnPlaySound("CAM_DANGER",true);
 					}
 					else
 					{
