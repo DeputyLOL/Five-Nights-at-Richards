@@ -66,15 +66,8 @@
 	"./assets/img/Console/null.png"
 	);
 	imgLoad.fnClickEvent = function () {
-		game.fnPlaySound("BUTTON");
-		game.fnPlaySound("FAN_BUSY",true);					
-		game.fnChangeScene("Logging In");
-		setTimeout( function() 
-		{ 
-			game.fnChangeScene("Desktop");
-			game.fnPauseSound("FAN_BUSY");
-			game.fnPlaySound("SYSTEM_START");
-		}, 3000);
+		scnScreen.fnRemoveSubScene("Desktop");
+		scnScreen.fnAddSubScene(scnCameraMonitor);
 	}
 	scnDesktop.fnAddButton(imgLoad);
 	

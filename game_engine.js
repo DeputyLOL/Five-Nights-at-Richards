@@ -463,16 +463,17 @@ function MenuButton(strName) {
 			this.img.src = strSelected;
 			this.buttonActive = true;				
 		}
+
 		
 		//Set up event handlers
 		this.label.onmouseover = function() {			
-			if (this.buttonActive == false)
+			if (this.container.buttonActive == false)
 			{
 				this.container.img.src = strMouseOver;			
 			}
 		}
 		this.label.onmouseout = function() {
-			if (this.buttonActive == false)
+			if (this.container.buttonActive == false)
 			{
 				this.container.img.src = strDefault;				
 			}
@@ -483,6 +484,7 @@ function MenuButton(strName) {
 			this.container.img.src = strMouseClick;			
 		}
 		this.label.onmouseup = function() {
+			this.container.img.src = strSelected;				
 		}	
 	}
 	/**

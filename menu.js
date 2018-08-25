@@ -34,24 +34,23 @@
 	"./assets/img/Console/Button_Start.png");
 	imgLoad.fnClickEvent = function () {
 		//First, check which user is selected
+		game.fnPlaySound("BUTTON");
 		var strActiveButton = mainmenu.fnWhichButtonActive();
 		if ( strActiveButton == "Menu Guest" ) {
-			console.log(scnScreen);
-			game.fnPlaySound("BUTTON");
 			game.fnPlaySound("FAN_BUSY",true);					
 			scnScreen.fnRemoveSubScene("Menu");
 			scnScreen.fnAddSubScene(scnLoadingGame);
-			console.log(scnScreen);
 			setTimeout( function() 
 			{ 
 				scnScreen.fnRemoveSubScene("Logging In");
 				scnScreen.fnAddSubScene(scnDesktop);
 				game.fnPauseSound("FAN_BUSY");
 				game.fnPlaySound("SYSTEM_START");
-				console.log(scnScreen);
 			}, 3000);
-		} else {
-			alert ( "You do not have privileges to use that account");
+		} 
+		else {
+			scnScreen.fnRemoveSubScene("Menu");
+			scnScreen.fnAddSubScene(scnMenuDenied);
 		}
 	}
 	scnMenu.fnAddButton(imgLoad);
@@ -184,8 +183,56 @@
 	mainmenu.fnAddMenuButton(imgLoad);
 			
 
+			
+			
+			
+	
+	//Bad Password Popup
+	var scnMenuDenied = new Scene("BadPassword");
+	
+	//Splash
+	var imgLoad = new Sprite("Background");
+	imgLoad.fnLoadImage("./assets/img/Console/DesktopBackground.png");
+	imgLoad.x = 0;
+	imgLoad.y = 0;
+	imgLoad.width = 800;
+	imgLoad.height = 600;
+	scnMenuDenied.fnAddSprite(imgLoad);	
+		
+	//Text
+	imgLoad = new Sprite("Bad Password Window");
+	imgLoad.fnLoadImage("./assets/img/Console/Windows_UserPassword.png");
+	imgLoad.x = 209;
+	imgLoad.y = 180;
+	imgLoad.width = 365;
+	imgLoad.height = 142;		
+	scnMenuDenied.fnAddSprite(imgLoad);
+	
+	var imgLoad = new Button("Close");
+	imgLoad.x = 544;
+	imgLoad.y = 186;
+	imgLoad.width = 25;
+	imgLoad.height = 25;
+	imgLoad.fnLoadImage("./assets/img/Console/CloseButton.png", 
+	"./assets/img/Console/CloseButtonHighlighted.png",
+	"./assets/img/Console/CloseButtonPressed.png",
+	"./assets/img/Console/null.png");
+	imgLoad.fnClickEvent = function () {
+		game.fnPlaySound("BUTTON");			
+		scnScreen.fnRemoveSubScene("BadPassword");
+		scnScreen.fnAddSubScene(scnMenu);
+	}
+	scnMenuDenied.fnAddButton(imgLoad);
+	
+	
+	
+		
 	//Screen
 	scnMenu.intOffsetX = intScreenOffsetX;
 	scnMenu.intOffsetY = intScreenOffsetY;
 	scnMenu.fnSetLayer(1);
 
+	//Screen
+	scnMenuDenied.intOffsetX = intScreenOffsetX;
+	scnMenuDenied.intOffsetY = intScreenOffsetY;
+	scnMenuDenied.fnSetLayer(1);
