@@ -68,6 +68,7 @@
 	imgLoad.fnClickEvent = function () {
 		scnScreen.fnRemoveSubScene("Desktop");
 		scnScreen.fnAddSubScene(scnCameraMonitor);
+		scnCameraMonitor.fnAddSubScene(scnCameraViewport);	
 	}
 	scnDesktop.fnAddButton(imgLoad);
 	
