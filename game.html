@@ -74,7 +74,7 @@
 		game.fnAddScene( scnLoadingGame );			
 		game.fnAddScene( scnDesktop );
 		game.fnAddScene( scnDeviceMonitor );
-		//game.fnAddScene( scnHelpMenu );		
+		game.fnAddScene( scnHelpMenu );		
 		game.fnAddScene( scnOptions );
 		
 
@@ -86,19 +86,15 @@
 		//Timeout
 
 		setTimeout( function() 
-		{ 	
-			scnScreen.fnAddSubScene(scnLoading);
-
+		{ 
 			game.fnChangeScene("Screen");			
+			scnScreen.fnAddSubScene(scnLoading);		
 			game.fnPlaySound("BOOT_GOOD");
 			game.fnPlaySound("FAN_BUSY",true);
 			setTimeout( function() 
 			{ 
 				scnScreen.fnRemoveSubScene("Loading");
-
 				scnScreen.fnAddSubScene(scnMenu);
-				
-				//game.fnChangeScene("Menu");
 				game.fnPauseSound("FAN_BUSY");
 			}, 3000);
 		}, 700);

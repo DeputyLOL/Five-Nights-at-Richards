@@ -4,7 +4,7 @@
 	var scnLoading = new Scene("Loading");
 	//Splash
 	var imgLoad = new Sprite("Background");
-	imgLoad.fnLoadImage("./assets/img/Console/Startup_Background.png");
+	imgLoad.fnLoadImage("./assets/img/Console/System/Startup_Background.png");
 	imgLoad.x = 0;
 	imgLoad.y = 0;
 	imgLoad.width = 800;
@@ -13,7 +13,7 @@
 	
 	//Text
 	imgLoad = new Sprite("SetUp");
-	imgLoad.fnLoadImage("./assets/img/Console/Startup_Setup.png");
+	imgLoad.fnLoadImage("./assets/img/Console/System/Startup_Setup.png");
 	imgLoad.x = 160;
 	imgLoad.y = 328;
 	imgLoad.width = 403;
@@ -22,7 +22,7 @@
 	
 	//Text
 	imgLoad = new Sprite("LoadingDots");
-	imgLoad.fnLoadImage("./assets/img/Console/Startup_LoadDots.gif");
+	imgLoad.fnLoadImage("./assets/img/Console/System/Startup_LoadDots.gif");
 	imgLoad.x = 564;
 	imgLoad.y = 328;
 	imgLoad.width = 33;
@@ -37,7 +37,7 @@
 	
 	//Splash
 	var imgLoad = new Sprite("Background");
-	imgLoad.fnLoadImage("./assets/img/Console/DesktopBackground.png");
+	imgLoad.fnLoadImage("./assets/img/Console/Common/DesktopBackground.png");
 	imgLoad.x = 0;
 	imgLoad.y = 0;
 	imgLoad.width = 800;
@@ -46,7 +46,7 @@
 		
 	//Text
 	imgLoad = new Sprite("LogInWindow");
-	imgLoad.fnLoadImage("./assets/img/Console/Windows_LogIn.png");
+	imgLoad.fnLoadImage("./assets/img/Console/Menu/Windows_LogIn.png");
 	imgLoad.x = 209;
 	imgLoad.y = 180;
 	imgLoad.width = 365;
@@ -54,7 +54,7 @@
 	scnLoadingGame.fnAddSprite(imgLoad);
 	
 	imgLoad = new Sprite("LoadingBarBoarder");
-	imgLoad.fnLoadImage("./assets/img/Console/LoadBarLoopBoarder.png");
+	imgLoad.fnLoadImage("./assets/img/Console/Common/LoadBarLoopBoarder.png");
 	imgLoad.x = 221;
 	imgLoad.y = 268;
 	imgLoad.width = 341;
@@ -62,7 +62,7 @@
 	scnLoadingGame.fnAddSprite(imgLoad);
 	
 	imgLoad = new Sprite("LoadingBar");
-	imgLoad.fnLoadImage("./assets/img/Console/LoadBarLoop.gif");
+	imgLoad.fnLoadImage("./assets/img/Console/Common/LoadBarLoop.gif");
 	imgLoad.x = 221;
 	imgLoad.y = 268;
 	imgLoad.width = 341;

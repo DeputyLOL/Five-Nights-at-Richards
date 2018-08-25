@@ -4,7 +4,7 @@
 	//
 	//Background
 	var imgLoad = new Sprite("Background");
-	imgLoad.fnLoadImage("./assets/img/Console/DesktopBackground.png");
+	imgLoad.fnLoadImage("./assets/img/Console/Common/DesktopBackground.png");
 	imgLoad.x = 0;
 	imgLoad.y = 0;
 	imgLoad.width = 800;
@@ -14,7 +14,7 @@
 	//
 	//User window
 	var imgLoad = new Sprite("UserWindow");
-	imgLoad.fnLoadImage("./assets/img/Console/Windows_User.png");
+	imgLoad.fnLoadImage("./assets/img/Console/Menu/Windows_User.png");
 	imgLoad.x = 209;
 	imgLoad.y = 97;
 	imgLoad.width = 365;
@@ -28,10 +28,10 @@
 	imgLoad.y = 402;
 	imgLoad.width = 154;
 	imgLoad.height = 35;
-	imgLoad.fnLoadImage("./assets/img/Console/Button.png", 
-	"./assets/img/Console/ButtonHighlighted.png",
-	"./assets/img/Console/ButtonPressed.png",
-	"./assets/img/Console/Button_Start.png");
+	imgLoad.fnLoadImage("./assets/img/Console/Common/Button.png", 
+	"./assets/img/Console/Common/ButtonHighlighted.png",
+	"./assets/img/Console/Common/ButtonPressed.png",
+	"./assets/img/Console/Menu/Button_Start.png");
 	imgLoad.fnClickEvent = function () {
 		//First, check which user is selected
 		game.fnPlaySound("BUTTON");
@@ -62,10 +62,10 @@
 	imgLoad.y = 402;
 	imgLoad.width = 154;
 	imgLoad.height = 35;
-	imgLoad.fnLoadImage("./assets/img/Console/Button.png", 
-	"./assets/img/Console/ButtonHighlighted.png",
-	"./assets/img/Console/ButtonPressed.png",
-	"./assets/img/Console/Button_Help.png");
+	imgLoad.fnLoadImage("./assets/img/Console/Common/Button.png", 
+	"./assets/img/Console/Common/ButtonHighlighted.png",
+	"./assets/img/Console/Common/ButtonPressed.png",
+	"./assets/img/Console/Menu/Button_Help.png");
 	imgLoad.fnClickEvent = function () {
 		game.fnPlaySound("BUTTON");	
 		scnScreen.fnRemoveSubScene("Menu");
@@ -81,13 +81,14 @@
 	imgLoad.y = 439;
 	imgLoad.width = 154;
 	imgLoad.height = 35;
-	imgLoad.fnLoadImage("./assets/img/Console/Button.png", 
-	"./assets/img/Console/ButtonHighlighted.png",
-	"./assets/img/Console/ButtonPressed.png",
-	"./assets/img/Console/Button_Options.png");
+	imgLoad.fnLoadImage("./assets/img/Console/Common/Button.png", 
+	"./assets/img/Console/Common/ButtonHighlighted.png",
+	"./assets/img/Console/Common/ButtonPressed.png",
+	"./assets/img/Console/Menu/Button_Options.png");
 	imgLoad.fnClickEvent = function () {
 		game.fnPlaySound("BUTTON");	
-		game.fnChangeScene("Options");
+		scnScreen.fnRemoveSubScene("Menu");
+		scnScreen.fnAddSubScene(scnOptions);
 	}
 	scnMenu.fnAddButton(imgLoad);
 	
@@ -100,10 +101,10 @@
 	imgLoad.y = 439;
 	imgLoad.width = 154;
 	imgLoad.height = 35;
-	imgLoad.fnLoadImage("./assets/img/Console/Button.png", 
-	"./assets/img/Console/ButtonHighlighted.png",
-	"./assets/img/Console/ButtonPressed.png",
-	"./assets/img/Console/Button_Shutdown.png");
+	imgLoad.fnLoadImage("./assets/img/Console/Common/Button.png", 
+	"./assets/img/Console/Common/ButtonHighlighted.png",
+	"./assets/img/Console/Common/ButtonPressed.png",
+	"./assets/img/Console/Menu/Button_Shutdown.png");
 	imgLoad.fnClickEvent = function () {
 		game.fnPlaySound("BUTTON");
 		window.location.href = "http:www.richardhowellpeak.com/GameDesign";
@@ -128,11 +129,11 @@
 	imgLoad.width = 307;
 	imgLoad.height = 26;
 	imgLoad.fnLoadImage(
-	"./assets/img/Console/Windows_User_Administrator.png",
-	"./assets/img/Console/Windows_User_Administrator.png",
-	"./assets/img/Console/Windows_User_AdministratorSelect.png",
-	"./assets/img/Console/Windows_User_AdministratorSelect.png",
-	"./assets/img/Console/null.png"
+	"./assets/img/Console/Menu/Windows_User_Administrator.png",
+	"./assets/img/Console/Menu/Windows_User_Administrator.png",
+	"./assets/img/Console/Menu/Windows_User_AdministratorSelect.png",
+	"./assets/img/Console/Menu/Windows_User_AdministratorSelect.png",
+	"./assets/img/Console/Common/null.png"
 	);
 	imgLoad.fnClickEvent = function () {
 	}
@@ -151,11 +152,11 @@
 	imgLoad.width = 307;
 	imgLoad.height = 26;
 	imgLoad.fnLoadImage(
-	"./assets/img/Console/Windows_User_Supervisor.png",
-	"./assets/img/Console/Windows_User_Supervisor.png",
-	"./assets/img/Console/Windows_User_SupervisorSelect.png",
-	"./assets/img/Console/Windows_User_SupervisorSelect.png",
-	"./assets/img/Console/null.png"
+	"./assets/img/Console/Menu/Windows_User_Supervisor.png",
+	"./assets/img/Console/Menu/Windows_User_Supervisor.png",
+	"./assets/img/Console/Menu/Windows_User_SupervisorSelect.png",
+	"./assets/img/Console/Menu/Windows_User_SupervisorSelect.png",
+	"./assets/img/Console/Common/null.png"
 	);
 	imgLoad.fnClickEvent = function () {
 	}
@@ -170,11 +171,11 @@
 	imgLoad.width = 307;
 	imgLoad.height = 26;
 	imgLoad.fnLoadImage(
-	"./assets/img/Console/Windows_User_Guest.png",
-	"./assets/img/Console/Windows_User_Guest.png",
-	"./assets/img/Console/Windows_User_GuestSelect.png",
-	"./assets/img/Console/Windows_User_GuestSelect.png",
-	"./assets/img/Console/null.png"
+	"./assets/img/Console/Menu/Windows_User_Guest.png",
+	"./assets/img/Console/Menu/Windows_User_Guest.png",
+	"./assets/img/Console/Menu/Windows_User_GuestSelect.png",
+	"./assets/img/Console/Menu/Windows_User_GuestSelect.png",
+	"./assets/img/Console/Common/null.png"
 	);
 	imgLoad.fnClickEvent = function () {
 		
@@ -192,7 +193,7 @@
 	
 	//Splash
 	var imgLoad = new Sprite("Background");
-	imgLoad.fnLoadImage("./assets/img/Console/DesktopBackground.png");
+	imgLoad.fnLoadImage("./assets/img/Console/Common/DesktopBackground.png");
 	imgLoad.x = 0;
 	imgLoad.y = 0;
 	imgLoad.width = 800;
@@ -201,7 +202,7 @@
 		
 	//Text
 	imgLoad = new Sprite("Bad Password Window");
-	imgLoad.fnLoadImage("./assets/img/Console/Windows_UserPassword.png");
+	imgLoad.fnLoadImage("./assets/img/Console/Menu/Windows_UserPassword.png");
 	imgLoad.x = 209;
 	imgLoad.y = 180;
 	imgLoad.width = 365;
@@ -213,10 +214,10 @@
 	imgLoad.y = 186;
 	imgLoad.width = 25;
 	imgLoad.height = 25;
-	imgLoad.fnLoadImage("./assets/img/Console/CloseButton.png", 
-	"./assets/img/Console/CloseButtonHighlighted.png",
-	"./assets/img/Console/CloseButtonPressed.png",
-	"./assets/img/Console/null.png");
+	imgLoad.fnLoadImage("./assets/img/Console/Common/CloseButton.png", 
+	"./assets/img/Console/Common/CloseButtonHighlighted.png",
+	"./assets/img/Console/Common/CloseButtonPressed.png",
+	"./assets/img/Console/Common/null.png");
 	imgLoad.fnClickEvent = function () {
 		game.fnPlaySound("BUTTON");			
 		scnScreen.fnRemoveSubScene("BadPassword");
