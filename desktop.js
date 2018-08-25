@@ -27,7 +27,8 @@
 	"./assets/img/Console/Desktop_Icon_DeviceMonitorSelected.png",
 	"./assets/img/Console/null.png");
 	imgLoad.fnClickEvent = function () {			
-		game.fnChangeScene("DeviceMonitor");
+		scnScreen.fnRemoveSubScene("Desktop");
+		scnScreen.fnAddSubScene(scnDeviceMonitor);
 	}
 	scnDesktop.fnAddButton(imgLoad);
 

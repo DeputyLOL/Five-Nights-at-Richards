@@ -69,7 +69,8 @@
 	"./assets/img/Console/Button_Help.png");
 	imgLoad.fnClickEvent = function () {
 		game.fnPlaySound("BUTTON");	
-		game.fnChangeScene("HelpMenu");
+		scnScreen.fnRemoveSubScene("Menu");
+		scnScreen.fnAddSubScene(scnHelpMenu);
 	}
 	scnMenu.fnAddButton(imgLoad);
 	

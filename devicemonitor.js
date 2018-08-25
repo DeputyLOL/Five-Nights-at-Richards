@@ -30,6 +30,7 @@
 			game.fnPlaySound("BUTTON");			
 			scnScreen.fnRemoveSubScene("DeviceMonitor");
 			scnScreen.fnAddSubScene(scnDesktop);
+			console.log(scnDeviceMonitor);
 			console.log(scnScreen);
 		}
 		scnDeviceMonitor.fnAddButton(imgLoad);

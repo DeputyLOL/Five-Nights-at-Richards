@@ -1,7 +1,8 @@
 	//Create Menu scene
 	var scnHelpMenu = new Scene("HelpMenu");
-	
-	//Add sprite
+		
+	//
+	//Background
 	var imgLoad = new Sprite("Background");
 	imgLoad.fnLoadImage("./assets/img/Console/DesktopBackground.png");
 	imgLoad.x = 0;
@@ -9,79 +10,36 @@
 	imgLoad.width = 800;
 	imgLoad.height = 600;
 	scnHelpMenu.fnAddSprite(imgLoad);	
-
-	var imgLoad = new Sprite("TaskBar");
-	imgLoad.fnLoadImage("./assets/img/Console/Desktop_Taskbar.png");
-	imgLoad.x = 0;
-	imgLoad.y = 566;
-	imgLoad.width = 800;
-	imgLoad.height = 34;
-	scnHelpMenu.fnAddSprite(imgLoad);
 	
-	var imgLoad = new Button("IconSystemMonitor");
-	imgLoad.x = 20;
-	imgLoad.y = 20;
-	imgLoad.width = 100;
-	imgLoad.height = 100;
-	imgLoad.fnLoadImage("./assets/img/Console/Desktop_Icon_DeviceMonitor.png", 
-	"./assets/img/Console/Desktop_Icon_DeviceMonitorHighLighted.png",
-	"./assets/img/Console/Desktop_Icon_DeviceMonitorSelected.png",
+	//
+	//User window
+	var imgLoad = new Sprite("HelpWindow");
+	imgLoad.fnLoadImage("./assets/img/Console/Windows_UserHelp.png");
+	imgLoad.x = 209;
+	imgLoad.y = 97;
+	imgLoad.width = 365;
+	imgLoad.height = 387;
+	scnHelpMenu.fnAddSprite(imgLoad);		
+	
+	var imgLoad = new Button("Close");
+	imgLoad.x = 544;
+	imgLoad.y = 103;
+	imgLoad.width = 25;
+	imgLoad.height = 25;
+	imgLoad.fnLoadImage("./assets/img/Console/CloseButton.png", 
+	"./assets/img/Console/CloseButtonHighlighted.png",
+	"./assets/img/Console/CloseButtonPressed.png",
 	"./assets/img/Console/null.png");
 	imgLoad.fnClickEvent = function () {
-		game.fnPlaySound("BUTTON");
-		game.fnPlaySound("FAN_BUSY",true);					
-		game.fnChangeScene("Logging In");
-		setTimeout( function() 
-		{ 
-			game.fnChangeScene("Desktop");
-			game.fnPauseSound("FAN_BUSY");
-			game.fnPlaySound("SYSTEM_START");
-		}, 3000);
+		game.fnPlaySound("BUTTON");			
+		scnScreen.fnRemoveSubScene("HelpMenu");
+		scnScreen.fnAddSubScene(scnMenu);
 	}
 	scnHelpMenu.fnAddButton(imgLoad);
 
-	var imgLoad = new Button("IconEmail");
-	imgLoad.x = 20;
-	imgLoad.y = 120;
-	imgLoad.width = 100;
-	imgLoad.height = 100;
-	imgLoad.fnLoadImage("./assets/img/Console/Desktop_Icon_Email.png", 
-	"./assets/img/Console/Desktop_Icon_EmailHighlighted.png",
-	"./assets/img/Console/Desktop_Icon_EmailSelected.png",
-	"./assets/img/Console/null.png"
-	);
-	imgLoad.fnClickEvent = function () {
-		game.fnPlaySound("BUTTON");
-		game.fnPlaySound("FAN_BUSY",true);					
-		game.fnChangeScene("Logging In");
-		setTimeout( function() 
-		{ 
-			game.fnChangeScene("Desktop");
-			game.fnPauseSound("FAN_BUSY");
-			game.fnPlaySound("SYSTEM_START");
-		}, 3000);
-	}
-	scnHelpMenu.fnAddButton(imgLoad);
+	//Screen
+	scnHelpMenu.intOffsetX = intScreenOffsetX;
+	scnHelpMenu.intOffsetY = intScreenOffsetY;
+	scnHelpMenu.fnSetLayer(1);
 
-	var imgLoad = new Button("IconCameras");
-	imgLoad.x = 20;
-	imgLoad.y = 220;
-	imgLoad.width = 100;
-	imgLoad.height = 100;
-	imgLoad.fnLoadImage("./assets/img/Console/Desktop_Icon_Cameras.png", 
-	"./assets/img/Console/Desktop_Icon_CamerasHighlighted.png",
-	"./assets/img/Console/Desktop_Icon_CamerasSelected.png",
-	"./assets/img/Console/null.png"
-	);
-	imgLoad.fnClickEvent = function () {
-		game.fnPlaySound("BUTTON");
-		game.fnPlaySound("FAN_BUSY",true);					
-		game.fnChangeScene("Logging In");
-		setTimeout( function() 
-		{ 
-			game.fnChangeScene("Desktop");
-			game.fnPauseSound("FAN_BUSY");
-			game.fnPlaySound("SYSTEM_START");
-		}, 3000);
-	}
-	scnHelpMenu.fnAddButton(imgLoad);
+
