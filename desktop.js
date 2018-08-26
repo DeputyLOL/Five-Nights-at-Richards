@@ -8,7 +8,9 @@
 	imgLoad.width = 800;
 	imgLoad.height = 600;
 	scnDesktop.fnAddSprite(imgLoad);	
-
+	var intCameraLobbyCorridorOffsetX = 0;
+	var intCameraLobbyCorridorOffsetY = 0;
+	
 	var imgLoad = new Sprite("TaskBar");
 	imgLoad.fnLoadImage("./assets/img/Console/Desktop/Desktop_Taskbar.png");
 	imgLoad.x = 0;
@@ -59,9 +61,10 @@
 	"./assets/img/Console/Common/null.png"
 	);
 	imgLoad.fnClickEvent = function () {
-		scnScreen.fnRemoveSubScene("Desktop");
-		scnScreen.fnAddSubScene(scnCameraMonitor);
-		scnCameraMonitor.fnAddSubScene(scnCameraViewport);	
+		//scnScreen.fnRemoveSubScene("Desktop");
+		scnDesktop.fnAddSubScene(scnCameraMonitor);
+		scnCameraMonitor.fnAddSubScene(scnCameraViewport);
+		fnCameraManager();		
 	}
 	scnDesktop.fnAddButton(imgLoad);
 	

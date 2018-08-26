@@ -1,13 +1,6 @@
 		//Create Menu scene
 		var scnCameraMonitor = new Scene("CameraMonitor");
 		//Add sprite
-		var imgLoad = new Sprite("TaskBar");
-		imgLoad.fnLoadImage("./assets/img/Console/Desktop/Desktop_Taskbar.png");
-		imgLoad.x = 0;
-		imgLoad.y = 566;
-		imgLoad.width = 800;
-		imgLoad.height = 34;
-		scnCameraMonitor.fnAddSprite(imgLoad);
 
 		var imgViewPort = new Sprite("Window");
 		imgViewPort.fnLoadImage("./assets/img/Console/CameraMonitor/Window_CameraMonitor.png");
@@ -30,23 +23,49 @@
 		"./assets/img/Console/Common/null.png");
 		imgLoad.fnClickEvent = function () {
 			game.fnPlaySound("BUTTON");			
-			scnScreen.fnRemoveSubScene("CameraMonitor");
-			scnCameraMonitor.fnRemoveSubScene("CameraViewport");
 			game.fnStopSound("CAM_BEEP");
 			game.fnStopSound("CAM_ACTIVE");
 			game.fnStopSound("CAM_TRANSFER");
 			game.fnStopSound("CAM_DANGER");
 			game.fnStopSound("CAM_STATIC");
-			scnScreen.fnAddSubScene(scnDesktop);
+			game.fnStopSound("CAM_JAM");
+			game.fnStopSound("CAM_INTERRUPT");
+			scnCameraMonitor.fnRemoveSubScene("CameraViewport");
+			scnDesktop.fnRemoveSubScene("CameraMonitor");
 		}
 		scnCameraMonitor.fnAddButton(imgLoad);
 
 
-
-
-
-
+		var imgLoad = new Button("PanLeft");
+		imgLoad.x = 150;
+		imgLoad.y = 526;
+		imgLoad.width = 35;
+		imgLoad.height = 35;
+		imgLoad.fnLoadImage("./assets/img/Console/CameraMonitor/Button_PanLeft.png", 
+		"./assets/img/Console/CameraMonitor/Button_PanLeftHighlighted.png",
+		"./assets/img/Console/CameraMonitor/Button_PanLeftPressed.png",
+		"./assets/img/Console/Common/null.png"
+		);
+		imgLoad.fnClickEvent = function () {
+			fnCameraPanner("left");		
+		}
+		scnCameraMonitor.fnAddButton(imgLoad);
 		
+		var imgLoad = new Button("PanRight");
+		imgLoad.x = 185;
+		imgLoad.y = 526;
+		imgLoad.width = 35;
+		imgLoad.height = 35;
+		imgLoad.fnLoadImage("./assets/img/Console/CameraMonitor/Button_PanRight.png", 
+		"./assets/img/Console/CameraMonitor/Button_PanRightHighlighted.png",
+		"./assets/img/Console/CameraMonitor/Button_PanRightPressed.png",
+		"./assets/img/Console/Common/null.png"
+		);
+		imgLoad.fnClickEvent = function () {
+			fnCameraPanner("right");			
+		}
+		scnCameraMonitor.fnAddButton(imgLoad);
+
 		var cameraMonitorSelection = new MenuButtonGroup();
 		
 		var imgLoad = new MenuButton("Map");
@@ -63,7 +82,7 @@
 		);
 		imgLoad.fnClickEvent = function () {
 			game.fnPlaySound("BUTTON");		
-			changeCameras();
+			fnCameraManager();
 		}
 		scnCameraMonitor.fnAddButton(imgLoad);
 		cameraMonitorSelection.fnAddMenuButton(imgLoad);
@@ -83,7 +102,7 @@
 		);
 		imgLoad.fnClickEvent = function () {
 			game.fnPlaySound("BUTTON");
-			changeCameras();
+			fnCameraManager();
 		}
 		scnCameraMonitor.fnAddButton(imgLoad);
 		cameraMonitorSelection.fnAddMenuButton(imgLoad);
@@ -103,7 +122,7 @@
 		);
 		imgLoad.fnClickEvent = function () {
 			game.fnPlaySound("BUTTON");
-			changeCameras();
+			fnCameraManager();
 		}
 		scnCameraMonitor.fnAddButton(imgLoad);
 		cameraMonitorSelection.fnAddMenuButton(imgLoad);
@@ -122,7 +141,7 @@
 		);
 		imgLoad.fnClickEvent = function () {
 			game.fnPlaySound("BUTTON");
-			changeCameras();
+			fnCameraManager();
 		}
 		scnCameraMonitor.fnAddButton(imgLoad);
 		cameraMonitorSelection.fnAddMenuButton(imgLoad);
@@ -141,7 +160,7 @@
 		);
 		imgLoad.fnClickEvent = function () {
 			game.fnPlaySound("BUTTON");
-			changeCameras();
+			fnCameraManager();
 		}
 		scnCameraMonitor.fnAddButton(imgLoad);
 		cameraMonitorSelection.fnAddMenuButton(imgLoad);
@@ -160,7 +179,7 @@
 		);
 		imgLoad.fnClickEvent = function () {
 			game.fnPlaySound("BUTTON");
-			changeCameras();
+			fnCameraManager();
 		}
 		scnCameraMonitor.fnAddButton(imgLoad);
 		cameraMonitorSelection.fnAddMenuButton(imgLoad);
@@ -179,7 +198,7 @@
 		);
 		imgLoad.fnClickEvent = function () {
 			game.fnPlaySound("BUTTON");
-			changeCameras();
+			fnCameraManager();
 		}
 		scnCameraMonitor.fnAddButton(imgLoad);
 		cameraMonitorSelection.fnAddMenuButton(imgLoad);
@@ -198,7 +217,7 @@
 		);
 		imgLoad.fnClickEvent = function () {
 			game.fnPlaySound("BUTTON");
-			changeCameras();
+			fnCameraManager();
 		}
 		scnCameraMonitor.fnAddButton(imgLoad);
 		cameraMonitorSelection.fnAddMenuButton(imgLoad);
@@ -217,7 +236,7 @@
 		);
 		imgLoad.fnClickEvent = function () {
 			game.fnPlaySound("BUTTON");
-			changeCameras();
+			fnCameraManager();
 		}
 		scnCameraMonitor.fnAddButton(imgLoad);
 		cameraMonitorSelection.fnAddMenuButton(imgLoad);
@@ -236,7 +255,7 @@
 		);
 		imgLoad.fnClickEvent = function () {
 			game.fnPlaySound("BUTTON");
-			changeCameras();
+			fnCameraManager();
 		}
 		scnCameraMonitor.fnAddButton(imgLoad);
 		cameraMonitorSelection.fnAddMenuButton(imgLoad);
@@ -255,7 +274,7 @@
 		);
 		imgLoad.fnClickEvent = function () {
 			game.fnPlaySound("BUTTON");
-			changeCameras();
+			fnCameraManager();
 		}
 		scnCameraMonitor.fnAddButton(imgLoad);
 		cameraMonitorSelection.fnAddMenuButton(imgLoad);
@@ -274,7 +293,7 @@
 		);
 		imgLoad.fnClickEvent = function () {
 			game.fnPlaySound("BUTTON");
-			changeCameras();
+			fnCameraManager();
 		}
 		scnCameraMonitor.fnAddButton(imgLoad);
 		cameraMonitorSelection.fnAddMenuButton(imgLoad);
@@ -293,7 +312,7 @@
 		);
 		imgLoad.fnClickEvent = function () {
 			game.fnPlaySound("BUTTON");
-			changeCameras();
+			fnCameraManager();
 		}
 		scnCameraMonitor.fnAddButton(imgLoad);
 		cameraMonitorSelection.fnAddMenuButton(imgLoad);
@@ -312,7 +331,7 @@
 		);
 		imgLoad.fnClickEvent = function () {
 			game.fnPlaySound("BUTTON");
-			changeCameras();
+			fnCameraManager();
 		}
 		scnCameraMonitor.fnAddButton(imgLoad);
 		cameraMonitorSelection.fnAddMenuButton(imgLoad);
@@ -331,7 +350,7 @@
 		);
 		imgLoad.fnClickEvent = function () {
 			game.fnPlaySound("BUTTON");
-			changeCameras();
+			fnCameraManager();
 		}
 		scnCameraMonitor.fnAddButton(imgLoad);
 		cameraMonitorSelection.fnAddMenuButton(imgLoad);
@@ -350,61 +369,20 @@
 		);
 		imgLoad.fnClickEvent = function () {
 			game.fnPlaySound("BUTTON");
-			changeCameras();
+			fnCameraManager();
 		}
 		scnCameraMonitor.fnAddButton(imgLoad);
 		cameraMonitorSelection.fnAddMenuButton(imgLoad);
 
 
 
-
+	
+		// -------------------------------------------------
+		// ----------------- CAMERA ROOMS ------------------
+		// -------------------------------------------------
 		
-		var scnCameraViewport = new Scene("CameraViewport");
-		// Display Map
-		var imgLoad = new Sprite("Overlay");
-		imgLoad.fnLoadImage("./assets/img/Camera/CAM_OVERLAY.png");
-		imgLoad.x = 0;
-		imgLoad.y = 0;
-		imgLoad.width = 640;
-		imgLoad.height = 480;
-		scnCameraViewport.fnAddSprite(imgLoad);
-		
-	
-	
-		var scnCameraTransfer = new Scene("CameraTransfer");
-		// Display Map
-		var imgLoad = new Sprite("Transfer");
-		imgLoad.fnLoadImage("./assets/img/Camera/CAM_TRANSFER.png");
-		imgLoad.x = 0;
-		imgLoad.y = 0;
-		imgLoad.width = 640;
-		imgLoad.height = 480;
-		scnCameraTransfer.fnAddSprite(imgLoad);
-	
-		var scnCameraMap = new Scene("CameraMap");
-		// Display Map
-		var imgLoad = new Sprite("Map");
-		imgLoad.fnLoadImage("./assets/img/Camera/CAM_MAP.png");
-		imgLoad.x = 0;
-		imgLoad.y = 0;
-		imgLoad.width = 640;
-		imgLoad.height = 480;
-		scnCameraMap.fnAddSprite(imgLoad);
-		
-		var scnCameraOffine = new Scene("CameraOffline");
-		// Display Map
-		var imgLoad = new Sprite("Offline");
-		imgLoad.fnLoadImage("./assets/img/Camera/CAM_OFFLINE.png");
-		imgLoad.x = 0;
-		imgLoad.y = 0;
-		imgLoad.width = 640;
-		imgLoad.height = 480;
-		scnCameraOffine.fnAddSprite(imgLoad);
-
-
-	
+		// LOBBY
 		var scnCameraLobby = new Scene("CameraLobby");
-		// Display Map
 		var imgLoad = new Sprite("Lobby");
 		imgLoad.fnLoadImage("./assets/img/Camera/CAM_OFFLINE.png");
 		imgLoad.x = 0;
@@ -422,103 +400,10 @@
 		imgLoad.width = 640;
 		imgLoad.height = 480;
 		scnCameraPower.fnAddSprite(imgLoad);
+
+
 				
-		var scnCameraLobbyCorridor = new Scene("CameraLobbyCorridor");
-		// Display Map
-		var imgLoad = new Sprite("LobbyCorridor");
-		imgLoad.fnLoadImage("./assets/img/Camera/CAM_COR_A.png");
-		imgLoad.x = 0;
-		imgLoad.y = 0;
-		imgLoad.width = 640;
-		imgLoad.height = 480;
-		scnCameraLobbyCorridor.fnAddSprite(imgLoad);
-		
-		var scnCameraMedbay = new Scene("CameraMedbay");
-		// Display Map
-		var imgLoad = new Sprite("MedBay");
-		imgLoad.fnLoadImage("./assets/img/Camera/CAM_MED_A.png");
-		imgLoad.x = 0;
-		imgLoad.y = 0;
-		imgLoad.width = 640;
-		imgLoad.height = 480;
-		scnCameraMedbay.fnAddSprite(imgLoad);
-								
-		var scnCameraDemo = new Scene("CameraDemoStage");
-		// Display Map
-		var imgLoad = new Sprite("DemoStage");
-		imgLoad.fnLoadImage("./assets/img/Camera/CAM_DEM_A.png");
-		imgLoad.x = 0;
-		imgLoad.y = 0;
-		imgLoad.width = 640;
-		imgLoad.height = 480;
-		scnCameraDemo.fnAddSprite(imgLoad);
-										
-		
-		
-	
-
-		function changeCameras()
-		{
-			scnCameraMonitor.fnRemoveSubScene("CameraViewport");
-			scnCameraMonitor.fnAddSubScene(scnCameraViewport);
-			game.fnStopSound("CAM_BEEP");
-			game.fnPauseSound("CAM_STATIC");
-			game.fnPauseSound("CAM_ACTIVE");
-			game.fnPauseSound("CAM_DANGER");
-			var strActiveButton = cameraMonitorSelection.fnWhichButtonActive();	
-			if ( strActiveButton == "Map" ) {
-
-				game.fnPauseSound("CAM_ACTIVE");
-				scnCameraViewport.fnAddSubScene(scnCameraMap)
-			}
-			else {
-				game.fnPlaySound("CAM_TRANSFER");
-				game.fnPlaySound("CAM_STATIC",true);
-				scnCameraViewport.fnAddSubScene(scnCameraTransfer);
-				setTimeout( function() 
-				{
-					game.fnPauseSound("CAM_STATIC");
-					game.fnPlaySound("CAM_TRANSFER");
-					game.fnPlaySound("CAM_BEEP");
-					game.fnPlaySound("CAM_ACTIVE",true);
-					scnCameraViewport.fnRemoveSubScene("CameraTransfer");
-					if( strActiveButton == "Lobby" ) {
-						scnCameraViewport.fnAddSubScene(scnCameraLobby);
-					}
-					else if( strActiveButton == "PowerRoom" ) {
-						scnCameraViewport.fnAddSubScene(scnCameraPower);
-					}
-					else if( strActiveButton == "LobbyCorridor" ) {
-						scnCameraViewport.fnAddSubScene(scnCameraLobbyCorridor);
-					}
-					else if( strActiveButton == "Medbay" ) {
-						scnCameraViewport.fnAddSubScene(scnCameraMedbay);
-					}
-					else if( strActiveButton == "DemoStage" ) {
-						scnCameraViewport.fnAddSubScene(scnCameraDemo);
-						game.fnPlaySound("CAM_DANGER",true);
-					}
-					else
-					{
-						game.fnPauseSound("CAM_ACTIVE");
-						game.fnPlaySound("CAM_STATIC",true);
-						console.log("ERROR: '" + strActiveButton + "' IS NOT A DEFINED CAMERA");
-						scnCameraViewport.fnAddSubScene(scnCameraOffine);					
-					}
-				}, 100);					
-			}	
-		
-		}		
-		
-			
-		
 		//Screen
-		scnCameraMonitor.intOffsetX = intScreenOffsetX;
-		scnCameraMonitor.intOffsetY = intScreenOffsetY;
-		scnCameraMonitor.fnSetLayer(1);
-
-		//Camera Viewport
-		scnCameraViewport.intOffsetX = intViewPortOffsetX;
-		scnCameraViewport.intOffsetY = intViewPortOffsetY;
-		scnCameraViewport.fnSetLayer(2);
-		
+		scnCameraMonitor.intOffsetX = 0;
+		scnCameraMonitor.intOffsetY = 0;
+		scnCameraMonitor.fnSetLayer(2);
