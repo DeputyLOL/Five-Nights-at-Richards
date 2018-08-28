@@ -1,5 +1,5 @@
 
-		var intCameraLobbyCorridorMode = 1;	
+		var intCameraLobbyCorridorMode = 0;	
 
 		function fnCameraManagerLobbyCorridor( toggle = true )
 		{

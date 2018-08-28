@@ -1,7 +1,7 @@
 
 // FUNCTIONS FOR CAMERA MONITOR
 		var intCameraMode = 0;	
-		var intCameraTransferDelay = 1000;
+		var intCameraTransferDelay = 300;
 		var intCameraPan = 0;	
 
 		
@@ -32,6 +32,7 @@
 				fnCameraManagerLobbyCorridor(false);
 				fnCameraManagerMedbay(false);
 				fnCameraManagerDemoStage(false);
+				fnCameraManagerExecutiveCorridor(false);
 
 				var strActiveButton = cameraMonitorSelection.fnWhichButtonActive();	
 				if ( strActiveButton == "Map" ) {
@@ -60,6 +61,9 @@
 						else if( strActiveButton == "DemoStage" ) {
 							game.fnPlaySound("CAM_DANGER",true);
 							fnCameraManagerDemoStage();
+						}
+						else if( strActiveButton == "ExecutiveCorridor" ) {
+							fnCameraManagerExecutiveCorridor();
 						}
 						else
 						{
