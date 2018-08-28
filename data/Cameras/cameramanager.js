@@ -13,9 +13,12 @@
 				scnCameraMonitor.fnAddSubScene(scnCameraMap);
 				scnCameraMonitor.fnRemoveSubScene("CameraMap");
 				
+				
+				
 				scnCameraMonitor.fnRemoveSubScene("CameraViewport");
 				scnCameraMonitor.fnAddSubScene(scnCameraViewport);
-	
+				//scnCameraViewport.fnRemoveAllSubScenes();
+								
 				scnCameraViewport.fnRemoveSubScene("CameraEffect");
 				scnCameraViewport.fnRemoveSubScene("CameraWeak");
 				scnCameraViewport.fnRemoveSubScene("CameraOffline");

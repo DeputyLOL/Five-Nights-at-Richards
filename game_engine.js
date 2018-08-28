@@ -186,7 +186,15 @@ function Scene(name) {
 				return;
 			}
 		}
-		console.log("ERROR: "+ strName);
+		console.log("ERROR: Cannot remove sub-scene "+ strName);
+	}
+	/**
+	 * Remove all subscenes
+	 */
+	this.fnRemoveAllSubScenes = function () {
+		for ( x in this.lstSubScenes ) {
+			this.domObject.removeChild(this.lstSubScenes[x].domObject);
+		}
 	}
 	/**
 	 * Reset the scene, like restart level etc.
