@@ -1,5 +1,5 @@
 
-		var intCameraMedbayMode = 1;	
+		var intCameraMedbayMode = 0;	
 
 		function fnCameraManagerMedbay( toggle = true )
 		{

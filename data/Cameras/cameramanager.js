@@ -1,7 +1,7 @@
 
 // FUNCTIONS FOR CAMERA MONITOR
 		var intCameraMode = 0;	
-		var intCameraTransferDelay = 300;
+		var intCameraTransferDelay = 500;
 		var intCameraPan = 0;	
 
 		
@@ -31,10 +31,12 @@
 				game.fnPauseSound("CAM_ACTIVE");
 				game.fnPauseSound("CAM_DANGER");
 				game.fnPauseSound("CAM_INTERRUPT");
-
+				
+				fnCameraManagerLobby(false);
 				fnCameraManagerLobbyCorridor(false);
 				fnCameraManagerMedbay(false);
 				fnCameraManagerDemoStage(false);
+				fnCameraManagerExecutiveOffice(false);
 				fnCameraManagerExecutiveCorridor(false);
 
 				var strActiveButton = cameraMonitorSelection.fnWhichButtonActive();	
@@ -50,7 +52,7 @@
 					{
 						scnCameraViewport.fnRemoveSubScene("CameraTransfer");
 						if( strActiveButton == "Lobby" ) {
-							scnCameraViewport.fnAddSubScene(scnCameraLobby);
+							fnCameraManagerLobby();
 						}
 						else if( strActiveButton == "PowerRoom" ) {
 							scnCameraViewport.fnAddSubScene(scnCameraPower);
@@ -64,6 +66,10 @@
 						else if( strActiveButton == "DemoStage" ) {
 							game.fnPlaySound("CAM_DANGER",true);
 							fnCameraManagerDemoStage();
+						}
+						else if( strActiveButton == "ExecutiveOffice" ) {
+							fnCameraManagerExecutiveOffice();
+							game.fnPlaySound("CAM_DANGER",true);
 						}
 						else if( strActiveButton == "ExecutiveCorridor" ) {
 							fnCameraManagerExecutiveCorridor();
