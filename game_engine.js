@@ -160,6 +160,17 @@ function Scene(name) {
 		this.domObject.appendChild(s.img);
 	}
 	/**
+	 * Get sprite
+	 */
+	this.fnGetSprite = function ( s ) {
+		for ( var i = 0; i < this.lstSprites.length; i++ ) {
+			if ( this.lstSprites[i].strName == s ) {
+				return this.lstSprites[i];
+			}
+		}
+		return null;
+	}
+	/**
 	 * Add button - buttons have a lavel as well as the button image
 	 */
 	this.fnAddButton = function ( s ) {
@@ -314,6 +325,7 @@ function Sprite(name) {
 	this.height = 10;
 	this.rotation = 0;
 	this.zIndex = 0;
+	this.visible = true;
 	//The DOM, or "Document Object Model" are the things on the actual screen.
 	//In other words, the actual html document.  "body" is the main one, also "head" and "title" etc.
 	//Anything displayed on the screen needs to be a child element of "body"
@@ -342,13 +354,117 @@ function Sprite(name) {
 		//however.  Also must convert to integer then to string so can add "px" to it to tell HTML it's in pixels.
 		//this.img.style.left = parseInt(this.x - this.width / 2).toString() + "px";
 		//this.img.style.top = parseInt(this.y + this.height / 2).toString() + "px";
-		this.img.style.left = parseInt(this.x + xOffset).toString() + "px";
-		this.img.style.top = parseInt(this.y + yOffset).toString() + "px";
-		this.img.style.width = parseInt(this.width).toString() + "px";
-		this.img.style.height = parseInt(this.height).toString() + "px";
-		this.img.style.zIndex = (this.zIndex + zIndex).toString();
+		if ( this.visible ) {
+			this.img.style.left = parseInt(this.x + xOffset).toString() + "px";
+			this.img.style.top = parseInt(this.y + yOffset).toString() + "px";
+			this.img.style.width = parseInt(this.width).toString() + "px";
+			this.img.style.height = parseInt(this.height).toString() + "px";
+			this.img.style.zIndex = (this.zIndex + zIndex).toString();
+		} 
+		else {
+			this.img.style.width = "0px";
+		}
 	}
 }
+
+
+
+
+
+
+
+/**
+ * Pannable sprite for the cameraz
+ */
+function PanningSprite(strName) {
+	//Initialise the sprite class
+	Sprite.call(this, strName);
+	/**
+	 * Add the images
+	 */
+	this.fnLoadImage = function( strDefault ) {
+		//Set img tag to show default one
+		this.img = document.createElement('img');
+		this.img.src = strDefault;
+		this.img.container = this;
+		
+		this.windowSize = 10;
+		
+		this.imageScroll = 0;
+		
+		this.leftBox = document.createElement('img');
+		this.rightBox = document.createElement('img');
+		
+		this.leftBox.style.backgroundColor = "white";
+		this.rightBox.style.backgroundColor = "white";
+		
+		
+		document.body.appendChild(this.leftBox);
+		document.body.appendChild(this.rightBox);
+		
+		this.scrollDirection = 0;
+	}
+	
+	/**
+	 * Scroll
+	 */
+	this.fnScroll = function ( intDirection ) {
+		if ( intDirection < 0 ) {
+			if  ( this.imageScroll > 0 ) {
+				this.imageScroll += intDirection;
+			}
+		} else {
+			if ( this.imageScroll < this.width - this.windowSize ) {
+				this.imageScroll += intDirection;
+			}
+		}
+	}
+	/**
+	 * Update
+	 */
+	this.fnUpdate = function () {
+		this.fnScroll ( this.scrollDirection );
+	}
+	/**
+	 * Draw this to screen
+	 */
+	this.fnDraw = function(xOffset, yOffset, zIndex) {
+		//Here we must update the this.img.style properties so it's in the correct location
+		//We want (x,y) to represent the centre of the object.  HTML works on top left of image
+		//however.  Also must convert to integer then to string so can add "px" to it to tell HTML it's in pixels.
+		//this.img.style.left = parseInt(this.x - this.width / 2).toString() + "px";
+		//this.img.style.top = parseInt(this.y + this.height / 2).toString() + "px";
+		if ( this.visible ) {
+			this.img.style.left = parseInt(this.x + xOffset + this.imageScroll).toString() + "px";
+			this.img.style.top = parseInt(this.y + yOffset).toString() + "px";
+			this.img.style.width = parseInt(this.width).toString() + "px";
+			this.img.style.height = parseInt(this.height).toString() + "px";
+			this.img.style.zIndex = (this.zIndex + zIndex).toString();
+			
+			this.leftBox.style.left = parseInt(this.x + xOffset).toString() + "px";
+			this.leftBox.style.top = parseInt(this.y + yOffset).toString() + "px";
+			this.leftBox.style.width = parseInt(this.width - this.windowSize).toString() + "px";
+			this.leftBox.style.height = parseInt(this.height).toString() + "px";
+			this.leftBox.style.zIndex = (1 + this.zIndex + zIndex).toString();
+			
+		}
+		else {
+			this.img.style.width = "0px";
+			this.label.style.width = "0px";		
+		}
+	}
+}
+PanningSprite.prototype = Object.create(Sprite.prototype);
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -363,16 +479,13 @@ function Sprite(name) {
 function Button(strName) {
 	//Initialise the sprite class
 	Sprite.call(this, strName);
-	this.dicFrames = { "default" : null, "mouse_over" : null, "mouse_click" : null};
+	this.fnClickEvent = function();
+	this.fnMouseDownEvent = function();
 	/**
 	 * Add the images
 	 */
 	this.fnLoadImage = function( strDefault, strMouseOver, strMouseClick, strLabel) {
 		//Load up the four images here...
-		this.dicFrames["default"] = strDefault;
-		this.dicFrames["mouse_over"] = strMouseOver;
-		this.dicFrames["mouse_click"] = strMouseClick;
-		this.dicFrames["mouse_over"] = strMouseOver;	
 		//Set img tag to show default one
 		this.img = document.createElement('img');
 		this.img.src = strDefault;
@@ -395,6 +508,7 @@ function Button(strName) {
 			this.container.img.src = strDefault;
 		}
 		this.label.onmousedown = function() {
+			this.container.fnMouseDownEvent();
 			this.container.img.src = strMouseClick;			
 		}
 		this.label.onmouseup = function() {
@@ -411,17 +525,23 @@ function Button(strName) {
 		//however.  Also must convert to integer then to string so can add "px" to it to tell HTML it's in pixels.
 		//this.img.style.left = parseInt(this.x - this.width / 2).toString() + "px";
 		//this.img.style.top = parseInt(this.y + this.height / 2).toString() + "px";
-		this.img.style.left = parseInt(this.x + xOffset).toString() + "px";
-		this.img.style.top = parseInt(this.y + yOffset).toString() + "px";
-		this.img.style.width = parseInt(this.width).toString() + "px";
-		this.img.style.height = parseInt(this.height).toString() + "px";
-		this.img.style.zIndex = (this.zIndex + zIndex).toString();
-		
-		this.label.style.left = parseInt(this.x + xOffset).toString() + "px";
-		this.label.style.top = parseInt(this.y + yOffset).toString() + "px";
-		this.label.style.width = parseInt(this.width).toString() + "px";
-		this.label.style.height = parseInt(this.height).toString() + "px";
-		this.label.style.zIndex = (this.LabelzIndex + this.zIndex + zIndex).toString();
+		if ( this.visible ) {
+			this.img.style.left = parseInt(this.x + xOffset).toString() + "px";
+			this.img.style.top = parseInt(this.y + yOffset).toString() + "px";
+			this.img.style.width = parseInt(this.width).toString() + "px";
+			this.img.style.height = parseInt(this.height).toString() + "px";
+			this.img.style.zIndex = (this.zIndex + zIndex).toString();
+			
+			this.label.style.left = parseInt(this.x + xOffset).toString() + "px";
+			this.label.style.top = parseInt(this.y + yOffset).toString() + "px";
+			this.label.style.width = parseInt(this.width).toString() + "px";
+			this.label.style.height = parseInt(this.height).toString() + "px";
+			this.label.style.zIndex = (this.LabelzIndex + this.zIndex + zIndex).toString();
+		}
+		else {
+			this.img.style.width = "0px";
+			this.label.style.width = "0px";		
+		}
 	}
 }
 Button.prototype = Object.create(Sprite.prototype);
@@ -504,17 +624,23 @@ function MenuButton(strName) {
 		//however.  Also must convert to integer then to string so can add "px" to it to tell HTML it's in pixels.
 		//this.img.style.left = parseInt(this.x - this.width / 2).toString() + "px";
 		//this.img.style.top = parseInt(this.y + this.height / 2).toString() + "px";
-		this.img.style.left = parseInt(this.x + xOffset).toString() + "px";
-		this.img.style.top = parseInt(this.y + yOffset).toString() + "px";
-		this.img.style.width = parseInt(this.width).toString() + "px";
-		this.img.style.height = parseInt(this.height).toString() + "px";
-		this.img.style.zIndex = (this.zIndex + zIndex).toString();
-		
-		this.label.style.left = parseInt(this.x + xOffset).toString() + "px";
-		this.label.style.top = parseInt(this.y + yOffset).toString() + "px";
-		this.label.style.width = parseInt(this.width).toString() + "px";
-		this.label.style.height = parseInt(this.height).toString() + "px";
-		this.label.style.zIndex = parseFloat(this.LabelzIndex + this.zIndex + zIndex).toString();
+		if ( this.visible ) {
+			this.img.style.left = parseInt(this.x + xOffset).toString() + "px";
+			this.img.style.top = parseInt(this.y + yOffset).toString() + "px";
+			this.img.style.width = parseInt(this.width).toString() + "px";
+			this.img.style.height = parseInt(this.height).toString() + "px";
+			this.img.style.zIndex = (this.zIndex + zIndex).toString();
+			
+			this.label.style.left = parseInt(this.x + xOffset).toString() + "px";
+			this.label.style.top = parseInt(this.y + yOffset).toString() + "px";
+			this.label.style.width = parseInt(this.width).toString() + "px";
+			this.label.style.height = parseInt(this.height).toString() + "px";
+			this.label.style.zIndex = (this.LabelzIndex + this.zIndex + zIndex).toString();
+		}
+		else {
+			this.img.style.width = "0px";
+			this.label.style.width = "0px";		
+		}
 	}
 }
 Button.prototype = Object.create(Sprite.prototype);

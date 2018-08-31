@@ -8,6 +8,7 @@
 				game.fnPlaySound("CAM_TRANSFER");
 				game.fnPlaySound("CAM_BEEP");
 				game.fnPlaySound("CAM_ACTIVE",true);
+				fnCameraPanable(true);
 				if(intCameraLobbyMode == 0){
 					scnCameraViewport.fnAddSubScene(scnCameraLobby);
 					scnCameraViewport.fnAddSubScene(scnCameraEffect);
