@@ -32,11 +32,12 @@
 		}
 		
 		var scnCameraLobby = new Scene("CameraLobby");
-		var imgCameraLobby = new Sprite("LobbyCameraBackground");
+		var imgCameraLobby = new PanningSprite("Lobby");
 		imgCameraLobby.fnLoadImage("./assets/img/Camera/CAM_LOB_A.png");
 		imgCameraLobby.x = 0;
 		imgCameraLobby.y = 0;
-		imgCameraLobby.width = 640;
+		imgCameraLobby.windowSize = 640;
+		imgCameraLobby.width = 1500;
 		imgCameraLobby.height = 480;
 		scnCameraLobby.fnAddSprite(imgCameraLobby);
 		var intCameraLobbyOffsetX = 0;

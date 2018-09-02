@@ -72,6 +72,9 @@ function fnCameraManager()
 				else if( strActiveButton == "ExecutiveCorridor" ) {
 					fnCameraManagerExecutiveCorridor();
 				}
+				else if( strActiveButton == "Manufacturing" ) {
+					fnCameraManagerManufacturing();
+				}
 				else
 				{
 					game.fnPauseSound("CAM_ACTIVE");
@@ -94,24 +97,24 @@ function fnCameraManager()
 
 function fnCameraPanner( direction = 0, method = "start", spriteCam )
 {
-	console.log(intCameraPan);
 	var strActiveButton = cameraMonitorSelection.fnWhichButtonActive();
 	var s = scnCameraViewport.lstSubScenes[0].fnGetSprite ( strActiveButton );
 	if ( method == "start" ) {
 		if(direction == "left")
 		{
-			s.scrollDirection = 5;
+			s.scrollDirection = 10;
 			game.fnPlaySound("CAM_PAN",true);
 		}
 		else
 		{
-			s.scrollDirection = -5;
+			s.scrollDirection = -10;
 			game.fnPlaySound("CAM_PAN",true);
 		}
 	} 
 	else {
 		s.scrollDirection = 0;
 		game.fnStopSound("CAM_PAN");
+		game.fnPlaySound("CAM_PANLIMIT");
 	}	
 }
 
