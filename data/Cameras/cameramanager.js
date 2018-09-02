@@ -4,6 +4,8 @@
 */
 
 // FUNCTIONS FOR CAMERA MONITOR
+
+
 var intCameraMode = 0;	
 var intCameraTransferDelay = 500;
 var intCameraPan = 0;
