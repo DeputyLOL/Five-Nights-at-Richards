@@ -25,7 +25,7 @@
 	"./assets/img/Console/Common/CloseButtonHighlighted.png",
 	"./assets/img/Console/Common/CloseButtonPressed.png",
 	"./assets/img/Console/Common/null.png");
-	imgLoad.fnMouseUpEvent = function () {
+	imgLoad.fnClickEvent = function () {
 		game.fnPlaySound("BUTTON");			
 		game.fnStopSound("CAM_BEEP");
 		game.fnStopSound("CAM_ACTIVE");
@@ -52,15 +52,11 @@
 	);
 	imgLoad.visible = intCameraPanable;
 	imgLoad.fnMouseDownEvent = function() {
-		intPanDirection = -1;
+		fnCameraPanner("left", "start", imgLoad);
 	}
-	imgLoad.fnMouseUpEvent = function() {
-		intPanDirection = 0;
+	imgLoad.fnClickEvent = function () {
+		fnCameraPanner("left", "stop", imgLoad);		
 	}
-	imgLoad.fnUpdate = function() {
-		fnCameraPanner(intPanDirection, imgLoad);
-	}
-
 	scnCameraMonitor.fnAddButton(imgLoad);
 	
 	var imgLoad = new Button("PanRight");
@@ -75,20 +71,13 @@
 	);
 	imgLoad.visible = intCameraPanable
 	imgLoad.fnMouseDownEvent = function() {
-		intPanDirection = 1;
+		fnCameraPanner("right", "start", imgLoad);
 	}
-	imgLoad.fnMouseUpEvent = function() {
-		intPanDirection = 0;
-	}
-	imgLoad.fnUpdate = function() {
-		fnCameraPanner(intPanDirection, imgLoad);
+	imgLoad.fnClickEvent = function () {
+		fnCameraPanner("right", "stop", imgLoad);		
 	}
 	scnCameraMonitor.fnAddButton(imgLoad);
 
-	
-	
-	
-	
 	var cameraMonitorSelection = new MenuButtonGroup();
 	
 	var imgLoad = new MenuButton("Map");

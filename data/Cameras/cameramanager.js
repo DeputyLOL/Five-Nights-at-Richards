@@ -92,37 +92,27 @@ function fnCameraManager()
 	}	
 }		
 
-function fnCameraPanner( direction = 0, spriteCam )
+function fnCameraPanner( direction = 0, method = "start", spriteCam )
 {
 	console.log(intCameraPan);
-	if(direction == -1)
-	{
-		
-		if(intCameraPan <= 0){
-			game.fnStopSound("CAM_PAN");
-			game.fnPlaySound("CAM_PANLIMIT");
-			intCameraPan = 0;
-		}
-		else {
+	var strActiveButton = cameraMonitorSelection.fnWhichButtonActive();
+	var s = scnCameraViewport.lstSubScenes[0].fnGetSprite ( strActiveButton );
+	if ( method == "start" ) {
+		if(direction == "left")
+		{
+			s.scrollDirection = -5;
 			game.fnPlaySound("CAM_PAN",true);
-			intCameraPan = intCameraPan - 1;
 		}
-	}
-	else if(direction == 1)
-	{
-		if(intCameraPan >= 100){
-			game.fnStopSound("CAM_PAN");
-			intCameraPan = 100;
+		else
+		{
+			s.scrollDirection = 5;
+			game.fnPlaySound("CAM_PAN",true);
 		}
-		else {
-		game.fnPlaySound("CAM_PAN",true);
-		intCameraPan = intCameraPan + 1;
-		}
-	}
-	else
-	{
-		game.fnPauseSound("CAM_PAN");
-	}
+	} 
+	else {
+		s.scrollDirection = 0;
+		game.fnStopSound("CAM_PAN");
+	}	
 }
 
 function fnCameraPanable( toggle = 1 )
