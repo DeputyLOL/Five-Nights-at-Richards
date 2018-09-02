@@ -3,6 +3,7 @@
 	var intCameraMode = 0;	
 	var intCameraTransferDelay = 500;
 	var intCameraPan = 0;
+	var intCameraPanning = 0;
 	var intCameraPanable = 0;
 
 	
@@ -96,28 +97,32 @@
 		}	
 	}		
 
-	function fnCameraPanner( direction = "left",, method = "start", spriteCam )
+	function fnCameraPanner( direction = "left", method = "start", spriteCam )
 	{
-		console.log(intCameraPan);
-		if(direction == "left")
+		setTimeout( function() 
 		{
-			
-			if(intCameraPan <= 0){
-				intCameraPan = 0;
+			console.log(intCameraPan);
+			console.log(direction);
+			if(direction == "left")
+			{
+				
+				if(intCameraPan <= 0){
+					intCameraPan = 0;
+				}
+				else {
+					intCameraPan = intCameraPan - 1;
+				}
 			}
-			else {
-				intCameraPan = intCameraPan - 1;
+			else
+			{
+				if(intCameraPan >= 100){
+					intCameraPan = 100;
+				}
+				else {
+				intCameraPan = intCameraPan + 1;
+				}				
 			}
-		}
-		else
-		{
-			if(intCameraPan >= 100){
-				intCameraPan = 100;
-			}
-			else {
-			intCameraPan = intCameraPan + 1;
-			}
-		}
+		}, 10);	
 	}
 	
 	function fnCameraPanable( toggle = 1 )

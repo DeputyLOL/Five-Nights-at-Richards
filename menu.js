@@ -32,7 +32,7 @@
 	"./assets/img/Console/Common/ButtonHighlighted.png",
 	"./assets/img/Console/Common/ButtonPressed.png",
 	"./assets/img/Console/Menu/Button_Start.png");
-	imgLoad.fnClickEvent = function () {
+	imgLoad.fnMouseUpEvent = function () {
 		//First, check which user is selected
 		game.fnPlaySound("BUTTON");
 		var strActiveButton = mainmenu.fnWhichButtonActive();
@@ -66,7 +66,7 @@
 	"./assets/img/Console/Common/ButtonHighlighted.png",
 	"./assets/img/Console/Common/ButtonPressed.png",
 	"./assets/img/Console/Menu/Button_Help.png");
-	imgLoad.fnClickEvent = function () {
+	imgLoad.fnMouseUpEvent = function () {
 		game.fnPlaySound("BUTTON");	
 		scnScreen.fnRemoveSubScene("Menu");
 		scnScreen.fnAddSubScene(scnHelpMenu);
@@ -85,7 +85,7 @@
 	"./assets/img/Console/Common/ButtonHighlighted.png",
 	"./assets/img/Console/Common/ButtonPressed.png",
 	"./assets/img/Console/Menu/Button_Options.png");
-	imgLoad.fnClickEvent = function () {
+	imgLoad.fnMouseUpEvent = function () {
 		game.fnPlaySound("BUTTON");	
 		scnScreen.fnRemoveSubScene("Menu");
 		scnScreen.fnAddSubScene(scnOptions);
@@ -105,7 +105,7 @@
 	"./assets/img/Console/Common/ButtonHighlighted.png",
 	"./assets/img/Console/Common/ButtonPressed.png",
 	"./assets/img/Console/Menu/Button_Shutdown.png");
-	imgLoad.fnClickEvent = function () {
+	imgLoad.fnMouseUpEvent = function () {
 		game.fnPlaySound("BUTTON");
 		window.location.href = "http:www.richardhowellpeak.com/GameDesign";
 	
@@ -218,7 +218,7 @@
 	"./assets/img/Console/Common/CloseButtonHighlighted.png",
 	"./assets/img/Console/Common/CloseButtonPressed.png",
 	"./assets/img/Console/Common/null.png");
-	imgLoad.fnClickEvent = function () {
+	imgLoad.fnMouseUpEvent = function () {
 		game.fnPlaySound("BUTTON");			
 		scnScreen.fnRemoveSubScene("BadPassword");
 		scnScreen.fnAddSubScene(scnMenu);

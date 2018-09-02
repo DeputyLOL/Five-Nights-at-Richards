@@ -28,7 +28,7 @@
 	"./assets/img/Console/Desktop/Desktop_Icon_DeviceMonitorHighLighted.png",
 	"./assets/img/Console/Desktop/Desktop_Icon_DeviceMonitorSelected.png",
 	"./assets/img/Console/Common/null.png");
-	imgLoad.fnClickEvent = function () {			
+	imgLoad.fnMouseUpEvent = function () {			
 		scnScreen.fnRemoveSubScene("Desktop");
 		scnScreen.fnAddSubScene(scnDeviceMonitor);
 	}
@@ -44,7 +44,7 @@
 	"./assets/img/Console/Desktop/Desktop_Icon_EmailSelected.png",
 	"./assets/img/Console/Common/null.png"
 	);
-	imgLoad.fnClickEvent = function () {
+	imgLoad.fnMouseUpEvent = function () {
 		scnScreen.fnRemoveSubScene("Desktop");
 		scnScreen.fnAddSubScene(scnEmail);
 	}
@@ -60,7 +60,7 @@
 	"./assets/img/Console/Desktop/Desktop_Icon_CamerasSelected.png",
 	"./assets/img/Console/Common/null.png"
 	);
-	imgLoad.fnClickEvent = function () {
+	imgLoad.fnMouseUpEvent = function () {
 		//scnScreen.fnRemoveSubScene("Desktop");
 		scnDesktop.fnAddSubScene(scnCameraMonitor);
 		scnCameraMonitor.fnAddSubScene(scnCameraViewport);

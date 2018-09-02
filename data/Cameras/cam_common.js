@@ -29,8 +29,8 @@
 		imgLoad.height = 20;
 		scnCameraTransfer.fnAddSprite(imgLoad);
 		
-		var imgLoad = new Sprite("Buffering");
-		imgLoad.fnLoadImage("./assets/img/Camera/CAM_STATUS_BUFFERING.png");
+		var imgLoad = new Sprite("Connecting");
+		imgLoad.fnLoadImage("./assets/img/Camera/CAM_STATUS_CONNECTING.png");
 		imgLoad.x = 107;
 		imgLoad.y = 20;
 		imgLoad.width = 123;
@@ -70,7 +70,34 @@
 		scnCameraWeak.fnAddSprite(imgLoad);
 
 		
+		var scnCameraOffine = new Scene("CameraInterrupt");
+		// Camera Not Working
+		var imgLoad = new Sprite("Static");
+		imgLoad.fnLoadImage("./assets/img/Camera/CAM_JAM.gif");
+		imgLoad.x = 0;
+		imgLoad.y = 0;
+		imgLoad.width = 640;
+		imgLoad.height = 480;
+		scnCameraOffine.fnAddSprite(imgLoad);
 		
+		var imgLoad = new Sprite("Status");
+		imgLoad.fnLoadImage("./assets/img/Camera/CAM_STATUS.png");
+		imgLoad.x = 21;
+		imgLoad.y = 20;
+		imgLoad.width = 86;
+		imgLoad.height = 20;
+		scnCameraOffine.fnAddSprite(imgLoad);	
+		
+		var imgLoad = new Sprite("Lost");
+		imgLoad.fnLoadImage("./assets/img/Camera/CAM_STATUS_LOST.png");
+		imgLoad.x = 107;
+		imgLoad.y = 20;
+		imgLoad.width = 164;
+		imgLoad.height = 42;
+		scnCameraOffine.fnAddSprite(imgLoad);				
+
+
+
 		var scnCameraOffine = new Scene("CameraOffline");
 		// Camera Not Working
 		var imgLoad = new Sprite("Static");

@@ -21,7 +21,7 @@
 	"./assets/img/Console/Common/CloseButtonHighlighted.png",
 	"./assets/img/Console/Common/CloseButtonPressed.png",
 	"./assets/img/Console/Common/null.png");
-	imgLoad.fnClickEvent = function () {
+	imgLoad.fnMouseUpEvent = function () {
 		game.fnPlaySound("BUTTON");			
 		game.fnStopSound("CAM_BEEP");
 		game.fnStopSound("CAM_ACTIVE");
@@ -47,9 +47,18 @@
 	"./assets/img/Console/Common/null.png"
 	);
 	imgLoad.visible = intCameraPanable;
-	imgLoad.fnClickEvent = function () {
-		fnCameraPanner("left", );		
+	imgLoad.fnMouseDownEvent = function () {
+		intCameraPanning = 1;
+		while(intCameraPanning = 1)
+		{
+			fnCameraPanner("left", "start", imgLoad);
+			imgLoad.fnMouseUpEvent = function() {
+				intCameraPanning = 0;
+				fnCameraPanner("left", "stop", imgLoad);
+			}
+		}
 	}
+
 	scnCameraMonitor.fnAddButton(imgLoad);
 	
 	var imgLoad = new Button("PanRight");
@@ -64,11 +73,12 @@
 	);
 	imgLoad.visible = intCameraPanable
 	imgLoad.fnMouseDownEvent = function() {
+		intCameraPanning = 1;
 		fnCameraPanner("right", "start", imgLoad);
 	}
-	
-	imgLoad.fnClickEvent = function () {
-		fnCameraPanner("right", "stop", imgLoad);			
+	imgLoad.fnMouseUpEvent = function() {
+		intCameraPanning = 0;
+		fnCameraPanner("right", "stop", imgLoad);
 	}
 	scnCameraMonitor.fnAddButton(imgLoad);
 

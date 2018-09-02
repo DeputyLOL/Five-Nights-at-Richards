@@ -471,16 +471,15 @@ PanningSprite.prototype = Object.create(Sprite.prototype);
 
 ////////////////////////////////////// BUTTONS ///////////////////////////////////////
 
-
-
 /**
  * Button
  */
 function Button(strName) {
 	//Initialise the sprite class
 	Sprite.call(this, strName);
-	this.fnClickEvent = function();
-	this.fnMouseDownEvent = function();
+	this.fnClickEvent = function(){};
+	this.fnMouseDownEvent = function(){};
+	this.fnMouseUpEvent = function(){};
 	/**
 	 * Add the images
 	 */
@@ -513,7 +512,7 @@ function Button(strName) {
 		}
 		this.label.onmouseup = function() {
 			this.container.img.src = strMouseOver;
-			this.container.fnClickEvent();
+			this.container.fnMouseUpEvent();
 		}	
 	}
 	/**
