@@ -9,6 +9,7 @@
 var intCameraMode = 0;	
 var intCameraTransferDelay = 500;
 var intCameraPan = 0;
+var intPanDirection = 0;
 var intCameraPanable = 0;
 
 
@@ -91,27 +92,36 @@ function fnCameraManager()
 	}	
 }		
 
-function fnCameraPanner( direction = "left", method = "start", spriteCam )
+function fnCameraPanner( direction = 0, spriteCam )
 {
 	console.log(intCameraPan);
-	if(direction == "left")
+	if(direction == -1)
 	{
 		
 		if(intCameraPan <= 0){
+			game.fnStopSound("CAM_PAN");
+			game.fnPlaySound("CAM_PANLIMIT");
 			intCameraPan = 0;
 		}
 		else {
+			game.fnPlaySound("CAM_PAN",true);
 			intCameraPan = intCameraPan - 1;
+		}
+	}
+	else if(direction == 1)
+	{
+		if(intCameraPan >= 100){
+			game.fnStopSound("CAM_PAN");
+			intCameraPan = 100;
+		}
+		else {
+		game.fnPlaySound("CAM_PAN",true);
+		intCameraPan = intCameraPan + 1;
 		}
 	}
 	else
 	{
-		if(intCameraPan >= 100){
-			intCameraPan = 100;
-		}
-		else {
-		intCameraPan = intCameraPan + 1;
-		}
+		game.fnPauseSound("CAM_PAN");
 	}
 }
 

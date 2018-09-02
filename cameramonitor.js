@@ -51,8 +51,14 @@
 	"./assets/img/Console/Common/null.png"
 	);
 	imgLoad.visible = intCameraPanable;
-	imgLoad.fnMouseDownEvent = function () {
-		fnCameraPanner("left", "start", imgLoad);
+	imgLoad.fnMouseDownEvent = function() {
+		intPanDirection = -1;
+	}
+	imgLoad.fnMouseUpEvent = function() {
+		intPanDirection = 0;
+	}
+	imgLoad.fnUpdate = function() {
+		fnCameraPanner(intPanDirection, imgLoad);
 	}
 
 	scnCameraMonitor.fnAddButton(imgLoad);
@@ -69,7 +75,13 @@
 	);
 	imgLoad.visible = intCameraPanable
 	imgLoad.fnMouseDownEvent = function() {
-		fnCameraPanner("right", "start", imgLoad);
+		intPanDirection = 1;
+	}
+	imgLoad.fnMouseUpEvent = function() {
+		intPanDirection = 0;
+	}
+	imgLoad.fnUpdate = function() {
+		fnCameraPanner(intPanDirection, imgLoad);
 	}
 	scnCameraMonitor.fnAddButton(imgLoad);
 

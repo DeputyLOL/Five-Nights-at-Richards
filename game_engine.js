@@ -401,7 +401,7 @@ function Sprite(name) {
 	 * Update function
 	 */
 	this.fnUpdate = function() {
-		//this.x++; err merrr gerrrd
+		
 	}
 	/**
 	 * Draw this to screen
@@ -445,7 +445,7 @@ function PanningSprite(strName) {
 		this.img = document.createElement('img');
 		this.img.src = strDefault;
 		this.img.container = this;
-		
+
 		this.windowSize = 10;
 		
 		this.imageScroll = 0;
@@ -471,7 +471,8 @@ function PanningSprite(strName) {
 			if  ( this.imageScroll > 0 ) {
 				this.imageScroll += intDirection;
 			}
-		} else {
+		} 
+		else {
 			if ( this.imageScroll < this.width - this.windowSize ) {
 				this.imageScroll += intDirection;
 			}

@@ -32,7 +32,7 @@
 		}
 				
 		var scnCameraDemoStage = new Scene("CameraDemoStage");
-		var imgCameraDemoStage = new Sprite("DemoStage");
+		var imgCameraDemoStage = new PanningSprite("DemoStage");
 		imgCameraDemoStage.fnLoadImage("./assets/img/Camera/CAM_DEM_A.png");
 		imgCameraDemoStage.x = 0 + intCameraPan;
 		imgCameraDemoStage.y = 0;

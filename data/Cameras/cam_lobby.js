@@ -32,7 +32,7 @@
 		}
 		
 		var scnCameraLobby = new Scene("CameraLobby");
-		var imgCameraLobby = new Sprite("Lobby");
+		var imgCameraLobby = new Sprite("LobbyCameraBackground");
 		imgCameraLobby.fnLoadImage("./assets/img/Camera/CAM_LOB_A.png");
 		imgCameraLobby.x = 0;
 		imgCameraLobby.y = 0;
