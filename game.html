@@ -46,7 +46,7 @@
 		var scnStart = new Scene("GameStart");
 		//Splash
 		var imgLoad = new Sprite("MonitorUp");
-		imgLoad.fnLoadImage("./assets/img/MonitorUp.gif");
+		imgLoad.fnLoadImage("./assets/img/Monitor/MonitorUp.gif");
 		imgLoad.x = 0;
 		imgLoad.y = 0;
 		imgLoad.width = 1369;
@@ -55,15 +55,42 @@
 	
 		//Set up the screen
 		var scnScreen = new Scene("Screen");
-		var imgScreen = new Sprite("Screen");
-		imgScreen.fnLoadImage("./assets/img/Monitor_Overlay.png");
-		imgScreen.width = 1369;
+		var imgScreen = new Sprite("ScreenTop");
+		imgScreen.fnLoadImage("./assets/img/Monitor/MonitorTop.png");
+		imgScreen.x = 294;
+		imgScreen.y = 0;
+		imgScreen.width = 800;
+		imgScreen.height = 72;
+		scnScreen.fnAddSprite(imgScreen);
+		
+		var imgScreen = new Sprite("ScreenBottom");
+		imgScreen.fnLoadImage("./assets/img/Monitor/MonitorBottom.png");
+		imgScreen.x = 294;
+		imgScreen.y = 672;
+		imgScreen.width = 800;
+		imgScreen.height = 84;
+		scnScreen.fnAddSprite(imgScreen);
+		
+		var imgScreen = new Sprite("ScreenLeft");
+		imgScreen.fnLoadImage("./assets/img/Monitor/MonitorLeft.png");
+		imgScreen.x = 0;
+		imgScreen.y = 0;
+		imgScreen.width = 294;
 		imgScreen.height = 756;
 		scnScreen.fnAddSprite(imgScreen);
+		
+		var imgScreen = new Sprite("ScreenRight");
+		imgScreen.fnLoadImage("./assets/img/Monitor/MonitorRight.png");
+		imgScreen.x = 1094;
+		imgScreen.y = 0;
+		imgScreen.width = 275;
+		imgScreen.height = 756;
+		scnScreen.fnAddSprite(imgScreen);
+				
 		var intScreenOffsetX = 294;
 		var intScreenOffsetY = 72;	
 		game.fnAddScene( scnScreen );
-		
+		scnScreen.fnSetLayer(6);
 	</script>	
 		<script src = "loading.js"></script>
 		<script src = "menu.js"></script>

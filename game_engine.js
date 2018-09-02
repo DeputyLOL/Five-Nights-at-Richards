@@ -695,7 +695,7 @@ function MenuButton(strName) {
 			this.container.img.src = strMouseClick;			
 		}
 		this.label.onmouseup = function() {
-			this.container.img.src = strSelected;				
+			this.container.img.src = strSelected;		
 		}	
 	}
 	/**

@@ -36,7 +36,8 @@
 		imgCameraDemoStage.fnLoadImage("./assets/img/Camera/CAM_DEM_A.png");
 		imgCameraDemoStage.x = 0 + intCameraPan;
 		imgCameraDemoStage.y = 0;
-		imgCameraDemoStage.width = 640;
+		imgCameraDemoStage.windowSize = 640;
+		imgCameraDemoStage.width = 1500;
 		imgCameraDemoStage.height = 480;
 		scnCameraDemoStage.fnAddSprite(imgCameraDemoStage);
 		var intCameraDemoStageOffsetX = 0;

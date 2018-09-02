@@ -100,12 +100,12 @@ function fnCameraPanner( direction = 0, method = "start", spriteCam )
 	if ( method == "start" ) {
 		if(direction == "left")
 		{
-			s.scrollDirection = -5;
+			s.scrollDirection = 5;
 			game.fnPlaySound("CAM_PAN",true);
 		}
 		else
 		{
-			s.scrollDirection = 5;
+			s.scrollDirection = -5;
 			game.fnPlaySound("CAM_PAN",true);
 		}
 	} 

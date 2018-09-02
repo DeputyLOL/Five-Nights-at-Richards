@@ -54,7 +54,7 @@
 	imgLoad.fnMouseDownEvent = function() {
 		fnCameraPanner("left", "start", imgLoad);
 	}
-	imgLoad.fnClickEvent = function () {
+	imgLoad.fnMouseUpEvent = function () {
 		fnCameraPanner("left", "stop", imgLoad);		
 	}
 	scnCameraMonitor.fnAddButton(imgLoad);
@@ -73,7 +73,7 @@
 	imgLoad.fnMouseDownEvent = function() {
 		fnCameraPanner("right", "start", imgLoad);
 	}
-	imgLoad.fnClickEvent = function () {
+	imgLoad.fnMouseUpEvent = function () {
 		fnCameraPanner("right", "stop", imgLoad);		
 	}
 	scnCameraMonitor.fnAddButton(imgLoad);
@@ -418,7 +418,7 @@
 	//Screen
 	scnCameraMonitor.intOffsetX = 0;
 	scnCameraMonitor.intOffsetY = 0;
-	scnCameraMonitor.fnSetLayer(2);
+	scnCameraMonitor.fnSetLayer(3);
 	
 	console.log("Creating camera monitor scene");
 	
