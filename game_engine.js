@@ -584,8 +584,7 @@ function Button(strName) {
 		document.body.appendChild(this.label);
 		
 		//Set up event handlers
-		this.label.onmouseover = function() {
-			
+		this.label.onmouseover = function() {	
 			this.container.img.src = strMouseOver;
 		}
 		this.label.onmouseout = function() {

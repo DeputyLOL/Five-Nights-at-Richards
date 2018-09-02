@@ -25,7 +25,7 @@
 	"./assets/img/Console/Common/CloseButtonHighlighted.png",
 	"./assets/img/Console/Common/CloseButtonPressed.png",
 	"./assets/img/Console/Common/null.png");
-	imgLoad.fnClickEvent = function () {
+	imgLoad.fnMouseUpEvent = function () {
 		game.fnPlaySound("BUTTON");			
 		game.fnStopSound("CAM_BEEP");
 		game.fnStopSound("CAM_ACTIVE");
