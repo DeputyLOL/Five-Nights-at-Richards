@@ -140,6 +140,9 @@
 		scnCameraOnline.fnSetLayer(5);		
 		scnCameraInterrupt.fnSetLayer(5);		
 
+		scnCameraMap.intOffsetX = -20;
+		scnCameraMap.intOffsetY = -40;
+		
 		scnCameraMap.fnSetLayer(6);
 		scnCameraOffine.fnSetLayer(4);		
 		scnCameraEffect.fnSetLayer(4);		

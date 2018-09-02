@@ -40,8 +40,6 @@
 		game.fnAddSound( "CAM_JAM", "./assets/audio/CAM_JAM.ogg");
 		game.fnAddSound( "CAM_INTERRUPT", "./assets/audio/CAM_INTERRUPT.ogg");
 		
-		
-		
 		game.fnPlaySound("FAN_LOOP",true);
 
 		var scnStart = new Scene("GameStart");
@@ -96,7 +94,12 @@
 		game.fnAddScene( scnHelpMenu );		
 		game.fnAddScene( scnOptions );
 		
+		
+		game.fnChangeScene ( scnScreen );
+		scnScreen.fnAddSubScene(scnDesktop);
+		game.fnStart();
 
+/*
 		game.fnChangeScene ( "GameStart" );
 		
 		game.fnStart();
@@ -111,13 +114,14 @@
 			game.fnPlaySound("FAN_BUSY",true);
 			setTimeout( function() 
 			{ 
-				scnScreen.fnRemoveSubScene("Loading");
+				//scnScreen.fnRemoveSubScene("Loading");
+				scnScreen.fnRemoveAllSubScenes()
 				scnScreen.fnAddSubScene(scnMenu);
 				game.fnPauseSound("FAN_BUSY");
 			}, 3000);
 		}, 600);
 
-		
+*/		
 		
 	</script>
 </html>

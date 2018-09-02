@@ -62,9 +62,11 @@
 	);
 	imgLoad.fnClickEvent = function () {
 		//scnScreen.fnRemoveSubScene("Desktop");
+		console.log("desktop.js - loading Camera Monitor");
 		scnDesktop.fnAddSubScene(scnCameraMonitor);
 		scnCameraMonitor.fnAddSubScene(scnCameraViewport);
-		fnCameraManager();		
+		//scnCameraViewport.fnAddSubScene(scnCameraMap);
+		fnCameraManager();
 	}
 	scnDesktop.fnAddButton(imgLoad);
 	
