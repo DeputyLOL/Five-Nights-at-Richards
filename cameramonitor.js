@@ -52,15 +52,7 @@
 	);
 	imgLoad.visible = intCameraPanable;
 	imgLoad.fnMouseDownEvent = function () {
-		intCameraPanning = 1;
-		while(intCameraPanning = 1)
-		{
-			fnCameraPanner("left", "start", imgLoad);
-			imgLoad.fnMouseUpEvent = function() {
-				intCameraPanning = 0;
-				fnCameraPanner("left", "stop", imgLoad);
-			}
-		}
+		fnCameraPanner("left", "start", imgLoad);
 	}
 
 	scnCameraMonitor.fnAddButton(imgLoad);
@@ -77,15 +69,14 @@
 	);
 	imgLoad.visible = intCameraPanable
 	imgLoad.fnMouseDownEvent = function() {
-		intCameraPanning = 1;
 		fnCameraPanner("right", "start", imgLoad);
-	}
-	imgLoad.fnMouseUpEvent = function() {
-		intCameraPanning = 0;
-		fnCameraPanner("right", "stop", imgLoad);
 	}
 	scnCameraMonitor.fnAddButton(imgLoad);
 
+	
+	
+	
+	
 	var cameraMonitorSelection = new MenuButtonGroup();
 	
 	var imgLoad = new MenuButton("Map");

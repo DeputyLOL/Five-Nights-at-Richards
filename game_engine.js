@@ -538,7 +538,7 @@ function Button(strName) {
 
 	this.fnClickEvent = function() {};
 	this.fnMouseDownEvent = function() {};
-
+	this.fnMouseUpEvent = function() {};
 	/**
 	 * Add the images
 	 */
