@@ -51,8 +51,11 @@
 	"./assets/img/Console/Common/null.png"
 	);
 	imgLoad.visible = intCameraPanable;
+	imgLoad.fnMouseDownEvent = function() {
+		fnCameraPanner("left", "start", imgLoad);
+	}
 	imgLoad.fnClickEvent = function () {
-		fnCameraPanner("left", );		
+		fnCameraPanner("left", "stop", imgLoad);		
 	}
 	scnCameraMonitor.fnAddButton(imgLoad);
 	

@@ -91,26 +91,21 @@ function fnCameraManager()
 
 function fnCameraPanner( direction = "left", method = "start", spriteCam )
 {
-	console.log(intCameraPan);
-	if(direction == "left")
-	{
-		
-		if(intCameraPan <= 0){
-			intCameraPan = 0;
+	var strActiveButton = cameraMonitorSelection.fnWhichButtonActive();
+	var s = scnCameraViewport.lstSubScenes[0].fnGetSprite ( strActiveButton );
+	
+	if ( method == "start" ) {
+		if(direction == "left")
+		{
+			s.scrollDirection = -5;
 		}
-		else {
-			intCameraPan = intCameraPan - 1;
+		else
+		{
+			s.scrollDirection = 5;
 		}
-	}
-	else
-	{
-		if(intCameraPan >= 100){
-			intCameraPan = 100;
-		}
-		else {
-		intCameraPan = intCameraPan + 1;
-		}
-	}
+	} else {
+		s.scrollDirection = 0;
+	}	
 }
 
 function fnCameraPanable( toggle = 1 )

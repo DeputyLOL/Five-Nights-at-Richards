@@ -50,7 +50,7 @@ function GameEngine()
 	 */
 	this.fnChangeScene = function(strName) {
 		if ( typeof strName == "string") {
-			console.log("Changing Scene: " + strName);
+			//console.log("Changing Scene: " + strName);
 			//Loop through and try to delete scene
 			for ( var i=0; i < this.lstScenes.length; i++ ) {
 				//Match it by name
@@ -65,7 +65,7 @@ function GameEngine()
 				}
 			}
 		} else {
-			console.log("Changing Scene: " + strName.strName);
+			//console.log("Changing Scene: " + strName.strName);
 			//Loop through and try to delete scene
 			for ( var i=0; i < this.lstScenes.length; i++ ) {
 				//Match it by name
@@ -185,18 +185,33 @@ function Scene(name) {
 	 * Add a sprite to the scene
 	 */
 	this.fnAddSprite = function (s ) {
-		this.lstSprites.push(s);
-		this.domObject.appendChild(s.img);
+		
+		//Normal sprite
+		if ( s.strType == "Sprite") {
+			this.lstSprites.push(s);
+			this.domObject.appendChild(s.img);
+		} else if ( s.strType == "Button" || s.strType == "MenuButton") {
+			this.lstSprites.push(s);
+			this.domObject.appendChild(s.img);
+			this.domObject.appendChild(s.label);
+		} else if ( s.strType == "PanningSprite") {
+			this.lstSprites.push(s);
+			this.domObject.appendChild(s.img);
+			this.domObject.appendChild(s.leftBox);
+			this.domObject.appendChild(s.rightBox);
+		}
 	}
 	/**
 	 * Get sprite
 	 */
 	this.fnGetSprite = function ( s ) {
+		//console.log("Getting sprite " + s  + " from scene " + this.strName);
 		for ( var i = 0; i < this.lstSprites.length; i++ ) {
 			if ( this.lstSprites[i].strName == s ) {
 				return this.lstSprites[i];
-			}
+			} 
 		}
+		//console.log ( "Couldn't find it");
 		return null;
 	}
 	/**
@@ -214,40 +229,34 @@ function Scene(name) {
 		s.scnParent = this;
 		this.lstSubScenes.push ( s );
 		this.domObject.appendChild( s.domObject );
-		console.log("Adding scene " + s.strName + " to scene " + s.scnParent.strName );
+		//console.log("Adding scene " + s.strName + " to scene " + s.scnParent.strName );
 	}
 	/**
 	 * Remove Sub Scene.
 	 */
 	this.fnRemoveSubScene = function ( strName ) {
-		console.log("lstSubscenes before");
-		console.log(this.lstSubScenes);
 		//If we are given the name
 		if ( typeof strName == "string" ) {
-			console.log("Removing subscene by name " + strName);
+			//console.log("Removing subscene by name " + strName);
 			for ( x in this.lstSubScenes ) {
 				if ( this.lstSubScenes[x].strName == strName ) {
 					this.domObject.removeChild(this.lstSubScenes[x].domObject);
 					this.lstSubScenes.splice(x,1);
-					console.log("lstSubscenes after " + x.toString());
-					console.log(this.lstSubScenes);
 					return;
 				}
 			}
 		//We are given the actual object
 		} else {
-			console.log("Removing subscene by object " + strName.strName);
+			//console.log("Removing subscene by object " + strName.strName);
 			for ( x in this.lstSubScenes ) {
 				if ( this.lstSubScenes[x].strName == strName.strName ) {
 					this.domObject.removeChild(this.lstSubScenes[x].domObject);
 					this.lstSubScenes.splice(x,1);
-					console.log("lstSubscenes after");
-					console.log(this.lstSubScenes);
 					return;
 				}
 			}			
 		}
-		console.log("ERROR: Cannot remove sub-scene "+ strName + " from scene " + this.strName + ".  Subscenes are:");
+		//console.log("ERROR: Cannot remove sub-scene "+ strName + " from scene " + this.strName + ".  Subscenes are:");
 		for ( x in this.lstSubScenes ) {
 			console.log( this.lstSubScenes[x].strName);
 		}
@@ -256,9 +265,9 @@ function Scene(name) {
 	 * Remove all subscenes
 	 */
 	this.fnRemoveAllSubScenes = function () {
-		console.log("Removing all subscenese from " + this.strName + " there are " + this.lstSubScenes.length.toString() + " subscenes");
+		//console.log("Removing all subscenese from " + this.strName + " there are " + this.lstSubScenes.length.toString() + " subscenes");
 		for ( x in this.lstSubScenes ) {
-			console.log ( "Removing subscene " + this.lstSubScenes[x].strName );
+			//console.log ( "Removing subscene " + this.lstSubScenes[x].strName );
 			this.domObject.removeChild(this.lstSubScenes[x].domObject);
 			//Nuclear option?  Wipe everything
 			this.lstSubScenes[x].fnRemoveAllSubScenes();
@@ -375,6 +384,7 @@ function Scene(name) {
  * if you set zIndex = 1
  */
 function Sprite(name) {
+	this.strType = "Sprite";
 	//These are object attributes
 	this.strName = name;
 	this.x = 0;
@@ -437,6 +447,7 @@ function Sprite(name) {
 function PanningSprite(strName) {
 	//Initialise the sprite class
 	Sprite.call(this, strName);
+	this.strType = "PanningSprite";
 	/**
 	 * Add the images
 	 */
@@ -446,7 +457,7 @@ function PanningSprite(strName) {
 		this.img.src = strDefault;
 		this.img.container = this;
 		
-		this.windowSize = 10;
+		this.windowSize = 500;
 		
 		this.imageScroll = 0;
 		
@@ -457,8 +468,8 @@ function PanningSprite(strName) {
 		this.rightBox.style.backgroundColor = "white";
 		
 		
-		document.body.appendChild(this.leftBox);
-		document.body.appendChild(this.rightBox);
+		//document.body.appendChild(this.leftBox);
+		//document.body.appendChild(this.rightBox);
 		
 		this.scrollDirection = 0;
 	}
@@ -467,12 +478,13 @@ function PanningSprite(strName) {
 	 * Scroll
 	 */
 	this.fnScroll = function ( intDirection ) {
+
 		if ( intDirection < 0 ) {
-			if  ( this.imageScroll > 0 ) {
+			if  ( this.imageScroll + this.width  > this.windowSize ) {
 				this.imageScroll += intDirection;
 			}
 		} else {
-			if ( this.imageScroll < this.width - this.windowSize ) {
+			if ( this.imageScroll < 0) {
 				this.imageScroll += intDirection;
 			}
 		}
@@ -490,21 +502,33 @@ function PanningSprite(strName) {
 		//Here we must update the this.img.style properties so it's in the correct location
 		//We want (x,y) to represent the centre of the object.  HTML works on top left of image
 		//however.  Also must convert to integer then to string so can add "px" to it to tell HTML it's in pixels.
-		//this.img.style.left = parseInt(this.x - this.width / 2).toString() + "px";
-		//this.img.style.top = parseInt(this.y + this.height / 2).toString() + "px";
 		if ( this.visible ) {
+
 			this.img.style.left = parseInt(this.x + xOffset + this.imageScroll).toString() + "px";
 			this.img.style.top = parseInt(this.y + yOffset).toString() + "px";
 			this.img.style.width = parseInt(this.width).toString() + "px";
 			this.img.style.height = parseInt(this.height).toString() + "px";
 			this.img.style.zIndex = (this.zIndex + zIndex).toString();
-			
-			this.leftBox.style.left = parseInt(this.x + xOffset).toString() + "px";
-			this.leftBox.style.top = parseInt(this.y + yOffset).toString() + "px";
-			this.leftBox.style.width = parseInt(this.width - this.windowSize).toString() + "px";
-			this.leftBox.style.height = parseInt(this.height).toString() + "px";
-			this.leftBox.style.zIndex = (1 + this.zIndex + zIndex).toString();
-			
+			//Only cover the left side if any to show
+			if ( this.imageScroll < 0 ) {
+				this.leftBox.style.left = parseInt(this.x + xOffset + this.imageScroll).toString() + "px";
+				this.leftBox.style.top = parseInt(this.y + yOffset).toString() + "px";
+				this.leftBox.style.width = parseInt(-this.imageScroll).toString() + "px";
+				this.leftBox.style.height = parseInt(this.height).toString() + "px";
+				this.leftBox.style.zIndex = (1 + this.zIndex + zIndex).toString();
+			} else {
+				this.leftBox.style.width = "0px";
+			}
+			//Only cover right if any to show
+			if (true) {
+				this.rightBox.style.left = parseInt(xOffset + this.windowSize).toString() + "px";
+				this.rightBox.style.top = parseInt(this.y + yOffset).toString() + "px";
+				this.rightBox.style.width = parseInt(this.width -this.imageScroll).toString() + "px";
+				this.rightBox.style.height = parseInt(this.height).toString() + "px";
+				this.rightBox.style.zIndex = (1 + this.zIndex + zIndex).toString();
+			} else {
+				this.rightBox.style.width = "0px";
+			}
 		}
 		else {
 			this.img.style.width = "0px";
@@ -537,6 +561,7 @@ PanningSprite.prototype = Object.create(Sprite.prototype);
 function Button(strName) {
 	//Initialise the sprite class
 	Sprite.call(this, strName);
+	this.strType = "Button";
 	this.fnClickEvent = function() {};
 	this.fnMouseDownEvent = function() {};
 	/**
@@ -620,6 +645,7 @@ Button.prototype = Object.create(Sprite.prototype);
 function MenuButton(strName) {
 	//Initialise the sprite class
 	Sprite.call(this, strName);
+	this.strType = "MenuButton";
 	/**
 	 * Add the images
 	 */

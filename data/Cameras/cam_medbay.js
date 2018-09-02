@@ -32,11 +32,12 @@
 		}
 		
 		var scnCameraMedbay = new Scene("CameraMedbay");
-		var imgCameraMedbay = new Sprite("MedBay");
+		var imgCameraMedbay = new PanningSprite("Medbay");
 		imgCameraMedbay.fnLoadImage("./assets/img/Camera/CAM_MED_A.png");
 		imgCameraMedbay.x = 0;
 		imgCameraMedbay.y = 0;
-		imgCameraMedbay.width = 640;
+		imgCameraMedbay.windowSize = 640;
+		imgCameraMedbay.width = 1500;
 		imgCameraMedbay.height = 480;
 		scnCameraMedbay.fnAddSprite(imgCameraMedbay);
 		var intCameraMedbayOffsetX = 0;
