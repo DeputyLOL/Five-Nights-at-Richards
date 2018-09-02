@@ -24,13 +24,24 @@ function GameEngine()
 	 * Remove a scene
 	 */
 	this.fnRemoveScene = function (strName ) {
-		//Loop through and try to delete scene
-		for ( var i=0; i < this.lstScenes.length; i++ ) {
-			//Match it by name
-			if (this.lstScenes[i].strName == strName ) {
-				this.lstScenes[i].fnDelete();
-				//Remove from list
-				this.lstScenes = this.lstScenes.splice(i,1);
+		if ( typeof strName == "string" ) {
+			//Loop through and try to delete scene
+			for ( var i=0; i < this.lstScenes.length; i++ ) {
+				//Match it by name
+				if (this.lstScenes[i].strName == strName ) {
+					this.lstScenes[i].fnDelete();
+					//Remove from list
+					this.lstScenes = this.lstScenes.splice(i,1);
+				}
+			}
+		} else {
+			for ( var i=0; i < this.lstScenes.length; i++ ) {
+				//Match it by name
+				if (this.lstScenes[i].strName == strName.strName ) {
+					this.lstScenes[i].fnDelete();
+					//Remove from list
+					this.lstScenes = this.lstScenes.splice(i,1);
+				}
 			}
 		}
 	}
@@ -38,18 +49,35 @@ function GameEngine()
 	 * Change scene by choosing it's name
 	 */
 	this.fnChangeScene = function(strName) {
-		console.log("Changing Scene: " + strName);
-		//Loop through and try to delete scene
-		for ( var i=0; i < this.lstScenes.length; i++ ) {
-			//Match it by name
-			if (this.lstScenes[i].strName == strName ) {
-				//First of all, if there is an active scene deactivate it
-				if (this.scnActive != null)  {
-					this.scnActive.fnDeactivate();
+		if ( typeof strName == "string") {
+			console.log("Changing Scene: " + strName);
+			//Loop through and try to delete scene
+			for ( var i=0; i < this.lstScenes.length; i++ ) {
+				//Match it by name
+				if (this.lstScenes[i].strName == strName ) {
+					//First of all, if there is an active scene deactivate it
+					if (this.scnActive != null)  {
+						this.scnActive.fnDeactivate();
+					}
+					//Now set a scene as active
+					this.scnActive = this.lstScenes[i];
+					this.scnActive.fnActivate();
 				}
-				//Now set a scene as active
-				this.scnActive = this.lstScenes[i];
-				this.scnActive.fnActivate();
+			}
+		} else {
+			console.log("Changing Scene: " + strName.strName);
+			//Loop through and try to delete scene
+			for ( var i=0; i < this.lstScenes.length; i++ ) {
+				//Match it by name
+				if (this.lstScenes[i].strName == strName.strName ) {
+					//First of all, if there is an active scene deactivate it
+					if (this.scnActive != null)  {
+						this.scnActive.fnDeactivate();
+					}
+					//Now set a scene as active
+					this.scnActive = this.lstScenes[i];
+					this.scnActive.fnActivate();
+				}
 			}
 		}
 	}
@@ -147,6 +175,7 @@ function Scene(name) {
 	this.strName = name;
 	this.lstSprites = [];
 	this.domObject = document.createElement("div");
+	this.domObject.className = "cScene-" + name;
 	this.lstSubScenes = [];
 	this.intOffsetX = 0;
 	this.intOffsetY = 0;
@@ -185,27 +214,56 @@ function Scene(name) {
 		s.scnParent = this;
 		this.lstSubScenes.push ( s );
 		this.domObject.appendChild( s.domObject );
+		console.log("Adding scene " + s.strName + " to scene " + s.scnParent.strName );
 	}
 	/**
 	 * Remove Sub Scene.
 	 */
 	this.fnRemoveSubScene = function ( strName ) {
-		for ( x in this.lstSubScenes ) {
-			if ( this.lstSubScenes[x].strName == strName ) {
-				this.domObject.removeChild(this.lstSubScenes[x].domObject);
-				this.lstSubScenes = this.lstSubScenes.splice(x,1);
-				return;
+		console.log("lstSubscenes before");
+		console.log(this.lstSubScenes);
+		//If we are given the name
+		if ( typeof strName == "string" ) {
+			console.log("Removing subscene by name " + strName);
+			for ( x in this.lstSubScenes ) {
+				if ( this.lstSubScenes[x].strName == strName ) {
+					this.domObject.removeChild(this.lstSubScenes[x].domObject);
+					this.lstSubScenes.splice(x,1);
+					console.log("lstSubscenes after " + x.toString());
+					console.log(this.lstSubScenes);
+					return;
+				}
 			}
+		//We are given the actual object
+		} else {
+			console.log("Removing subscene by object " + strName.strName);
+			for ( x in this.lstSubScenes ) {
+				if ( this.lstSubScenes[x].strName == strName.strName ) {
+					this.domObject.removeChild(this.lstSubScenes[x].domObject);
+					this.lstSubScenes.splice(x,1);
+					console.log("lstSubscenes after");
+					console.log(this.lstSubScenes);
+					return;
+				}
+			}			
 		}
-		console.log("ERROR: Cannot remove sub-scene "+ strName);
+		console.log("ERROR: Cannot remove sub-scene "+ strName + " from scene " + this.strName + ".  Subscenes are:");
+		for ( x in this.lstSubScenes ) {
+			console.log( this.lstSubScenes[x].strName);
+		}
 	}
 	/**
 	 * Remove all subscenes
 	 */
 	this.fnRemoveAllSubScenes = function () {
+		console.log("Removing all subscenese from " + this.strName + " there are " + this.lstSubScenes.length.toString() + " subscenes");
 		for ( x in this.lstSubScenes ) {
+			console.log ( "Removing subscene " + this.lstSubScenes[x].strName );
 			this.domObject.removeChild(this.lstSubScenes[x].domObject);
+			//Nuclear option?  Wipe everything
+			this.lstSubScenes[x].fnRemoveAllSubScenes();
 		}
+		this.lstSubScenes = [];
 	}
 	/**
 	 * Reset the scene, like restart level etc.
@@ -477,9 +535,10 @@ PanningSprite.prototype = Object.create(Sprite.prototype);
 function Button(strName) {
 	//Initialise the sprite class
 	Sprite.call(this, strName);
-	this.fnClickEvent = function(){};
-	this.fnMouseDownEvent = function(){};
-	this.fnMouseUpEvent = function(){};
+
+	this.fnClickEvent = function() {};
+	this.fnMouseDownEvent = function() {};
+
 	/**
 	 * Add the images
 	 */
@@ -561,7 +620,6 @@ Button.prototype = Object.create(Sprite.prototype);
 function MenuButton(strName) {
 	//Initialise the sprite class
 	Sprite.call(this, strName);
-	this.dicFrames = { "default" : null, "mouse_over" : null, "mouse_click" : null};
 	/**
 	 * Add the images
 	 */
@@ -570,7 +628,6 @@ function MenuButton(strName) {
 		this.img = document.createElement('img');
 		this.img.src = strDefault;
 		this.img.container = this;
-		
 		
 		this.label = document.createElement('img');
 		this.label.src = strLabel;

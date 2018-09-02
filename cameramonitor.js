@@ -1,3 +1,7 @@
+/**
+ * This is the actual scene in which we can move the cameras around
+ */
+
 	//Create Menu scene
 	var scnCameraMonitor = new Scene("CameraMonitor");
 	//Add sprite
@@ -408,7 +412,7 @@
 	scnCameraLobby.fnAddSprite(imgLoad);
 	
 	var scnCameraPower = new Scene("CameraPowerRoom");
-	// Display Map
+	//Display Map
 	var imgLoad = new Sprite("PowerRoom");
 	imgLoad.fnLoadImage("./assets/img/Camera/CAM_OFFLINE.png");
 	imgLoad.x = 0;
