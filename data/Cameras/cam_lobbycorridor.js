@@ -1,32 +1,42 @@
 
 		var intCameraLobbyCorridorMode = 0;	
-
+		var intCameraLobbyCorridorWeak = 0;
+		
 		function fnCameraManagerLobbyCorridor( toggle = true )
 		{
+			scnCameraLobbyCorridor.fnRemoveAllSubScenes();
 			if(toggle == true){
-				game.fnPauseSound("CAM_STATIC");
-				game.fnPlaySound("CAM_TRANSFER");
-				game.fnPlaySound("CAM_BEEP");
 				game.fnPlaySound("CAM_ACTIVE",true);
+				game.fnPauseSound("CAM_STATIC");
+				fnCameraPanable(true);
 				if(intCameraLobbyCorridorMode == 0){
+					game.fnPlaySound("CAM_TRANSFER");
+					game.fnPlaySound("CAM_BEEP");
+					if(intCameraLobbyCorridorWeak == 1){
+						scnCameraLobbyCorridor.fnAddSubScene(scnCameraWeak);
+						scnCameraLobbyCorridor.fnAddSubScene(scnCameraInterrupt);					
+						game.fnPlaySound("CAM_INTERRUPT",true);
+					}
+					else {						
+						scnCameraLobbyCorridor.fnAddSubScene(scnCameraEffect);
+						scnCameraLobbyCorridor.fnAddSubScene(scnCameraOnline);
+					}
 					scnCameraViewport.fnAddSubScene(scnCameraLobbyCorridor);
-					scnCameraViewport.fnAddSubScene(scnCameraEffect);
-					scnCameraLobbyCorridor.fnAddSubScene(scnCameraLobbyCorridorOverlay);
-					scnCameraLobbyCorridor.fnAddSubScene(scnCameraOnline);
+					scnCameraViewport.fnAddSubScene(scnCameraLobbyCorridorOverlay);
 				}
 				else if(intCameraLobbyCorridorMode == 1){
-					scnCameraViewport.fnAddSubScene(scnCameraLobbyCorridor);
-					scnCameraViewport.fnAddSubScene(scnCameraWeak);
-					scnCameraLobbyCorridor.fnAddSubScene(scnCameraLobbyCorridorOverlay);
+					scnCameraViewport.fnAddSubScene(scnCameraTransfer);	
 					scnCameraLobbyCorridor.fnAddSubScene(scnCameraInterrupt);
+					game.fnPlaySound("CAM_TRANSFER");
 					game.fnPlaySound("CAM_INTERRUPT",true);
+				}
+				if(strRobot1Room == "COR" || strRobot1Room == "COR2")
+				{
+					game.fnPlaySound("CAM_DANGER",true);					
 				}
 			}
 			else{
-				scnCameraViewport.fnAddSubScene(scnCameraLobbyCorridor);
-				scnCameraViewport.fnRemoveSubScene("CameraLobbyCorridor");
-				scnCameraLobbyCorridor.fnAddSubScene(scnCameraLobbyCorridorOverlay);
-				scnCameraLobbyCorridor.fnRemoveSubScene("CameraLobbyCorridorOverlay");
+				scnCameraLobbyCorridor.fnRemoveAllSubScenes();
 			}
 		}
 		
@@ -40,6 +50,22 @@
 		scnCameraLobbyCorridor.fnAddSprite(imgCameraLobbyCorridor);
 		var intCameraLobbyCorridorOffsetX = 0;
 		var intCameraLobbyCorridorOffsetY = 0;	
+
+		var imgCameraLobbyCorridor = new Sprite("LobbyCorridor_Robot1");
+		imgCameraLobbyCorridor.fnLoadImage("./assets/img/debug.png");
+		imgCameraLobbyCorridor.x = 0;
+		imgCameraLobbyCorridor.y = 0;
+		imgCameraLobbyCorridor.width = 240;
+		imgCameraLobbyCorridor.height = 480;
+		scnCameraLobbyCorridor.fnAddSprite(imgCameraLobbyCorridor);
+
+		var imgCameraLobbyCorridor = new Sprite("LobbyCorridor_Robot1_2");
+		imgCameraLobbyCorridor.fnLoadImage("./assets/img/debug.png");
+		imgCameraLobbyCorridor.x = 300;
+		imgCameraLobbyCorridor.y = 0;
+		imgCameraLobbyCorridor.width = 240;
+		imgCameraLobbyCorridor.height = 480;
+		scnCameraLobbyCorridor.fnAddSprite(imgCameraLobbyCorridor);
 		
 		var scnCameraLobbyCorridorOverlay = new Scene("CameraLobbyCorridorOverlay");		
 		var imgLoad = new Sprite("Status");

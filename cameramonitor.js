@@ -57,6 +57,7 @@
 	imgLoad.fnMouseUpEvent = function () {
 		fnCameraPanner("left", "stop", imgLoad);		
 	}
+	
 	scnCameraMonitor.fnAddButton(imgLoad);
 	
 	var imgLoad = new Button("PanRight");
@@ -78,6 +79,11 @@
 	}
 	scnCameraMonitor.fnAddButton(imgLoad);
 
+	
+	
+	
+	
+	
 	var cameraMonitorSelection = new MenuButtonGroup();
 	
 	var imgLoad = new MenuButton("Map");
@@ -119,8 +125,7 @@
 	scnCameraMonitor.fnAddButton(imgLoad);
 	cameraMonitorSelection.fnAddMenuButton(imgLoad);
 
-
-	var imgLoad = new MenuButton("PowerRoom");
+	var imgLoad = new MenuButton("VentRoom");
 	imgLoad.x = 667;
 	imgLoad.y = 71;
 	imgLoad.width = 118;
@@ -130,7 +135,7 @@
 	"./assets/img/Console/Common/ButtonHighlighted.png",
 	"./assets/img/Console/Common/ButtonPressed.png",
 	"./assets/img/Console/Common/ButtonSelected.png",
-	"./assets/img/Console/CameraMonitor/Button_Pow.png"
+	"./assets/img/Console/CameraMonitor/Button_Vnt.png"
 	);
 	imgLoad.fnClickEvent = function () {
 		game.fnPlaySound("BUTTON");
@@ -139,6 +144,7 @@
 	scnCameraMonitor.fnAddButton(imgLoad);
 	cameraMonitorSelection.fnAddMenuButton(imgLoad);
 	
+
 	var imgLoad = new MenuButton("LobbyCorridor");
 	imgLoad.x = 667;
 	imgLoad.y = 106;
@@ -253,28 +259,9 @@
 	scnCameraMonitor.fnAddButton(imgLoad);
 	cameraMonitorSelection.fnAddMenuButton(imgLoad);
 	
-	var imgLoad = new MenuButton("VentRoom");
-	imgLoad.x = 667;
-	imgLoad.y = 316;
-	imgLoad.width = 118;
-	imgLoad.height = 35;
-	imgLoad.fnLoadImage(
-	"./assets/img/Console/Common/Button.png",
-	"./assets/img/Console/Common/ButtonHighlighted.png",
-	"./assets/img/Console/Common/ButtonPressed.png",
-	"./assets/img/Console/Common/ButtonSelected.png",
-	"./assets/img/Console/CameraMonitor/Button_Vnt.png"
-	);
-	imgLoad.fnClickEvent = function () {
-		game.fnPlaySound("BUTTON");
-		fnCameraManager();
-	}
-	scnCameraMonitor.fnAddButton(imgLoad);
-	cameraMonitorSelection.fnAddMenuButton(imgLoad);
-	
 	var imgLoad = new MenuButton("Lab");
 	imgLoad.x = 667;
-	imgLoad.y = 351;
+	imgLoad.y = 316;
 	imgLoad.width = 118;
 	imgLoad.height = 35;
 	imgLoad.fnLoadImage(
@@ -293,7 +280,7 @@
 	
 	var imgLoad = new MenuButton("Manufacturing");
 	imgLoad.x = 667;
-	imgLoad.y = 386;
+	imgLoad.y = 351;
 	imgLoad.width = 118;
 	imgLoad.height = 35;
 	imgLoad.fnLoadImage(
@@ -309,7 +296,26 @@
 	}
 	scnCameraMonitor.fnAddButton(imgLoad);
 	cameraMonitorSelection.fnAddMenuButton(imgLoad);
-
+	
+	var imgLoad = new MenuButton("PowerRoom");
+	imgLoad.x = 667;
+	imgLoad.y = 386;
+	imgLoad.width = 118;
+	imgLoad.height = 35;
+	imgLoad.fnLoadImage(
+	"./assets/img/Console/Common/Button.png",
+	"./assets/img/Console/Common/ButtonHighlighted.png",
+	"./assets/img/Console/Common/ButtonPressed.png",
+	"./assets/img/Console/Common/ButtonSelected.png",
+	"./assets/img/Console/CameraMonitor/Button_Pow.png"
+	);
+	imgLoad.fnClickEvent = function () {
+		game.fnPlaySound("BUTTON");
+		fnCameraManager();
+	}
+	scnCameraMonitor.fnAddButton(imgLoad);
+	cameraMonitorSelection.fnAddMenuButton(imgLoad);
+	
 	var imgLoad = new MenuButton("Storage");
 	imgLoad.x = 667;
 	imgLoad.y = 421;

@@ -1,0 +1,8 @@
+
+
+// FUNCTIONS THAT CONTROL EVENTS/MALFUNCTIONS/MOVEMENT
+
+function fnEventCoordinator()
+{
+	
+}

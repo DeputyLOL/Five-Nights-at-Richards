@@ -1,33 +1,43 @@
 
 		var intCameraDemoStageMode = 0;	
-
+		var intCameraDemoStageWeak = 0;	
+		
 		function fnCameraManagerDemoStage( toggle = true )
 		{
+			scnCameraDemoStage.fnRemoveAllSubScenes();
 			if(toggle == true){
-				game.fnPauseSound("CAM_STATIC");
-				game.fnPlaySound("CAM_TRANSFER");
-				game.fnPlaySound("CAM_BEEP");
 				game.fnPlaySound("CAM_ACTIVE",true);
+				game.fnPauseSound("CAM_STATIC");
 				fnCameraPanable(true);
 				if(intCameraDemoStageMode == 0){
-					scnCameraViewport.fnAddSubScene(scnCameraDemoStage);
-					scnCameraViewport.fnAddSubScene(scnCameraEffect);
-					scnCameraDemoStage.fnAddSubScene(scnCameraDemoStageOverlay);
-					scnCameraDemoStage.fnAddSubScene(scnCameraOnline);
-				}
-				else if(intCameraDemoStageMode == 1){
+					game.fnPlaySound("CAM_TRANSFER");
+					game.fnPlaySound("CAM_BEEP");
+					if(intCameraDemoStageWeak == 1){
+						scnCameraDemoStage.fnAddSubScene(scnCameraWeak);
+						scnCameraDemoStage.fnAddSubScene(scnCameraInterrupt);					
+						game.fnPlaySound("CAM_INTERRUPT",true);
+					}
+					else {						
+						scnCameraDemoStage.fnAddSubScene(scnCameraEffect);
+						scnCameraDemoStage.fnAddSubScene(scnCameraOnline);
+					}
 					scnCameraViewport.fnAddSubScene(scnCameraDemoStage);
 					scnCameraViewport.fnAddSubScene(scnCameraDemoStageOverlay);
-					scnCameraDemoStage.fnAddSubScene(scnCameraWeak);
-					scnCameraDemoStage.fnAddSubScene(scnCameraInterrupt);					
+				}
+				else if(intCameraDemoStageMode == 1){
+					//scnCameraDemoStage.fnRemoveAllSubScenes();
+					scnCameraViewport.fnAddSubScene(scnCameraTransfer);	
+					scnCameraDemoStage.fnAddSubScene(scnCameraInterrupt);
+					game.fnPlaySound("CAM_TRANSFER");
 					game.fnPlaySound("CAM_INTERRUPT",true);
+				}
+				if(strRobot1Room == "DEM" || strRobot1Room == "DEM2")
+				{
+					game.fnPlaySound("CAM_DANGER",true);					
 				}
 			}
 			else{
-				scnCameraViewport.fnAddSubScene(scnCameraDemoStage);
-				scnCameraViewport.fnRemoveSubScene("CameraDemoStage");
-				scnCameraDemoStage.fnAddSubScene(scnCameraDemoStageOverlay);
-				scnCameraDemoStage.fnRemoveSubScene("CameraDemoStageOverlay");
+				scnCameraDemoStage.fnRemoveAllSubScenes();
 			}
 		}
 				
@@ -41,7 +51,23 @@
 		imgCameraDemoStage.height = 480;
 		scnCameraDemoStage.fnAddSprite(imgCameraDemoStage);
 		var intCameraDemoStageOffsetX = 0;
-		var intCameraDemoStageOffsetY = 0;	
+		var intCameraDemoStageOffsetY = 0;
+		
+		var imgCameraDemoStage = new Sprite("DemoStage_Robot1");
+		imgCameraDemoStage.fnLoadImage("./assets/img/debug.png");
+		imgCameraDemoStage.x = 0;
+		imgCameraDemoStage.y = 0;
+		imgCameraDemoStage.width = 240;
+		imgCameraDemoStage.height = 480;
+		scnCameraDemoStage.fnAddSprite(imgCameraDemoStage);
+
+		var imgCameraDemoStage = new Sprite("DemoStage_Robot1_2");
+		imgCameraDemoStage.fnLoadImage("./assets/img/debug.png");
+		imgCameraDemoStage.x = 300;
+		imgCameraDemoStage.y = 0;
+		imgCameraDemoStage.width = 240;
+		imgCameraDemoStage.height = 480;
+		scnCameraDemoStage.fnAddSprite(imgCameraDemoStage);
 
 		var scnCameraDemoStageOverlay = new Scene("CameraDemoStageOverlay");		
 		var imgLoad = new Sprite("Status");

@@ -70,15 +70,16 @@
 		scnCameraWeak.fnAddSprite(imgLoad);
 
 		
-		var scnCameraOffine = new Scene("CameraInterrupt");
-		// Camera Not Working
+		var scnCameraLost = new Scene("CameraLost");
+		// Camera temporarily disabled due to robot movement
+		
 		var imgLoad = new Sprite("Static");
-		imgLoad.fnLoadImage("./assets/img/Camera/CAM_JAM.gif");
+		imgLoad.fnLoadImage("./assets/img/Camera/CAM_STATIC.gif");
 		imgLoad.x = 0;
 		imgLoad.y = 0;
 		imgLoad.width = 640;
 		imgLoad.height = 480;
-		scnCameraOffine.fnAddSprite(imgLoad);
+		scnCameraLost.fnAddSprite(imgLoad);
 		
 		var imgLoad = new Sprite("Status");
 		imgLoad.fnLoadImage("./assets/img/Camera/CAM_STATUS.png");
@@ -86,7 +87,7 @@
 		imgLoad.y = 20;
 		imgLoad.width = 86;
 		imgLoad.height = 20;
-		scnCameraOffine.fnAddSprite(imgLoad);	
+		scnCameraLost.fnAddSprite(imgLoad);	
 		
 		var imgLoad = new Sprite("Lost");
 		imgLoad.fnLoadImage("./assets/img/Camera/CAM_STATUS_LOST.png");
@@ -94,7 +95,7 @@
 		imgLoad.y = 20;
 		imgLoad.width = 164;
 		imgLoad.height = 42;
-		scnCameraOffine.fnAddSprite(imgLoad);				
+		scnCameraLost.fnAddSprite(imgLoad);				
 
 
 
@@ -119,7 +120,7 @@
 		var imgLoad = new Sprite("Offline");
 		imgLoad.fnLoadImage("./assets/img/Camera/CAM_STATUS_OFFLINE.png");
 		imgLoad.x = 107;
-		imgLoad.y = 20;
+		imgLoad.y = 42;
 		imgLoad.width = 94;
 		imgLoad.height = 20;
 		scnCameraOffine.fnAddSprite(imgLoad);				
@@ -171,7 +172,8 @@
 		scnCameraMap.intOffsetY = -40;
 		
 		scnCameraMap.fnSetLayer(6);
-		scnCameraOffine.fnSetLayer(4);		
+		scnCameraOffine.fnSetLayer(4);
+		scnCameraLost.fnSetLayer(4);	
 		scnCameraEffect.fnSetLayer(4);		
 		scnCameraWeak.fnSetLayer(4);
 		scnCameraTransfer.fnSetLayer(4);

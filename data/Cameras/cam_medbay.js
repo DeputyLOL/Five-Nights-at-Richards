@@ -1,33 +1,43 @@
 
 		var intCameraMedbayMode = 0;	
-
+		var intCameraMedbayWeak = 0;
+		
 		function fnCameraManagerMedbay( toggle = true )
 		{
+			scnCameraMedbay.fnRemoveAllSubScenes();
 			if(toggle == true){
-				game.fnPauseSound("CAM_STATIC");
-				game.fnPlaySound("CAM_TRANSFER");
-				game.fnPlaySound("CAM_BEEP");
 				game.fnPlaySound("CAM_ACTIVE",true);
+				game.fnPauseSound("CAM_STATIC");
 				fnCameraPanable(true);
 				if(intCameraMedbayMode == 0){
-					scnCameraViewport.fnAddSubScene(scnCameraMedbay);
-					scnCameraViewport.fnAddSubScene(scnCameraEffect);
-					scnCameraMedbay.fnAddSubScene(scnCameraMedbayOverlay);
-					scnCameraMedbay.fnAddSubScene(scnCameraOnline);
-				}
-				else if(intCameraMedbayMode == 1){
+					game.fnPlaySound("CAM_TRANSFER");
+					game.fnPlaySound("CAM_BEEP");
+					if(intCameraMedbayWeak == 1){
+						scnCameraMedbay.fnAddSubScene(scnCameraWeak);
+						scnCameraMedbay.fnAddSubScene(scnCameraInterrupt);					
+						game.fnPlaySound("CAM_INTERRUPT",true);
+					}
+					else {						
+						scnCameraMedbay.fnAddSubScene(scnCameraEffect);
+						scnCameraMedbay.fnAddSubScene(scnCameraOnline);
+					}
 					scnCameraViewport.fnAddSubScene(scnCameraMedbay);
 					scnCameraViewport.fnAddSubScene(scnCameraMedbayOverlay);
-					scnCameraMedbay.fnAddSubScene(scnCameraWeak);
+				}
+				else if(intCameraMedbayMode == 1){
+					//scnCameraMedbay.fnRemoveAllSubScenes();
+					scnCameraViewport.fnAddSubScene(scnCameraTransfer);	
 					scnCameraMedbay.fnAddSubScene(scnCameraInterrupt);
+					game.fnPlaySound("CAM_TRANSFER");
 					game.fnPlaySound("CAM_INTERRUPT",true);
+				}
+				if(strRobot1Room == "MED")
+				{
+					game.fnPlaySound("CAM_DANGER",true);					
 				}
 			}
 			else{
-				scnCameraViewport.fnAddSubScene(scnCameraMedbay);
-				scnCameraViewport.fnRemoveSubScene("CameraMedbay");
-				scnCameraMedbay.fnAddSubScene(scnCameraMedbayOverlay);
-				scnCameraMedbay.fnRemoveSubScene("CameraMedbayOverlay");
+				scnCameraMedbay.fnRemoveAllSubScenes();
 			}
 		}
 		
@@ -42,6 +52,14 @@
 		scnCameraMedbay.fnAddSprite(imgCameraMedbay);
 		var intCameraMedbayOffsetX = 0;
 		var intCameraMedbayOffsetY = 0;	
+		
+		var imgCameraMedbay = new Sprite("Medbay_Robot1");
+		imgCameraMedbay.fnLoadImage("./assets/img/debug.png");
+		imgCameraMedbay.x = 0;
+		imgCameraMedbay.y = 0;
+		imgCameraMedbay.width = 240;
+		imgCameraMedbay.height = 480;
+		scnCameraMedbay.fnAddSprite(imgCameraMedbay);
 
 		var scnCameraMedbayOverlay = new Scene("CameraMedbayOverlay");		
 		var imgLoad = new Sprite("Status");

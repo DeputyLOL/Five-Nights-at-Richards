@@ -1,35 +1,45 @@
 
 		var intCameraLobbyMode = 0;	
-
+		var intCameraLobbyWeak = 0;
+		
 		function fnCameraManagerLobby( toggle = true )
 		{
+			scnCameraLobby.fnRemoveAllSubScenes();
 			if(toggle == true){
-				game.fnPauseSound("CAM_STATIC");
-				game.fnPlaySound("CAM_TRANSFER");
-				game.fnPlaySound("CAM_BEEP");
 				game.fnPlaySound("CAM_ACTIVE",true);
+				game.fnPauseSound("CAM_STATIC");
 				fnCameraPanable(true);
 				if(intCameraLobbyMode == 0){
+					game.fnPlaySound("CAM_TRANSFER");
+					game.fnPlaySound("CAM_BEEP");
+					if(intCameraLobbyWeak == 1){
+						scnCameraLobby.fnAddSubScene(scnCameraWeak);
+						scnCameraLobby.fnAddSubScene(scnCameraInterrupt);					
+						game.fnPlaySound("CAM_INTERRUPT",true);
+					}
+					else {						
+						scnCameraLobby.fnAddSubScene(scnCameraEffect);
+						scnCameraLobby.fnAddSubScene(scnCameraOnline);
+					}
 					scnCameraViewport.fnAddSubScene(scnCameraLobby);
-					scnCameraViewport.fnAddSubScene(scnCameraEffect);
-					scnCameraLobby.fnAddSubScene(scnCameraLobbyOverlay);
-					scnCameraLobby.fnAddSubScene(scnCameraOnline);
+					scnCameraViewport.fnAddSubScene(scnCameraLobbyOverlay);
 				}
 				else if(intCameraLobbyMode == 1){
-					scnCameraViewport.fnAddSubScene(scnCameraLobby);
-					scnCameraViewport.fnAddSubScene(scnCameraWeak);
-					scnCameraLobby.fnAddSubScene(scnCameraLobbyOverlay);
+					scnCameraViewport.fnAddSubScene(scnCameraTransfer);	
 					scnCameraLobby.fnAddSubScene(scnCameraInterrupt);
+					game.fnPlaySound("CAM_TRANSFER");
 					game.fnPlaySound("CAM_INTERRUPT",true);
+				}
+				if(strRobot1Room == "LOB")
+				{
+					game.fnPlaySound("CAM_DANGER",true);					
 				}
 			}
 			else{
-				scnCameraViewport.fnAddSubScene(scnCameraLobby);
-				scnCameraViewport.fnRemoveSubScene("CameraLobby");
-				scnCameraLobby.fnAddSubScene(scnCameraLobbyOverlay);
-				scnCameraLobby.fnRemoveSubScene("CameraLobbyOverlay");
+				scnCameraLobby.fnRemoveAllSubScenes();
 			}
 		}
+		
 		
 		var scnCameraLobby = new Scene("CameraLobby");
 		var imgCameraLobby = new PanningSprite("Lobby");
@@ -42,6 +52,14 @@
 		scnCameraLobby.fnAddSprite(imgCameraLobby);
 		var intCameraLobbyOffsetX = 0;
 		var intCameraLobbyOffsetY = 0;	
+		
+		var imgCameraLobby = new Sprite("Lobby_Robot1");
+		imgCameraLobby.fnLoadImage("./assets/img/debug.png");
+		imgCameraLobby.x = 0;
+		imgCameraLobby.y = 0;
+		imgCameraLobby.width = 240;
+		imgCameraLobby.height = 480;
+		scnCameraLobby.fnAddSprite(imgCameraLobby);	
 		
 		var scnCameraLobbyOverlay = new Scene("CameraLobbyOverlay");		
 		var imgLoad = new Sprite("Status");
