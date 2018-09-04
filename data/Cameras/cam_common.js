@@ -120,7 +120,7 @@
 		var imgLoad = new Sprite("Offline");
 		imgLoad.fnLoadImage("./assets/img/Camera/CAM_STATUS_OFFLINE.png");
 		imgLoad.x = 107;
-		imgLoad.y = 42;
+		imgLoad.y = 20;
 		imgLoad.width = 94;
 		imgLoad.height = 20;
 		scnCameraOffine.fnAddSprite(imgLoad);				
