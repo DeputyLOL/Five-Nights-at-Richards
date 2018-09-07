@@ -79,9 +79,24 @@
 	}
 	scnCameraMonitor.fnAddButton(imgLoad);
 
-	
-	
-	
+	var imgLoad = new Button("Light");
+	imgLoad.x = 250;
+	imgLoad.y = 526;
+	imgLoad.width = 118;
+	imgLoad.height = 35;
+	imgLoad.fnLoadImage("./assets/img/Console/Common/Button.png", 
+	"./assets/img/Console/Common/ButtonHighlighted.png",
+	"./assets/img/Console/Common/ButtonPressed.png",
+	"./assets/img/Console/CameraMonitor/Button_Light.png",
+	);
+	imgLoad.visible = intCameraPanable
+	imgLoad.fnMouseDownEvent = function() {
+		fnCameraLighter(true);
+	}
+	imgLoad.fnMouseUpEvent = function () {	
+		fnCameraLighter(false);
+	}
+	scnCameraMonitor.fnAddButton(imgLoad);		
 	
 	
 	var cameraMonitorSelection = new MenuButtonGroup();

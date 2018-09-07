@@ -9,10 +9,15 @@
 
 var strRobot1Room = "DEM";
 scnCameraDemoStage.fnGetSprite("DemoStage_Robot1").visible = true;
+scnCameraDemoStage.fnGetSprite("DemoStage_Robot1_Lit").visible = false;
 scnCameraDemoStage.fnGetSprite("DemoStage_Robot1_2").visible = false;
+scnCameraDemoStage.fnGetSprite("DemoStage_Robot1_2_Lit").visible = false;
 scnCameraLobbyCorridor.fnGetSprite("LobbyCorridor_Robot1").visible = false;
+scnCameraLobbyCorridor.fnGetSprite("LobbyCorridor_Robot1_Lit").visible = false;
 scnCameraLobbyCorridor.fnGetSprite("LobbyCorridor_Robot1_2").visible = false;
+scnCameraLobbyCorridor.fnGetSprite("LobbyCorridor_Robot1_2_Lit").visible = false;
 scnCameraMedbay.fnGetSprite("Medbay_Robot1").visible = false;
+scnCameraMedbay.fnGetSprite("Medbay_Robot1_Lit").visible = false;
 scnCameraLobby.fnGetSprite("Lobby_Robot1").visible = false;
 
 function fnRobot1Coordinator()

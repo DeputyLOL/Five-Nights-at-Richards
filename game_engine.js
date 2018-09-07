@@ -533,7 +533,7 @@ function PanningSprite(strName) {
 		}
 		else {
 			this.img.style.width = "0px";
-			this.label.style.width = "0px";		
+			//this.label.style.width = "0px";		
 		}
 	}
 }

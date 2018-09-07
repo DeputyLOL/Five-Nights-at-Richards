@@ -8,7 +8,7 @@
 			if(toggle == true){
 				game.fnPlaySound("CAM_ACTIVE",true);
 				game.fnPauseSound("CAM_STATIC");
-				fnCameraPanable(true);
+				fnCameraLightable(true);
 				if(intCameraLobbyCorridorMode == 0){
 					game.fnPlaySound("CAM_TRANSFER");
 					game.fnPlaySound("CAM_BEEP");
@@ -40,9 +40,35 @@
 			}
 		}
 		
+		function fnCameraManagerLobbyCorridorLighter( toggle = true )
+		{
+			if(toggle)
+			{
+				scnCameraLobbyCorridor.fnGetSprite("LobbyCorridorLight").visible = true;
+				scnCameraLobbyCorridor.fnGetSprite("LobbyCorridor").visible = false;
+				game.fnPlaySound("CAM_LIGHT",true);
+				if(strRobot1Room == "COR")
+				{
+					scnCameraLobbyCorridor.fnGetSprite("LobbyCorridor_Robot1_Lit").visible = true;
+				}
+				if(strRobot1Room == "COR2")
+				{
+					scnCameraLobbyCorridor.fnGetSprite("LobbyCorridor_Robot1_2_Lit").visible = true;
+				}
+			}
+			else
+			{
+				scnCameraLobbyCorridor.fnGetSprite("LobbyCorridor_Robot1_Lit").visible = false;
+				scnCameraLobbyCorridor.fnGetSprite("LobbyCorridor_Robot1_2_Lit").visible = false;
+				scnCameraLobbyCorridor.fnGetSprite("LobbyCorridorLight").visible = false;
+				scnCameraLobbyCorridor.fnGetSprite("LobbyCorridor").visible = true;
+				game.fnStopSound("CAM_LIGHT");
+			}
+		}
+		
 		var scnCameraLobbyCorridor = new Scene("CameraLobbyCorridor");
 		var imgCameraLobbyCorridor = new Sprite("LobbyCorridor");
-		imgCameraLobbyCorridor.fnLoadImage("./assets/img/Camera/CAM_COR_A.png");
+		imgCameraLobbyCorridor.fnLoadImage("./assets/img/Camera/COR/CAM_COR_A.png");
 		imgCameraLobbyCorridor.x = 0;
 		imgCameraLobbyCorridor.y = 0;
 		imgCameraLobbyCorridor.width = 640;
@@ -51,19 +77,44 @@
 		var intCameraLobbyCorridorOffsetX = 0;
 		var intCameraLobbyCorridorOffsetY = 0;	
 
-		var imgCameraLobbyCorridor = new Sprite("LobbyCorridor_Robot1");
-		imgCameraLobbyCorridor.fnLoadImage("./assets/img/debug.png");
+		var imgCameraLobbyCorridor = new Sprite("LobbyCorridorLight");
+		imgCameraLobbyCorridor.fnLoadImage("./assets/img/Camera/COR/CAM_COR_LIT.png");
 		imgCameraLobbyCorridor.x = 0;
 		imgCameraLobbyCorridor.y = 0;
-		imgCameraLobbyCorridor.width = 240;
+		imgCameraLobbyCorridor.width = 640;
+		imgCameraLobbyCorridor.height = 480;
+		scnCameraLobbyCorridor.fnAddSprite(imgCameraLobbyCorridor);
+		scnCameraLobbyCorridor.fnGetSprite("LobbyCorridorLight").visible = false;		
+		
+		var imgCameraLobbyCorridor = new Sprite("LobbyCorridor_Robot1");
+		imgCameraLobbyCorridor.fnLoadImage("./assets/img/Camera/COR/CAM_COR_ROBOT1_1.png");
+		imgCameraLobbyCorridor.x = 0;
+		imgCameraLobbyCorridor.y = 0;
+		imgCameraLobbyCorridor.width = 640;
 		imgCameraLobbyCorridor.height = 480;
 		scnCameraLobbyCorridor.fnAddSprite(imgCameraLobbyCorridor);
 
-		var imgCameraLobbyCorridor = new Sprite("LobbyCorridor_Robot1_2");
-		imgCameraLobbyCorridor.fnLoadImage("./assets/img/debug.png");
-		imgCameraLobbyCorridor.x = 300;
+		var imgCameraLobbyCorridor = new Sprite("LobbyCorridor_Robot1_Lit");
+		imgCameraLobbyCorridor.fnLoadImage("./assets/img/Camera/COR/CAM_COR_ROBOT1_1_LIT.png");
+		imgCameraLobbyCorridor.x = 0;
 		imgCameraLobbyCorridor.y = 0;
-		imgCameraLobbyCorridor.width = 240;
+		imgCameraLobbyCorridor.width = 640;
+		imgCameraLobbyCorridor.height = 480;
+		scnCameraLobbyCorridor.fnAddSprite(imgCameraLobbyCorridor);
+		
+		var imgCameraLobbyCorridor = new Sprite("LobbyCorridor_Robot1_2");
+		imgCameraLobbyCorridor.fnLoadImage("./assets/img/Camera/COR/CAM_COR_ROBOT1_2.png");
+		imgCameraLobbyCorridor.x = 0;
+		imgCameraLobbyCorridor.y = 0;
+		imgCameraLobbyCorridor.width = 640;
+		imgCameraLobbyCorridor.height = 480;
+		scnCameraLobbyCorridor.fnAddSprite(imgCameraLobbyCorridor);
+
+		var imgCameraLobbyCorridor = new Sprite("LobbyCorridor_Robot1_2_Lit");
+		imgCameraLobbyCorridor.fnLoadImage("./assets/img/Camera/COR/CAM_COR_ROBOT1_2_LIT.png");
+		imgCameraLobbyCorridor.x = 0;
+		imgCameraLobbyCorridor.y = 0;
+		imgCameraLobbyCorridor.width = 640;
 		imgCameraLobbyCorridor.height = 480;
 		scnCameraLobbyCorridor.fnAddSprite(imgCameraLobbyCorridor);
 		
@@ -85,7 +136,7 @@
 		scnCameraLobbyCorridorOverlay.fnAddSprite(imgLoad);
 
 		var imgLoad = new Sprite("NameCor");
-		imgLoad.fnLoadImage("./assets/img/Camera/CAM_NAME_COR.png");
+		imgLoad.fnLoadImage("./assets/img/Camera/COR/CAM_NAME_COR.png");
 		imgLoad.x = 108;
 		imgLoad.y = 418;
 		imgLoad.width = 249;

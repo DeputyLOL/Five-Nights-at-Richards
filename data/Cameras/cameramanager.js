@@ -32,12 +32,13 @@ var intCameraActive = 0;
 function fnCameraManager()
 {
 	console.log("Calling fnCameraManager: ( intCameraMode = " + intCameraMode.toString() + " ) ");
+	scnCameraViewport.fnRemoveAllSubScenes();
+	fnCameraPanable(false);
+	fnCameraLightable(false);
 	if ( intCameraMode == 0 )
 	{
 		intCameraActive = 0;
-		fnCameraPanable(false);
 		//Clear whatever camera is currently in view
-		scnCameraViewport.fnRemoveAllSubScenes();
 		//Play the sounds
 		game.fnPlaySound("CAM_TRANSFER");
 		game.fnStopSound("CAM_BEEP");
@@ -152,6 +153,41 @@ function fnCameraPanable( toggle = 1 )
 		scnCameraMonitor.fnGetSprite("PanRight").visible = false;			
 	}
 }
+
+function fnCameraLighter(toggle = 0)
+{
+	var strActiveButton = cameraMonitorSelection.fnWhichButtonActive();	
+	/*if( strActiveButton == "LobbyCorridor" ) {
+		intCameraActive = 3;
+		fnCameraManagerLobbyCorridor();
+	}	
+	else if( strActiveButton == "LobbyCorridor" ) {
+		intCameraActive = 3;
+		fnCameraManagerLobbyCorridor();
+	}
+	else */if( strActiveButton == "LobbyCorridor" ) {
+		fnCameraManagerLobbyCorridorLighter(toggle);
+	}
+	else if( strActiveButton == "Medbay" ) {
+		fnCameraManagerMedbayLighter(toggle);
+	}
+	else if( strActiveButton == "DemoStage" ) {
+		fnCameraManagerDemoStageLighter(toggle);
+	}
+}
+
+function fnCameraLightable( toggle = 1 )
+{
+	if (toggle)
+	{
+		scnCameraMonitor.fnGetSprite("Light").visible = true;
+	} 
+	else 
+	{
+		scnCameraMonitor.fnGetSprite("Light").visible = false;	
+	}
+}
+
 
 function fnCameraDisrupter( camera , camera2)
 {
