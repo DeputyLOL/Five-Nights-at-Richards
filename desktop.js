@@ -29,8 +29,8 @@
 	"./assets/img/Console/Desktop/Desktop_Icon_DeviceMonitorSelected.png",
 	"./assets/img/Console/Common/null.png");
 	imgLoad.fnMouseUpEvent = function () {			
-		scnScreen.fnRemoveSubScene("Desktop");
-		scnScreen.fnAddSubScene(scnDeviceMonitor);
+		scnDesktop.fnAddSubScene(scnDeviceMonitor);
+		fnDeviceManager();
 	}
 	scnDesktop.fnAddButton(imgLoad);
 
@@ -61,11 +61,8 @@
 	"./assets/img/Console/Common/null.png"
 	);
 	imgLoad.fnMouseUpEvent = function () {
-		//scnScreen.fnRemoveSubScene("Desktop");
-		console.log("desktop.js - loading Camera Monitor");
 		scnDesktop.fnAddSubScene(scnCameraMonitor);
 		scnCameraMonitor.fnAddSubScene(scnCameraViewport);
-		//scnCameraViewport.fnAddSubScene(scnCameraMap);
 		fnCameraManager();
 	}
 	scnDesktop.fnAddButton(imgLoad);

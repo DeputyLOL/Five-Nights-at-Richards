@@ -21,7 +21,7 @@
 // 14 - STAFF ACCESS
 // 15 - SERVER ROOM
 
-var intCameraMode = 0;	
+
 var intCameraTransferDelay = 500;
 var intCameraPan = 0;
 var intPanDirection = 0;
@@ -31,11 +31,29 @@ var intCameraActive = 0;
 
 function fnCameraManager()
 {
-	console.log("Calling fnCameraManager: ( intCameraMode = " + intCameraMode.toString() + " ) ");
+	//console.log("Calling fnCameraManager: ( intCameraMode = " + intCameraMode.toString() + " ) ");
 	scnCameraViewport.fnRemoveAllSubScenes();
 	fnCameraPanable(false);
 	fnCameraLightable(false);
-	if ( intCameraMode == 0 )
+	if(intCameraMode >= 2 && intCameraMode <= 4 ){
+		game.fnPlaySound("CAM_TRANSFER");
+		game.fnPlaySound("CAM_JAM",true);
+		game.fnPlaySound("CAM_BEEP",true);
+		game.fnPauseSound("CAM_STATIC");
+		game.fnPauseSound("CAM_ACTIVE");
+		scnCameraViewport.fnAddSubScene(scnCameraOffine);	
+	}
+	
+	if ( intCameraMode == 1 )
+	{
+		intCameraTransferDelay = 3000;
+	}
+	else
+	{
+		intCameraTransferDelay = 500;
+	}
+	
+	if ( intCameraMode == 0 || intCameraMode == 1 )
 	{
 		intCameraActive = 0;
 		//Clear whatever camera is currently in view
@@ -107,14 +125,6 @@ function fnCameraManager()
 			}, intCameraTransferDelay);					
 		}		
 	}
-	else if( intCameraMode == 1){
-		game.fnPlaySound("CAM_TRANSFER");
-		game.fnPlaySound("CAM_JAM",true);
-		game.fnPlaySound("CAM_BEEP",true);
-		game.fnPauseSound("CAM_STATIC");
-		game.fnPauseSound("CAM_ACTIVE");
-		scnCameraViewport.fnAddSubScene(scnCameraOffine);	
-	}	
 }		
 
 function fnCameraPanner( direction = 0, method = "start", spriteCam )
@@ -156,23 +166,30 @@ function fnCameraPanable( toggle = 1 )
 
 function fnCameraLighter(toggle = 0)
 {
-	var strActiveButton = cameraMonitorSelection.fnWhichButtonActive();	
-	/*if( strActiveButton == "LobbyCorridor" ) {
-		intCameraActive = 3;
-		fnCameraManagerLobbyCorridor();
-	}	
-	else if( strActiveButton == "LobbyCorridor" ) {
-		intCameraActive = 3;
-		fnCameraManagerLobbyCorridor();
+	if(intLightingMode == 0)
+	{
+		var strActiveButton = cameraMonitorSelection.fnWhichButtonActive();	
+		/*if( strActiveButton == "Lobby" ) {
+			intCameraActive = 3;
+			fnCameraManagerLobbyCorridor();
+		}	
+		else if( strActiveButton == "VentRoom" ) {
+			intCameraActive = 3;
+			fnCameraManagerLobbyCorridor();
+		}
+		else */if( strActiveButton == "LobbyCorridor" ) {
+			fnCameraManagerLobbyCorridorLighter(toggle);
+		}
+		else if( strActiveButton == "Medbay" ) {
+			fnCameraManagerMedbayLighter(toggle);
+		}
+		else if( strActiveButton == "DemoStage" ) {
+			fnCameraManagerDemoStageLighter(toggle);
+		}
 	}
-	else */if( strActiveButton == "LobbyCorridor" ) {
-		fnCameraManagerLobbyCorridorLighter(toggle);
-	}
-	else if( strActiveButton == "Medbay" ) {
-		fnCameraManagerMedbayLighter(toggle);
-	}
-	else if( strActiveButton == "DemoStage" ) {
-		fnCameraManagerDemoStageLighter(toggle);
+	else
+	{
+
 	}
 }
 

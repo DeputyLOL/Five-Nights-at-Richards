@@ -28,6 +28,8 @@
 		// Load Sounds
 		game.fnAddSound( "BOOT_GOOD", "./assets/audio/SYSTEM_BOOTGOOD.ogg");
 		game.fnAddSound( "SYSTEM_START", "./assets/audio/SYSTEM_START.ogg");
+		game.fnAddSound( "SYSTEM_PROCESS", "./assets/audio/SYSTEM_PROCESS.ogg");
+		game.fnAddSound( "SYSTEM_PROCESSCOMPLETE", "./assets/audio/SYSTEM_PROCESSCOMPLETE.ogg");
 		game.fnAddSound( "FAN_LOOP", "./assets/audio/SYSTEM_FANLOOP.ogg");
 		game.fnAddSound( "FAN_BUSY", "./assets/audio/SYSTEM_FANBUSY.ogg");
 		game.fnAddSound( "BUTTON", "./assets/audio/SYSTEM_BUTTON.ogg");
@@ -42,6 +44,8 @@
 		game.fnAddSound( "CAM_PAN", "./assets/audio/CAM_PAN.ogg");
 		game.fnAddSound( "CAM_PANLIMIT", "./assets/audio/CAM_PANLIMIT.ogg");
 		game.fnAddSound( "CAM_LIGHT", "./assets/audio/CAM_LIGHT.ogg");
+
+
 		game.fnPlaySound("FAN_LOOP",true);
 
 		var scnStart = new Scene("GameStart");
@@ -96,12 +100,18 @@
 		<script src = "loading.js"></script>
 		<script src = "menu.js"></script>
 		<script src = "desktop.js"></script>
-	    <script src = "devicemonitor.js"></script>
 	    <script src = "help_menu.js"></script>
 	    <script src = "options.js"></script>
 	    <script src = "email.js"></script>
+
+	    <script src = "./data/Device/devicemanager.js"></script>		
+	    <script src = "./data/Device/devicemonitor.js"></script>
+	    <script src = "./data/Device/dev_overview.js"></script>
+		
+	    <script src = "./data/Device/dev_lighting.js"></script>
+		
 	    <script src = "./data/Cameras/cameramanager.js"></script>
-	    <script src = "cameramonitor.js"></script>
+	    <script src = "./data/Cameras/cameramonitor.js"></script>
 	    <script src = "./data/Cameras/cam_common.js"></script>
 	    <script src = "./data/Cameras/cam_lobby.js"></script>
 	    <script src = "./data/Cameras/cam_lobbycorridor.js"></script>
@@ -111,6 +121,8 @@
 	    <script src = "./data/Cameras/cam_executivecorridor.js"></script>
 		
 	    <script src = "./data/Cameras/cam_manufacturing.js"></script>
+
+		<script src = "./data/Events/eventCoordinator.js"></script>
 	    <script src = "./data/Events/robot1.js"></script>
 	<script>
 

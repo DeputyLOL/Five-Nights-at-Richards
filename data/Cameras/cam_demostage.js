@@ -32,7 +32,7 @@
 					game.fnPlaySound("CAM_TRANSFER");
 					game.fnPlaySound("CAM_INTERRUPT",true);
 				}
-				if(strRobot1Room == "MED")
+				if(strRobot1Room == "DEM" || strRobot1Room == "DEM2")
 				{
 					game.fnPlaySound("CAM_DANGER",true);					
 				}

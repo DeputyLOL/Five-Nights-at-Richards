@@ -9,7 +9,15 @@
 		imgLoad.height = 480;
 		scnCameraViewport.fnAddSprite(imgLoad);
 
-	
+		// Lighting system has failed
+		var imgLoad = new Sprite("StatusLightFail");
+		imgLoad.fnLoadImage("./assets/img/Camera/CAM_STATUS_LIGHTFAIL.gif");
+		imgLoad.x = 107;
+		imgLoad.y = 42;
+		imgLoad.width = 164;
+		imgLoad.height = 20;
+		scnCameraViewport.fnAddSprite(imgLoad);
+		scnCameraViewport.fnGetSprite("StatusLightFail").visible = false;
 	
 		var scnCameraTransfer = new Scene("CameraTransfer");
 		// Changing Camera
@@ -33,7 +41,7 @@
 		imgLoad.fnLoadImage("./assets/img/Camera/CAM_STATUS_CONNECTING.png");
 		imgLoad.x = 107;
 		imgLoad.y = 20;
-		imgLoad.width = 123;
+		imgLoad.width = 137;
 		imgLoad.height = 20;
 		scnCameraTransfer.fnAddSprite(imgLoad);
 
@@ -149,7 +157,7 @@
 		imgLoad.width = 216;
 		imgLoad.height = 20;
 		scnCameraInterrupt.fnAddSprite(imgLoad);	
-				
+
 		
 		var scnCameraMap = new Scene("CameraMap");
 		// Display Map
