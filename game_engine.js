@@ -215,6 +215,19 @@ function Scene(name) {
 		return null;
 	}
 	/**
+	 * Get sprite
+	 */
+	this.fnGetSpritesContaining = function ( s ) {
+		var lstMatch = [];
+		for ( var i = 0; i < this.lstSprites.length; i++ ) {
+			if ( this.lstSprites[i].strName.indexOf( s ) >= 0 ) {
+				lstMatch.push( this.lstSprites[i] );
+			} 
+		}
+		//console.log ( "Couldn't find it");
+		return lstMatch;
+	}
+	/**
 	 * Add button - buttons have a lavel as well as the button image
 	 */
 	this.fnAddButton = function ( s ) {

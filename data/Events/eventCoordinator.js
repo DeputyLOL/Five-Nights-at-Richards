@@ -16,13 +16,26 @@ var intServerMode = 0;
 var intPowerMode = 0;
 
 
-
 function fnEventCoordinator()
 {
-	
+	var i = 0;
+	if(i < 5)
+	{
+		i++;
+	}
 }
 
 function fnMalfunctions()
 {
-	
+	var intRandom = 0;
+	intRandom = Math.floor((Math.random() * 100) + 1);
 }
+
+
+
+
+
+
+
+
+

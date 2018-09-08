@@ -130,21 +130,27 @@ function fnCameraManager()
 function fnCameraPanner( direction = 0, method = "start", spriteCam )
 {
 	var strActiveButton = cameraMonitorSelection.fnWhichButtonActive();
-	var s = scnCameraViewport.lstSubScenes[0].fnGetSprite ( strActiveButton );
+	var lstPanningSprites = scnCameraViewport.lstSubScenes[0].fnGetSpritesContaining ( strActiveButton );
 	if ( method == "start" ) {
 		if(direction == "left")
 		{
-			s.scrollDirection = 10;
 			game.fnPlaySound("CAM_PAN",true);
+			for ( var k =0; k < lstPanningSprites.length; k++ ) {
+				lstPanningSprites[k].scrollDirection = 10;
+			}
 		}
 		else
 		{
-			s.scrollDirection = -10;
 			game.fnPlaySound("CAM_PAN",true);
+			for ( var k =0; k < lstPanningSprites.length; k++ ) {
+				lstPanningSprites[k].scrollDirection = -10;
+			}
 		}
 	} 
 	else {
-		s.scrollDirection = 0;
+		for ( var k =0; k < lstPanningSprites.length; k++ ) {
+			lstPanningSprites[k].scrollDirection = 0;
+		}
 		game.fnStopSound("CAM_PAN");
 		game.fnPlaySound("CAM_PANLIMIT");
 	}	
