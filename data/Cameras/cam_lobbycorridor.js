@@ -1,7 +1,8 @@
 
 		var intCameraLobbyCorridorMode = 0;	
 		var intCameraLobbyCorridorWeak = 0;
-		
+		var intLobbyCorridorLightAmount = 0;
+				
 		function fnCameraManagerLobbyCorridor( toggle = true )
 		{
 			scnCameraLobbyCorridor.fnRemoveAllSubScenes();
@@ -13,22 +14,25 @@
 					game.fnPlaySound("CAM_TRANSFER");
 					game.fnPlaySound("CAM_BEEP");
 					if(intCameraLobbyCorridorWeak == 1){
-						scnCameraLobbyCorridor.fnAddSubScene(scnCameraWeak);
-						scnCameraLobbyCorridor.fnAddSubScene(scnCameraInterrupt);					
+						scnCameraViewport.fnGetSprite("StaticInterrupt").visible = true;
+						scnCameraViewport.fnGetSprite("StatusInterrupt").visible = true;						
 						game.fnPlaySound("CAM_INTERRUPT",true);
 					}
-					else {						
-						scnCameraLobbyCorridor.fnAddSubScene(scnCameraEffect);
-						scnCameraLobbyCorridor.fnAddSubScene(scnCameraOnline);
+					else {
+						scnCameraViewport.fnGetSprite("StaticEffect").visible = true;
+						scnCameraViewport.fnGetSprite("StatusOnline").visible = true;
 					}
 					scnCameraViewport.fnAddSubScene(scnCameraLobbyCorridor);
 					scnCameraViewport.fnAddSubScene(scnCameraLobbyCorridorOverlay);
 				}
 				else if(intCameraLobbyCorridorMode == 1){
-					scnCameraViewport.fnAddSubScene(scnCameraTransfer);	
-					scnCameraLobbyCorridor.fnAddSubScene(scnCameraInterrupt);
+					scnCameraViewport.fnGetSprite("StaticEffect").visible = false;
+					scnCameraViewport.fnGetSprite("StatusOnline").visible = false;
+					scnCameraViewport.fnGetSprite("StatusLost").visible = true;
+					scnCameraViewport.fnGetSprite("Static").visible = true;
 					game.fnPlaySound("CAM_TRANSFER");
-					game.fnPlaySound("CAM_INTERRUPT",true);
+					game.fnPlaySound("CAM_STATIC",true);
+					//game.fnPlaySound("CAM_INTERRUPT",true);
 				}
 				if(strRobot1Room == "COR" || strRobot1Room == "COR2")
 				{
@@ -67,6 +71,21 @@
 		}
 		
 		var scnCameraLobbyCorridor = new Scene("CameraLobbyCorridor");
+
+		scnCameraLobbyCorridor.fnRefresh = function() {
+			if(intCameraLight == 1 && intLobbyCorridorLightAmount < 30)
+			{
+				intLobbyCorridorLightAmount++;
+				console.log(intLobbyCorridorLightAmount);
+			}
+			else if(intLobbyCorridorLightAmount == 30)
+			{
+				strRobot1Target = "COR";
+				intLobbyCorridorLightAmount = 0;
+				console.log("ROBOT1 IS GOING TO MOVE TOO:" + strRobot1Target);
+			}
+		}
+
 		var imgCameraLobbyCorridor = new Sprite("LobbyCorridor");
 		imgCameraLobbyCorridor.fnLoadImage("./assets/img/Camera/COR/CAM_COR_A.png");
 		imgCameraLobbyCorridor.x = 0;

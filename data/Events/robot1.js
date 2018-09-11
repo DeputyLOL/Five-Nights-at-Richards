@@ -8,6 +8,8 @@
 // SPECIAL:NONE
 
 var strRobot1Room = "DEM";
+var strRobot1Target = "OFF";
+
 scnCameraDemoStage.fnGetSprite("DemoStage_Robot1").visible = true;
 scnCameraDemoStage.fnGetSprite("DemoStage_Robot1_Lit").visible = false;
 scnCameraDemoStage.fnGetSprite("DemoStage_Robot1_2").visible = false;
@@ -54,40 +56,39 @@ function fnRobot1Coordinator()
 	{
 		console.log("ROBOT1: MOVING FROM:" + strRobot1Room);
 		scnCameraLobby.fnGetSprite("Lobby_Robot1").visible = false;
-		intRandom = Math.floor((Math.random() * 2));
-		if(intRandom == 1)
+		if(strRobot1Room == "VNT")
+		{
+			strRobot1Room = "VNT";  // ... move to vent room
+			console.log("ROBOT1: MOVING TO:" + strRobot1Room);	
+		}
+		else
 		{
 			strRobot1Room = "COR"; // ... move to Lobby Corridor
 			console.log("ROBOT1: MOVING TO:" + strRobot1Room);
 			scnCameraLobbyCorridor.fnGetSprite("LobbyCorridor_Robot1").visible = true;
 			fnCameraDisrupter(1,3);
 		}
-		else
-		{
-			strRobot1Room = "VNT";  // ... move to vent room
-			console.log("ROBOT1: MOVING TO:" + strRobot1Room);		
-		}
 	}
 	else if(strRobot1Room == "COR")
 	{
 		console.log("ROBOT1: MOVING FROM:" + strRobot1Room);
 		scnCameraLobbyCorridor.fnGetSprite("LobbyCorridor_Robot1").visible = false;
-		intRandom = Math.floor((Math.random() * 10) + 1);
-		if(intRandom < 2)
+		
+		if(strRobot1Target == "DEM")
 		{
 			strRobot1Room = "DEM2";
 			console.log("ROBOT1: MOVING TO:" + strRobot1Room);
 			scnCameraDemoStage.fnGetSprite("DemoStage_Robot1_2").visible = true;
 			fnCameraDisrupter(3,5);
 		}
-		else if(intRandom < 4)
+		else if(strRobot1Target == "MED")
 		{
 			strRobot1Room = "MED";
 			console.log("ROBOT1: MOVING TO:" + strRobot1Room);
 			scnCameraMedbay.fnGetSprite("Medbay_Robot1").visible = true;
 			fnCameraDisrupter(3,4);			
 		}
-		else if(intRandom < 6)
+		else if(strRobot1Target == "LOB")
 		{
 			strRobot1Room = "LOB";
 			console.log("ROBOT1: MOVING TO:" + strRobot1Room);
@@ -118,4 +119,5 @@ function fnRobot1Coordinator()
 		console.log("ROBOT1: RESETTING TO ROOM:" + strRobot1Room);
 		fnCameraDisrupter(0,5);
 	}
+	strRobot1Target = "OFF";
 }

@@ -63,6 +63,8 @@
 	imgLoad.fnMouseUpEvent = function () {
 		scnDesktop.fnAddSubScene(scnCameraMonitor);
 		scnCameraMonitor.fnAddSubScene(scnCameraViewport);
+		scnCameraMonitor.fnAddSubScene(scnCameraBackground);
+		intCameraMonitorActive = 1;
 		fnCameraManager();
 	}
 	scnDesktop.fnAddButton(imgLoad);

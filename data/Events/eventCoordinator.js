@@ -15,20 +15,83 @@ var intClientMode = 0;
 var intServerMode = 0;
 var intPowerMode = 0;
 
+var intMalfunctionCounter = 0;
+var intRobot1Counter = 0;
 
+
+// RUN EVERY 5 SECONDS
 function fnEventCoordinator()
 {
-	var i = 0;
-	if(i < 5)
+	if(intRobot1Counter < 5)
 	{
-		i++;
+		intRobot1Counter++;
+		console.log("LOG: fnEventCoordinator - intRobot1Counter is: " + intRobot1Counter);
 	}
+	else
+	{
+		console.log("LOG: fnEventCoordinator - intRobot1Counter reached: " + intRobot1Counter);
+		intRobot1Counter = 0;
+		fnRobot1Coordinator();
+	}
+	if(intMalfunctionCounter < 10)
+	{
+		intMalfunctionCounter++;
+		console.log("LOG: fnEventCoordinator - intMalfunctionCounter is: " + intMalfunctionCounter);
+	}
+	else
+	{
+		console.log("LOG: fnEventCoordinator - intMalfunctionCounter reached: " + intMalfunctionCounter);
+		intMalfunctionCounter = 0;
+		fnSystemBreaker();
+	}
+	setTimeout( function() 
+	{ 
+		fnEventCoordinator();
+	}, 5000);
 }
 
-function fnMalfunctions()
+function fnSystemBreaker()
 {
 	var intRandom = 0;
 	intRandom = Math.floor((Math.random() * 100) + 1);
+	if(intRandom < 50)
+	{
+		intRandom = Math.floor((Math.random() * 100) + 1);
+		if(intCameraMode == 0 && intRandom <= 20)
+		{
+			console.log("LOG: fnSystemBreaker - Failed Camera. Random number was: " + intRandom);
+			intCameraMode = 2;
+		}
+		else if(intLightingMode == 0 && (intRandom > 20 && intRandom <= 40))
+		{
+			console.log("LOG: fnSystemBreaker - Failed Lights. Random number was: " + intRandom);
+			intLightingMode = 2;		
+		}
+		else if(intClientMode == 0 && (intRandom > 40 && intRandom <= 60))
+		{
+			console.log("LOG: fnSystemBreaker - Failed Client. Random number was: " + intRandom);
+			intClientMode = 2;		
+		}
+		else if(intServerMode == 0 && (intRandom > 60 && intRandom <= 80))
+		{
+			console.log("LOG: fnSystemBreaker - Failed Server. Random number was: " + intRandom);
+			intServerMode = 2;			
+		}
+		else if(intPowerMode == 0 && (intRandom > 80 && intRandom <= 100))
+		{
+			console.log("LOG: fnSystemBreaker - Failed Power. Random number was: " + intRandom);
+			intPowerMode = 2;		
+		}
+		else
+		{
+			console.log("ERROR: fnSystemBreaker - Couldn't fail anything! Random number was: " + intRandom);
+		}
+		fnDeviceStatus();
+	}
+	else
+	{
+		console.log("LOG: fnSystemBreaker - Didn't fail anything. Random number was: " + intRandom);		
+	}
 }
 
 

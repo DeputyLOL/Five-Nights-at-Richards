@@ -27,12 +27,21 @@ var intCameraPan = 0;
 var intPanDirection = 0;
 var intCameraPanable = 0;
 var intCameraActive = 0;
-
+var intCameraLight = 0;
+var intCameraMonitorActive = 0;
 
 function fnCameraManager()
 {
 	//console.log("Calling fnCameraManager: ( intCameraMode = " + intCameraMode.toString() + " ) ");
 	scnCameraViewport.fnRemoveAllSubScenes();
+	scnCameraViewport.fnGetSprite("StaticEffect").visible = false;
+	scnCameraViewport.fnGetSprite("StaticInterrupt").visible = false;
+	
+	scnCameraViewport.fnGetSprite("Status").visible = false;	
+	scnCameraViewport.fnGetSprite("StatusOnline").visible = false;
+	scnCameraViewport.fnGetSprite("StatusInterrupt").visible = false;
+	scnCameraViewport.fnGetSprite("StatusLost").visible = false;	
+	
 	fnCameraPanable(false);
 	fnCameraLightable(false);
 	if(intCameraMode >= 2 && intCameraMode <= 4 ){
@@ -76,13 +85,17 @@ function fnCameraManager()
 		{
 			//Display whatever camera has been clicked on
 			game.fnPlaySound("CAM_STATIC",true);
-			scnCameraViewport.fnAddSubScene(scnCameraTransfer);
-			
+			//scnCameraViewport.fnAddSubScene(scnCameraTransfer);
+			scnCameraViewport.fnGetSprite("Static").visible = true;
+			scnCameraViewport.fnGetSprite("Status").visible = true;
+			scnCameraViewport.fnGetSprite("StatusConnecting").visible = true;
+			//scnCameraViewport.fnGetSprite("Overlay").visible = true;
 			setTimeout( function() 
 			{
 				console.log("END OF STATIC");
-				scnCameraViewport.fnRemoveSubScene("CameraTransfer");
-				game.fnStopSound("CAM_STATIC");
+				scnCameraViewport.fnGetSprite("Static").visible = false;
+				scnCameraViewport.fnGetSprite("StatusConnecting").visible = false;
+				game.fnPauseSound("CAM_STATIC");
 				
 				if( strActiveButton == "Lobby" ) {
 					intCameraActive = 1;
@@ -175,15 +188,14 @@ function fnCameraLighter(toggle = 0)
 	if(intLightingMode == 0)
 	{
 		var strActiveButton = cameraMonitorSelection.fnWhichButtonActive();	
-		/*if( strActiveButton == "Lobby" ) {
-			intCameraActive = 3;
-			fnCameraManagerLobbyCorridor();
+		if( strActiveButton == "Lobby" ) {
+			fnCameraManagerLobbyLighter(toggle);
 		}	
-		else if( strActiveButton == "VentRoom" ) {
-			intCameraActive = 3;
-			fnCameraManagerLobbyCorridor();
-		}
-		else */if( strActiveButton == "LobbyCorridor" ) {
+		//else if( strActiveButton == "VentRoom" ) {
+		//	intCameraActive = 3;
+		//	fnCameraManagerLobbyCorridor();
+		//}
+		else if( strActiveButton == "LobbyCorridor" ) {
 			fnCameraManagerLobbyCorridorLighter(toggle);
 		}
 		else if( strActiveButton == "Medbay" ) {
@@ -217,13 +229,14 @@ function fnCameraDisrupter( camera , camera2)
 	if(camera == 1 || camera2 == 1) // LOBBY
 	{
 		intCameraLobbyMode = 1;
-		if(intCameraActive == 1){
-			fnCameraManagerLobbyCorridor(true)
+		intLobbyLightAmount = 0;
+		if(intCameraActive == 1 && intCameraMonitorActive == 1){
+			fnCameraManagerLobby(true)
 		}
 		setTimeout( function() 
 		{
 			intCameraLobbyMode = 0;			
-			if(intCameraActive == 1){
+			if(intCameraActive == 1 && intCameraMonitorActive == 1){
 				fnCameraManager();
 			}
 		},3000)
@@ -231,13 +244,14 @@ function fnCameraDisrupter( camera , camera2)
 	if(camera == 3 || camera2 == 3) // LOBBY CORRIDOR
 	{
 		intCameraLobbyCorridorMode = 1;
-		if(intCameraActive == 3){
+		intLobbyCorridorLightAmount = 0;
+		if(intCameraActive == 3 && intCameraMonitorActive == 1){
 			fnCameraManagerLobbyCorridor(true)
 		}
 		setTimeout( function() 
 		{
 			intCameraLobbyCorridorMode = 0;			
-			if(intCameraActive == 3){
+			if(intCameraActive == 3 && intCameraMonitorActive == 1){
 				fnCameraManager();
 			}
 		},3000)
@@ -245,13 +259,14 @@ function fnCameraDisrupter( camera , camera2)
 	if(camera == 4 || camera2 == 4) // MEDBAY
 	{
 		intCameraMedbayMode = 1;
-		if(intCameraActive == 4){
+		intMedbayLightAmount = 0;
+		if(intCameraActive == 4 && intCameraMonitorActive == 1){
 			fnCameraManagerMedbay(true)
 		}
 		setTimeout( function() 
 		{
 			intCameraMedbayMode = 0;			
-			if(intCameraActive == 4){
+			if(intCameraActive == 4 && intCameraMonitorActive == 1){
 				fnCameraManager();
 			}
 		},3000)
@@ -259,13 +274,14 @@ function fnCameraDisrupter( camera , camera2)
 	if(camera == 5 || camera2 == 5) // DEMOSTAGE
 	{
 		intCameraDemoStageMode = 1;
-		if(intCameraActive == 5){
+		intDemoStageLightAmount = 0;
+		if(intCameraActive == 5 && intCameraMonitorActive == 1){
 			fnCameraManagerDemoStage(true)
 		}
 		setTimeout( function() 
 		{
 			intCameraDemoStageMode = 0;			
-			if(intCameraActive == 5){
+			if(intCameraActive == 5 && intCameraMonitorActive == 1){
 				fnCameraManager();
 			}
 		},3000)

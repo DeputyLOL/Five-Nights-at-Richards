@@ -305,6 +305,11 @@ function Scene(name) {
 		for ( var  i = 0; i < this.lstSubScenes.length; i++ ) {
 			this.lstSubScenes[i].fnUpdate();
 		}
+		this.fnRefresh();
+	}
+	
+	this.fnRefresh = function() {
+	
 	}
 	/**
 	 * Draw this to screen
@@ -486,12 +491,10 @@ function PanningSprite(strName) {
 		
 		this.scrollDirection = 0;
 	}
-	
 	/**
 	 * Scroll
 	 */
 	this.fnScroll = function ( intDirection ) {
-
 		if ( intDirection < 0 ) {
 			if  ( this.imageScroll + this.width  > this.windowSize ) {
 				this.imageScroll += intDirection;

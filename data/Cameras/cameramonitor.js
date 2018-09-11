@@ -36,6 +36,7 @@
 		game.fnStopSound("CAM_INTERRUPT");
 		scnCameraMonitor.fnRemoveSubScene("CameraViewport");
 		scnDesktop.fnRemoveSubScene("CameraMonitor");
+		intCameraMonitorActive = 0;
 	}
 	scnCameraMonitor.fnAddButton(imgLoad);
 
@@ -88,9 +89,11 @@
 	"./assets/img/Console/CameraMonitor/Button_Light.png",
 	);
 	imgLoad.fnMouseDownEvent = function() {
+		intCameraLight = 1;
 		fnCameraLighter(true);
 	}
-	imgLoad.fnMouseUpEvent = function () {	
+	imgLoad.fnMouseUpEvent = function () {
+		intCameraLight = 0;
 		fnCameraLighter(false);
 	}
 	scnCameraMonitor.fnAddButton(imgLoad);		

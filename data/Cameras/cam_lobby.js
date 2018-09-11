@@ -1,6 +1,7 @@
 
 		var intCameraLobbyMode = 0;	
 		var intCameraLobbyWeak = 0;
+		var intLobbyLightAmount = 0;
 		
 		function fnCameraManagerLobby( toggle = true )
 		{
@@ -9,26 +10,30 @@
 				game.fnPlaySound("CAM_ACTIVE",true);
 				game.fnPauseSound("CAM_STATIC");
 				fnCameraPanable(true);
+				fnCameraLightable(true);
 				if(intCameraLobbyMode == 0){
 					game.fnPlaySound("CAM_TRANSFER");
 					game.fnPlaySound("CAM_BEEP");
 					if(intCameraLobbyWeak == 1){
-						scnCameraLobby.fnAddSubScene(scnCameraWeak);
-						scnCameraLobby.fnAddSubScene(scnCameraInterrupt);					
+						scnCameraViewport.fnGetSprite("StaticInterrupt").visible = true;
+						scnCameraViewport.fnGetSprite("StatusInterrupt").visible = true;						
 						game.fnPlaySound("CAM_INTERRUPT",true);
 					}
-					else {						
-						scnCameraLobby.fnAddSubScene(scnCameraEffect);
-						scnCameraLobby.fnAddSubScene(scnCameraOnline);
+					else {
+						scnCameraViewport.fnGetSprite("StaticEffect").visible = true;
+						scnCameraViewport.fnGetSprite("StatusOnline").visible = true;
 					}
 					scnCameraViewport.fnAddSubScene(scnCameraLobby);
 					scnCameraViewport.fnAddSubScene(scnCameraLobbyOverlay);
 				}
 				else if(intCameraLobbyMode == 1){
-					scnCameraViewport.fnAddSubScene(scnCameraTransfer);	
-					scnCameraLobby.fnAddSubScene(scnCameraInterrupt);
+					scnCameraViewport.fnGetSprite("StaticEffect").visible = false;
+					scnCameraViewport.fnGetSprite("StatusOnline").visible = false;
+					scnCameraViewport.fnGetSprite("StatusLost").visible = true;
+					scnCameraViewport.fnGetSprite("Static").visible = true;
 					game.fnPlaySound("CAM_TRANSFER");
-					game.fnPlaySound("CAM_INTERRUPT",true);
+					game.fnPlaySound("CAM_STATIC",true);
+					//game.fnPlaySound("CAM_INTERRUPT",true);
 				}
 				if(strRobot1Room == "LOB")
 				{
@@ -40,8 +45,45 @@
 			}
 		}
 		
-		
+		function fnCameraManagerLobbyLighter( toggle = true )
+		{
+			if(toggle)
+			{
+				scnCameraLobby.fnGetSprite("LobbyLight").visible = true;
+				scnCameraLobby.fnGetSprite("Lobby").visible = false;
+				game.fnPlaySound("CAM_LIGHT",true);
+				if(strRobot1Room == "LOB")
+				{
+					scnCameraLobby.fnGetSprite("Lobby_Robot1_Lit").visible = true;
+				}
+			}
+			else
+			{
+				scnCameraLobby.fnGetSprite("Lobby_Robot1_Lit").visible = false;
+				scnCameraLobby.fnGetSprite("LobbyLight").visible = false;
+				scnCameraLobby.fnGetSprite("Lobby").visible = true;
+				game.fnStopSound("CAM_LIGHT");
+			}
+		}
+				
 		var scnCameraLobby = new Scene("CameraLobby");
+		
+		scnCameraLobby.fnRefresh = function() {
+			if(intCameraLight == 1 && intLobbyLightAmount < 30)
+			{
+				intLobbyLightAmount++;
+				console.log(intLobbyLightAmount);
+			}
+			else if(intLobbyLightAmount == 30)
+			{
+				strRobot1Target = "LOB";
+				intLobbyLightAmount = 0;
+				console.log("ROBOT1 IS GOING TO MOVE TOO:" + strRobot1Target);
+			}
+		}
+
+		
+		
 		var imgCameraLobby = new PanningSprite("Lobby");
 		imgCameraLobby.fnLoadImage("./assets/img/Camera/CAM_LOB_A.png");
 		imgCameraLobby.x = 0;
@@ -52,8 +94,25 @@
 		scnCameraLobby.fnAddSprite(imgCameraLobby);
 		var intCameraLobbyOffsetX = 0;
 		var intCameraLobbyOffsetY = 0;	
+
+		var imgCameraLobby = new PanningSprite("LobbyLight");
+		imgCameraLobby.fnLoadImage("./assets/img/Camera/CAM_LOB_A.png");
+		imgCameraLobby.x = 0;
+		imgCameraLobby.y = 0;
+		imgCameraLobby.windowSize = 640;
+		imgCameraLobby.width = 1500;
+		imgCameraLobby.height = 480;
+		scnCameraLobby.fnAddSprite(imgCameraLobby);
 		
 		var imgCameraLobby = new Sprite("Lobby_Robot1");
+		imgCameraLobby.fnLoadImage("./assets/img/debug.png");
+		imgCameraLobby.x = 0;
+		imgCameraLobby.y = 0;
+		imgCameraLobby.width = 240;
+		imgCameraLobby.height = 480;
+		scnCameraLobby.fnAddSprite(imgCameraLobby);
+
+		var imgCameraLobby = new Sprite("Lobby_Robot1_Lit");
 		imgCameraLobby.fnLoadImage("./assets/img/debug.png");
 		imgCameraLobby.x = 0;
 		imgCameraLobby.y = 0;

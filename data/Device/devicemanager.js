@@ -94,19 +94,25 @@ function fnDeviceStatus()
 	{
 		scnDeviceMonitorOverview.fnGetSprite("StatusCameraOK").visible = true;
 		scnDeviceMonitorOverview.fnGetSprite("StatusCameraError").visible = false;	
-		scnDeviceMonitorOverview.fnGetSprite("StatusCameraNotResponding").visible = false;			
+		scnDeviceMonitorOverview.fnGetSprite("StatusCameraNotResponding").visible = false;
+		scnCameraViewport.fnGetSprite("StatusCameraError").visible = false;
+		scnCameraViewport.fnGetSprite("StatusCameraFail").visible = false;
 	}
 	else if(intCameraMode == 1 || intCameraMode == 2)
 	{
 		scnDeviceMonitorOverview.fnGetSprite("StatusCameraOK").visible = false;
 		scnDeviceMonitorOverview.fnGetSprite("StatusCameraError").visible = true;	
-		scnDeviceMonitorOverview.fnGetSprite("StatusCameraNotResponding").visible = false;			
+		scnDeviceMonitorOverview.fnGetSprite("StatusCameraNotResponding").visible = false;
+		scnCameraViewport.fnGetSprite("StatusCameraError").visible = true;
+		scnCameraViewport.fnGetSprite("StatusCameraFail").visible = false;
 	}
 	else
 	{
 		scnDeviceMonitorOverview.fnGetSprite("StatusCameraOK").visible = false;
 		scnDeviceMonitorOverview.fnGetSprite("StatusCameraError").visible = false;	
-		scnDeviceMonitorOverview.fnGetSprite("StatusCameraNotResponding").visible = true;			
+		scnDeviceMonitorOverview.fnGetSprite("StatusCameraNotResponding").visible = true;
+		scnCameraViewport.fnGetSprite("StatusCameraError").visible = false;
+		scnCameraViewport.fnGetSprite("StatusCameraFail").visible = true;		
 	}
 
 	if(intLightingMode == 0)

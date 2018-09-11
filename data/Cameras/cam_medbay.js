@@ -1,6 +1,7 @@
 
 		var intCameraMedbayMode = 0;	
 		var intCameraMedbayWeak = 0;
+		var intMedbayLightAmount = 0;
 		
 		function fnCameraManagerMedbay( toggle = true )
 		{
@@ -14,23 +15,25 @@
 					game.fnPlaySound("CAM_TRANSFER");
 					game.fnPlaySound("CAM_BEEP");
 					if(intCameraMedbayWeak == 1){
-						scnCameraMedbay.fnAddSubScene(scnCameraWeak);
-						scnCameraMedbay.fnAddSubScene(scnCameraInterrupt);					
+						scnCameraViewport.fnGetSprite("StaticInterrupt").visible = true;
+						scnCameraViewport.fnGetSprite("StatusInterrupt").visible = true;						
 						game.fnPlaySound("CAM_INTERRUPT",true);
 					}
-					else {						
-						scnCameraMedbay.fnAddSubScene(scnCameraEffect);
-						scnCameraMedbay.fnAddSubScene(scnCameraOnline);
+					else {
+						scnCameraViewport.fnGetSprite("StaticEffect").visible = true;
+						scnCameraViewport.fnGetSprite("StatusOnline").visible = true;
 					}
 					scnCameraViewport.fnAddSubScene(scnCameraMedbay);
 					scnCameraViewport.fnAddSubScene(scnCameraMedbayOverlay);
 				}
 				else if(intCameraMedbayMode == 1){
-					//scnCameraMedbay.fnRemoveAllSubScenes();
-					scnCameraViewport.fnAddSubScene(scnCameraTransfer);	
-					scnCameraMedbay.fnAddSubScene(scnCameraInterrupt);
+					scnCameraViewport.fnGetSprite("StaticEffect").visible = false;
+					scnCameraViewport.fnGetSprite("StatusOnline").visible = false;
+					scnCameraViewport.fnGetSprite("StatusLost").visible = true;
+					scnCameraViewport.fnGetSprite("Static").visible = true;
 					game.fnPlaySound("CAM_TRANSFER");
-					game.fnPlaySound("CAM_INTERRUPT",true);
+					game.fnPlaySound("CAM_STATIC",true);
+					//game.fnPlaySound("CAM_INTERRUPT",true);
 				}
 				if(strRobot1Room == "MED")
 				{
@@ -64,6 +67,21 @@
 		}
 				
 		var scnCameraMedbay = new Scene("CameraMedbay");
+		
+		scnCameraMedbay.fnRefresh = function() {
+			if(intCameraLight == 1 && intMedbayLightAmount < 30)
+			{
+				intMedbayLightAmount++;
+				console.log(intMedbayLightAmount);
+			}
+			else if(intMedbayLightAmount == 30)
+			{
+				strRobot1Target = "MED";
+				intMedbayLightAmount = 0;
+				console.log("ROBOT1 IS GOING TO MOVE TOO:" + strRobot1Target);
+			}
+		}
+		
 		var imgCameraMedbay = new PanningSprite("Medbay");
 		imgCameraMedbay.fnLoadImage("./assets/img/Camera/MED/CAM_MED_A.png");
 		imgCameraMedbay.x = 0;
