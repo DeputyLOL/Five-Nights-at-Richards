@@ -185,7 +185,7 @@ function fnCameraPanable( toggle = 1 )
 
 function fnCameraLighter(toggle = 0)
 {
-	if(intLightingMode == 0)
+	if(intLightingMode <= 1)
 	{
 		var strActiveButton = cameraMonitorSelection.fnWhichButtonActive();	
 		if( strActiveButton == "Lobby" ) {

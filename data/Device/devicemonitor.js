@@ -24,7 +24,6 @@
 		imgLoad.fnMouseUpEvent = function () {
 			game.fnPlaySound("BUTTON");			
 			scnDesktop.fnRemoveSubScene("DeviceMonitor");
-			//scnScreen.fnAddSubScene(scnDesktop);
 		}
 		scnDeviceMonitor.fnAddButton(imgLoad);
 
@@ -130,6 +129,8 @@
 		scnDeviceMonitor.fnAddButton(imgLoad);
 		deviceMonitorTab.fnAddMenuButton(imgLoad);
 
+		
+		
 		var scnDeviceMonitorRebooting = new Scene("DeviceMonitorRebooting");
 		imgLoad = new Sprite("ClickBlocker");
 		imgLoad.fnLoadImage("./assets/img/Console/Common/null.png");

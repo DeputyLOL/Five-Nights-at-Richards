@@ -77,7 +77,16 @@
 		scnCameraViewport.fnAddSprite(imgLoad);				
 		scnCameraViewport.fnGetSprite("StatusLost").visible = false;
 	
-		// Lighting system has failed		
+		// Lighting system has failed
+		var imgLoad = new Sprite("StatusLightError");
+		imgLoad.fnLoadImage("./assets/img/Camera/CAM_STATUS_LIGHTERROR.gif");
+		imgLoad.x = 21;
+		imgLoad.y = 64;
+		imgLoad.width = 191;
+		imgLoad.height = 20;
+		scnCameraViewport.fnAddSprite(imgLoad);
+		scnCameraViewport.fnGetSprite("StatusLightError").visible = false;
+		
 		var imgLoad = new Sprite("StatusLightFail");
 		imgLoad.fnLoadImage("./assets/img/Camera/CAM_STATUS_LIGHTFAIL.gif");
 		imgLoad.x = 21;
@@ -116,6 +125,7 @@
 		scnCameraViewport.fnGetSprite("Overlay").visible = false;
 
 
+		
 		var scnCameraBackground = new Scene("CameraBackground");
 		var imgLoad = new Sprite("Background");
 		imgLoad.fnLoadImage("./assets/img/Camera/background.png");
@@ -126,18 +136,7 @@
 		scnCameraBackground.fnAddSprite(imgLoad);	
 
 		
-		var scnCameraWeak = new Scene("CameraWeak");
-		// Camera Weak Signal
-
 		
-		var imgLoad = new Sprite("Status");
-		imgLoad.fnLoadImage("./assets/img/Camera/CAM_STATUS.png");
-		imgLoad.x = 21;
-		imgLoad.y = 20;
-		imgLoad.width = 86;
-		imgLoad.height = 20;
-		scnCameraWeak.fnAddSprite(imgLoad);
-
 		var scnCameraOffine = new Scene("CameraOffline");
 		// Camera Not Working
 		var imgLoad = new Sprite("Static");

@@ -1,8 +1,9 @@
 
 		var intCameraLobbyCorridorMode = 0;	
 		var intCameraLobbyCorridorWeak = 0;
+		var intLobbyCorridorLight = 0;
 		var intLobbyCorridorLightAmount = 0;
-				
+		
 		function fnCameraManagerLobbyCorridor( toggle = true )
 		{
 			scnCameraLobbyCorridor.fnRemoveAllSubScenes();
@@ -48,6 +49,7 @@
 		{
 			if(toggle)
 			{
+				intLobbyCorridorLight = 1;
 				scnCameraLobbyCorridor.fnGetSprite("LobbyCorridorLight").visible = true;
 				scnCameraLobbyCorridor.fnGetSprite("LobbyCorridor").visible = false;
 				game.fnPlaySound("CAM_LIGHT",true);
@@ -62,18 +64,19 @@
 			}
 			else
 			{
+				intLobbyCorridorLight = 0;
 				scnCameraLobbyCorridor.fnGetSprite("LobbyCorridor_Robot1_Lit").visible = false;
 				scnCameraLobbyCorridor.fnGetSprite("LobbyCorridor_Robot1_2_Lit").visible = false;
 				scnCameraLobbyCorridor.fnGetSprite("LobbyCorridorLight").visible = false;
 				scnCameraLobbyCorridor.fnGetSprite("LobbyCorridor").visible = true;
-				game.fnStopSound("CAM_LIGHT");
+				game.fnPauseSound("CAM_LIGHT");
 			}
 		}
 		
 		var scnCameraLobbyCorridor = new Scene("CameraLobbyCorridor");
 
 		scnCameraLobbyCorridor.fnRefresh = function() {
-			if(intCameraLight == 1 && intLobbyCorridorLightAmount < 30)
+			if(intLobbyCorridorLight == 1 && intLobbyCorridorLightAmount < 30)
 			{
 				intLobbyCorridorLightAmount++;
 				console.log(intLobbyCorridorLightAmount);

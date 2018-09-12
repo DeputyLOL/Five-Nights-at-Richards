@@ -1,6 +1,7 @@
 
 		var intCameraMedbayMode = 0;	
 		var intCameraMedbayWeak = 0;
+		var intMedbayLight = 0;
 		var intMedbayLightAmount = 0;
 		
 		function fnCameraManagerMedbay( toggle = true )
@@ -49,6 +50,7 @@
 		{
 			if(toggle)
 			{
+				intMedbayLight = 1;
 				scnCameraMedbay.fnGetSprite("MedbayLight").visible = true;
 				scnCameraMedbay.fnGetSprite("Medbay").visible = false;
 				game.fnPlaySound("CAM_LIGHT",true);
@@ -59,17 +61,18 @@
 			}
 			else
 			{
+				intMedbayLight = 0;
 				scnCameraMedbay.fnGetSprite("Medbay_Robot1_Lit").visible = false;
 				scnCameraMedbay.fnGetSprite("MedbayLight").visible = false;
 				scnCameraMedbay.fnGetSprite("Medbay").visible = true;
-				game.fnStopSound("CAM_LIGHT");
+				game.fnPauseSound("CAM_LIGHT");
 			}
 		}
 				
 		var scnCameraMedbay = new Scene("CameraMedbay");
 		
 		scnCameraMedbay.fnRefresh = function() {
-			if(intCameraLight == 1 && intMedbayLightAmount < 30)
+			if(intMedbayLight == 1 && intMedbayLightAmount < 30)
 			{
 				intMedbayLightAmount++;
 				console.log(intMedbayLightAmount);

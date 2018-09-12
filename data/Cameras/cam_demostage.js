@@ -1,6 +1,7 @@
 
 		var intCameraDemoStageMode = 0;	
 		var intCameraDemoStageWeak = 0;
+		var intDemoStageLight = 0;
 		var intDemoStageLightAmount = 0;
 		
 		function fnCameraManagerDemoStage( toggle = true )
@@ -48,6 +49,7 @@
 		{
 			if(toggle)
 			{
+				intDemoStageLight = 1;
 				scnCameraDemoStage.fnGetSprite("DemoStageLight").visible = true;
 				scnCameraDemoStage.fnGetSprite("DemoStage").visible = false;
 				game.fnPlaySound("CAM_LIGHT",true);
@@ -62,18 +64,19 @@
 			}
 			else
 			{
+				intDemoStageLight = 0;
 				scnCameraDemoStage.fnGetSprite("DemoStage_Robot1_Lit").visible = false;
 				scnCameraDemoStage.fnGetSprite("DemoStage_Robot1_2_Lit").visible = false;
 				scnCameraDemoStage.fnGetSprite("DemoStageLight").visible = false;
 				scnCameraDemoStage.fnGetSprite("DemoStage").visible = true;
-				game.fnStopSound("CAM_LIGHT");
+				game.fnPauseSound("CAM_LIGHT");
 			}
 		}
 				
 		var scnCameraDemoStage = new Scene("CameraDemoStage");
 		
 		scnCameraDemoStage.fnRefresh = function() {
-			if(intCameraLight == 1 && intDemoStageLightAmount < 30)
+			if(intDemoStageLight == 1 && intDemoStageLightAmount < 30)
 			{
 				intDemoStageLightAmount++;
 				console.log(intDemoStageLightAmount);

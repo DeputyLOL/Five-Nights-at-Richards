@@ -1,6 +1,7 @@
 
 		var intCameraLobbyMode = 0;	
 		var intCameraLobbyWeak = 0;
+		var intLobbyLight = 0;
 		var intLobbyLightAmount = 0;
 		
 		function fnCameraManagerLobby( toggle = true )
@@ -49,6 +50,7 @@
 		{
 			if(toggle)
 			{
+				intLobbyLight = 1;
 				scnCameraLobby.fnGetSprite("LobbyLight").visible = true;
 				scnCameraLobby.fnGetSprite("Lobby").visible = false;
 				game.fnPlaySound("CAM_LIGHT",true);
@@ -59,17 +61,18 @@
 			}
 			else
 			{
+				intLobbyLight = 0;
 				scnCameraLobby.fnGetSprite("Lobby_Robot1_Lit").visible = false;
 				scnCameraLobby.fnGetSprite("LobbyLight").visible = false;
 				scnCameraLobby.fnGetSprite("Lobby").visible = true;
-				game.fnStopSound("CAM_LIGHT");
+				game.fnPauseSound("CAM_LIGHT");
 			}
 		}
 				
 		var scnCameraLobby = new Scene("CameraLobby");
 		
 		scnCameraLobby.fnRefresh = function() {
-			if(intCameraLight == 1 && intLobbyLightAmount < 30)
+			if(intLobbyLight == 1 && intLobbyLightAmount < 30)
 			{
 				intLobbyLightAmount++;
 				console.log(intLobbyLightAmount);

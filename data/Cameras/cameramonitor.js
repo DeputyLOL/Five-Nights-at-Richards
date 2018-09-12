@@ -4,6 +4,38 @@
 
 	//Create Menu scene
 	var scnCameraMonitor = new Scene("CameraMonitor");
+
+	scnCameraMonitor.fnRefresh = function() {
+		if(intCameraLight == 1)
+		{
+			var intRandom = 0;
+			if(intLightingMode == 0)
+			{
+				fnCameraLighter(true);
+			}
+			else if(intLightingMode == 1)
+			{
+					intRandom = Math.floor((Math.random() * 100) + 1);
+					if(intRandom <= 30)
+					{
+						fnCameraLighter(true);
+					}
+					else
+					{
+						fnCameraLighter(false);						
+					}
+			}
+			else
+			{
+				fnCameraLighter(false);				
+			}
+		}
+		else
+		{
+			fnCameraLighter(false);		
+		}
+	}
+
 	//Add sprite
 
 	var imgViewPort = new Sprite("Window");
@@ -90,14 +122,13 @@
 	);
 	imgLoad.fnMouseDownEvent = function() {
 		intCameraLight = 1;
-		fnCameraLighter(true);
+		//fnCameraLighter(true);
 	}
 	imgLoad.fnMouseUpEvent = function () {
 		intCameraLight = 0;
-		fnCameraLighter(false);
+		//fnCameraLighter(false);
 	}
 	scnCameraMonitor.fnAddButton(imgLoad);		
-	
 
 
 
