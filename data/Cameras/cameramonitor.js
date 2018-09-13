@@ -56,7 +56,7 @@
 	imgLoad.fnLoadImage("./assets/img/Console/Common/CloseButton.png", 
 	"./assets/img/Console/Common/CloseButtonHighlighted.png",
 	"./assets/img/Console/Common/CloseButtonPressed.png",
-	"./assets/img/Console/Common/null.png");
+	"./assets/img/Common/null.png");
 	imgLoad.fnMouseUpEvent = function () {
 		game.fnPlaySound("BUTTON");			
 		game.fnStopSound("CAM_BEEP");
@@ -81,7 +81,7 @@
 	imgLoad.fnLoadImage("./assets/img/Console/CameraMonitor/Button_PanLeft.png", 
 	"./assets/img/Console/CameraMonitor/Button_PanLeftHighlighted.png",
 	"./assets/img/Console/CameraMonitor/Button_PanLeftPressed.png",
-	"./assets/img/Console/Common/null.png"
+	"./assets/img/Common/null.png"
 	);
 	imgLoad.fnMouseDownEvent = function() {
 		fnCameraPanner("left", "start", imgLoad);
@@ -100,7 +100,7 @@
 	imgLoad.fnLoadImage("./assets/img/Console/CameraMonitor/Button_PanRight.png", 
 	"./assets/img/Console/CameraMonitor/Button_PanRightHighlighted.png",
 	"./assets/img/Console/CameraMonitor/Button_PanRightPressed.png",
-	"./assets/img/Console/Common/null.png"
+	"./assets/img/Common/null.png"
 	);
 	imgLoad.fnMouseDownEvent = function() {
 		fnCameraPanner("right", "start", imgLoad);

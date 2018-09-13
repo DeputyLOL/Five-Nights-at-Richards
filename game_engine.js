@@ -582,6 +582,7 @@ function Button(strName) {
 	this.fnMouseDownEvent = function() {};
 	this.fnMouseUpEvent = function() {};
 	this.fnMouseOffEvent = function() {};
+	this.fnMouseOverEvent = function() {};
 	/**
 	 * Add the images
 	 */
@@ -602,6 +603,7 @@ function Button(strName) {
 		
 		//Set up event handlers
 		this.label.onmouseover = function() {	
+			this.container.fnMouseOverEvent();
 			this.container.img.src = strMouseOver;
 		}
 		this.label.onmouseout = function() {

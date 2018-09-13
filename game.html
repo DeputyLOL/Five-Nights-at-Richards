@@ -48,16 +48,63 @@
 
 		game.fnPlaySound("FAN_LOOP",true);
 
-		var scnStart = new Scene("GameStart");
-		//Splash
+		//Create Menu scene
+		var scnGame = new Scene("Game");
+		scnGame.fnSetLayer(10);
+		//Add sprite
+		var imgLoad = new Button("MonitorFlipUp");
+		imgLoad.fnLoadImage("./assets/img/Common/null.png", 
+		"./assets/img/Common/null.png",
+		"./assets/img/Common/null.png",
+		"./assets/img/Common/FLIP_UP.png"
+		);
+		imgLoad.x = 300;
+		imgLoad.y = 706;
+		imgLoad.width = 756;
+		imgLoad.height = 50;
+		scnGame.fnAddSprite(imgLoad);
+		imgLoad.fnMouseOverEvent = function () {
+			fnMonitorFlipper("up");
+		}
+		scnGame.fnGetSprite("MonitorFlipUp").visible = true;
+		
+		var imgLoad = new Button("MonitorFlipDown");
+		imgLoad.fnLoadImage("./assets/img/Common/null.png", 
+		"./assets/img/Common/null.png",
+		"./assets/img/Common/null.png",
+		"./assets/img/Common/FLIP_DOWN.png"
+		);
+		imgLoad.x = 300;
+		imgLoad.y = 706;
+		imgLoad.width = 756;
+		imgLoad.height = 50;
+		scnGame.fnAddSprite(imgLoad);
+		imgLoad.fnMouseOverEvent = function () {
+			fnMonitorFlipper("down");
+		}		
+		scnGame.fnGetSprite("MonitorFlipDown").visible = false;		
+		
+		var scnMonitorUp = new Scene("MonitorUpAnimation");
+		scnMonitorUp.fnSetLayer(10);
 		var imgLoad = new Sprite("MonitorUp");
 		imgLoad.fnLoadImage("./assets/img/Monitor/MonitorUp.gif");
 		imgLoad.x = 0;
 		imgLoad.y = 0;
 		imgLoad.width = 1369;
 		imgLoad.height = 756;		
-		scnStart.fnAddSprite(imgLoad);
-	
+		scnMonitorUp.fnAddSprite(imgLoad);
+
+		var scnMonitorDown = new Scene("MonitorDownAnimation");
+		scnMonitorDown.fnSetLayer(10);
+		var imgLoad = new Sprite("MonitorDown");
+		imgLoad.fnLoadImage("./assets/img/Monitor/MonitorDown.gif");
+		imgLoad.x = 0;
+		imgLoad.y = 0;
+		imgLoad.width = 1369;
+		imgLoad.height = 756;		
+		scnMonitorDown.fnAddSprite(imgLoad);
+
+		
 		//Set up the screen
 		var scnScreen = new Scene("Screen");
 		var imgScreen = new Sprite("ScreenTop");
@@ -94,7 +141,6 @@
 				
 		var intScreenOffsetX = 294;
 		var intScreenOffsetY = 72;	
-		game.fnAddScene( scnScreen );
 		scnScreen.fnSetLayer(6);
 	</script>	
 		<script src = "loading.js"></script>
@@ -125,23 +171,23 @@
 
 		<script src = "./data/Events/eventCoordinator.js"></script>
 	    <script src = "./data/Events/robot1.js"></script>
+
+		<script src = "./data/Office/office.js"></script>
 	<script>
 
 		
 		
 		//Start the game
-		game.fnAddScene( scnStart );
-		game.fnAddScene( scnMenu );
+/*		game.fnAddScene( scnMenu );
 		game.fnAddScene( scnLoading );
 		game.fnAddScene( scnLoadingGame );			
 		game.fnAddScene( scnDesktop );
 		game.fnAddScene( scnDeviceMonitor );
 		game.fnAddScene( scnHelpMenu );		
-		game.fnAddScene( scnOptions );
-		
-		
-		game.fnChangeScene ( scnScreen );
-		scnScreen.fnAddSubScene(scnDesktop);
+		game.fnAddScene( scnOptions ); */
+		game.fnAddScene( scnGame );	
+		game.fnChangeScene ( scnGame );		
+		scnGame.fnAddSubScene(scnOffice);
 		game.fnStart();
 
 /*

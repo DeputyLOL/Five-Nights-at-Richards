@@ -20,7 +20,7 @@
 		imgLoad.fnLoadImage("./assets/img/Console/Common/CloseButton.png", 
 		"./assets/img/Console/Common/CloseButtonHighlighted.png",
 		"./assets/img/Console/Common/CloseButtonPressed.png",
-		"./assets/img/Console/Common/null.png");
+		"./assets/img/Common/null.png");
 		imgLoad.fnMouseUpEvent = function () {
 			game.fnPlaySound("BUTTON");			
 			scnDesktop.fnRemoveSubScene("DeviceMonitor");
@@ -38,11 +38,11 @@
 		imgLoad.width = 140;
 		imgLoad.height = 40;
 		imgLoad.fnLoadImage(
-		"./assets/img/Console/Common/null.png",
+		"./assets/img/Common/null.png",
 		"./assets/img/Console/DeviceMonitor/Tab_OverviewHighlighted.png",
 		"./assets/img/Console/DeviceMonitor/Tab_Overview.png",
 		"./assets/img/Console/DeviceMonitor/Tab_Overview.png",
-		"./assets/img/Console/Common/null.png"
+		"./assets/img/Common/null.png"
 		);
 		imgLoad.fnClickEvent = function () {
 			game.fnPlaySound("BUTTON");
@@ -58,11 +58,11 @@
 		imgLoad.width = 140;
 		imgLoad.height = 40;
 		imgLoad.fnLoadImage(
-		"./assets/img/Console/Common/null.png",
+		"./assets/img/Common/null.png",
 		"./assets/img/Console/DeviceMonitor/Tab_NetworkHighlighted.png",
 		"./assets/img/Console/DeviceMonitor/Tab_Network.png",
 		"./assets/img/Console/DeviceMonitor/Tab_Network.png",
-		"./assets/img/Console/Common/null.png"
+		"./assets/img/Common/null.png"
 		);
 		imgLoad.fnClickEvent = function () {
 			game.fnPlaySound("BUTTON");
@@ -78,11 +78,11 @@
 		imgLoad.width = 140;
 		imgLoad.height = 40;
 		imgLoad.fnLoadImage(
-		"./assets/img/Console/Common/null.png",
+		"./assets/img/Common/null.png",
 		"./assets/img/Console/DeviceMonitor/Tab_PowerHighlighted.png",
 		"./assets/img/Console/DeviceMonitor/Tab_Power.png",
 		"./assets/img/Console/DeviceMonitor/Tab_Power.png",
-		"./assets/img/Console/Common/null.png"
+		"./assets/img/Common/null.png"
 		);
 		imgLoad.fnClickEvent = function () {
 			game.fnPlaySound("BUTTON");
@@ -97,11 +97,11 @@
 		imgLoad.width = 140;
 		imgLoad.height = 40;
 		imgLoad.fnLoadImage(
-		"./assets/img/Console/Common/null.png",
+		"./assets/img/Common/null.png",
 		"./assets/img/Console/DeviceMonitor/Tab_CamerasHighlighted.png",
 		"./assets/img/Console/DeviceMonitor/Tab_Cameras.png",
 		"./assets/img/Console/DeviceMonitor/Tab_Cameras.png",
-		"./assets/img/Console/Common/null.png"
+		"./assets/img/Common/null.png"
 		);
 		imgLoad.fnClickEvent = function () {
 			game.fnPlaySound("BUTTON");
@@ -116,11 +116,11 @@
 		imgLoad.width = 140;
 		imgLoad.height = 40;
 		imgLoad.fnLoadImage(
-		"./assets/img/Console/Common/null.png",
+		"./assets/img/Common/null.png",
 		"./assets/img/Console/DeviceMonitor/Tab_LightsHighlighted.png",
 		"./assets/img/Console/DeviceMonitor/Tab_Lights.png",
 		"./assets/img/Console/DeviceMonitor/Tab_Lights.png",
-		"./assets/img/Console/Common/null.png"
+		"./assets/img/Common/null.png"
 		);
 		imgLoad.fnClickEvent = function () {
 			game.fnPlaySound("BUTTON");
@@ -133,7 +133,7 @@
 		
 		var scnDeviceMonitorRebooting = new Scene("DeviceMonitorRebooting");
 		imgLoad = new Sprite("ClickBlocker");
-		imgLoad.fnLoadImage("./assets/img/Console/Common/null.png");
+		imgLoad.fnLoadImage("./assets/img/Common/null.png");
 		imgLoad.x = 0;
 		imgLoad.y = 0;
 		imgLoad.width = 800;
