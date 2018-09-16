@@ -16,9 +16,16 @@
 	  --
 	  -->
 	<script>
+		//Disable image dragging
+		window.ondragstart = function() { return false; }
 		//Create game object
 		var game = new GameEngine();
-		game.monitorInUse = true;
+		game.fnEndPanning = function() {
+			//Stop camera sound
+			//game.fnStopSound("CAM_PAN");
+			//game.fnPlaySound("CAM_PANLIMIT");
+		}
+		game.monitorInUse = false;
 		document.body.onmousedown = function() {
 			if (game.monitorInUse)
 			{
@@ -26,6 +33,7 @@
 			}
 		};
 		// Load Sounds
+		game.fnAddSound( "OFFICE_AMBIENCE", "./assets/audio/OFFICE_AMBIENCE.ogg");
 		game.fnAddSound( "BOOT_GOOD", "./assets/audio/SYSTEM_BOOTGOOD.ogg");
 		game.fnAddSound( "SYSTEM_START", "./assets/audio/SYSTEM_START.ogg");
 		game.fnAddSound( "SYSTEM_PROCESS", "./assets/audio/SYSTEM_PROCESS.ogg");
@@ -44,10 +52,11 @@
 		game.fnAddSound( "CAM_PAN", "./assets/audio/CAM_PAN.ogg");
 		game.fnAddSound( "CAM_PANLIMIT", "./assets/audio/CAM_PANLIMIT.ogg");
 		game.fnAddSound( "CAM_LIGHT", "./assets/audio/CAM_LIGHT.ogg");
-
+		game.fnAddSound( "FLASHLIGHT_ON", "./assets/audio/FLASHLIGHT_ON.ogg");
+		game.fnAddSound( "FLASHLIGHT_OFF", "./assets/audio/FLASHLIGHT_OFF.ogg");
 
 		game.fnPlaySound("FAN_LOOP",true);
-
+		game.fnPlaySound("OFFICE_AMBIENCE",true);
 		//Create Menu scene
 		var scnGame = new Scene("Game");
 		scnGame.fnSetLayer(10);
@@ -83,26 +92,28 @@
 			fnMonitorFlipper("down");
 		}		
 		scnGame.fnGetSprite("MonitorFlipDown").visible = false;		
+
+
 		
 		var scnMonitorUp = new Scene("MonitorUpAnimation");
 		scnMonitorUp.fnSetLayer(10);
-		var imgLoad = new Sprite("MonitorUp");
-		imgLoad.fnLoadImage("./assets/img/Monitor/MonitorUp.gif");
-		imgLoad.x = 0;
-		imgLoad.y = 0;
-		imgLoad.width = 1369;
-		imgLoad.height = 756;		
-		scnMonitorUp.fnAddSprite(imgLoad);
+		var imgMonitorUp = new Sprite("MonitorUp");
+		imgMonitorUp.fnLoadImage("./assets/img/Monitor/MonitorUp.gif");
+		imgMonitorUp.x = 0;
+		imgMonitorUp.y = 0;
+		imgMonitorUp.width = 1369;
+		imgMonitorUp.height = 756;		
+		scnMonitorUp.fnAddSprite(imgMonitorUp);
 
 		var scnMonitorDown = new Scene("MonitorDownAnimation");
 		scnMonitorDown.fnSetLayer(10);
-		var imgLoad = new Sprite("MonitorDown");
-		imgLoad.fnLoadImage("./assets/img/Monitor/MonitorDown.gif");
-		imgLoad.x = 0;
-		imgLoad.y = 0;
-		imgLoad.width = 1369;
-		imgLoad.height = 756;		
-		scnMonitorDown.fnAddSprite(imgLoad);
+		var imgMonitorDown = new Sprite("MonitorDown");
+		imgMonitorDown.fnLoadImage("./assets/img/Monitor/MonitorDown.gif");
+		imgMonitorDown.x = 0;
+		imgMonitorDown.y = 0;
+		imgMonitorDown.width = 1369;
+		imgMonitorDown.height = 756;		
+		scnMonitorDown.fnAddSprite(imgMonitorDown);
 
 		
 		//Set up the screen

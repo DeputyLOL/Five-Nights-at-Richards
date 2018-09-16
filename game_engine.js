@@ -21,6 +21,10 @@ function GameEngine()
 		
 	}
 	/**
+	 * Fired when a panning sprite stops panning
+	 */
+	this.fnEndPanning = function() {}
+	/**
 	 * Remove a scene
 	 */
 	this.fnRemoveScene = function (strName ) {
@@ -425,6 +429,12 @@ function Sprite(name) {
 		this.img.src = strFile;
 		this.img.container = this;
 	}
+	
+	this.fnResetImage = function(strFile) {
+		//this.img = document.createElement('img');
+		this.img.src = strFile+"?a="+Math.random();
+		//this.img.container = this;
+	}
 	/**
 	 * Update function
 	 */
@@ -476,7 +486,7 @@ function PanningSprite(strName) {
 		this.img.container = this;
 	
 		this.windowSize = 500;
-		
+		this.blnPanning = false;
 		this.imageScroll = 0;
 		
 		this.leftBox = document.createElement('img');
@@ -495,14 +505,24 @@ function PanningSprite(strName) {
 	 * Scroll
 	 */
 	this.fnScroll = function ( intDirection ) {
+		//Left
 		if ( intDirection < 0 ) {
 			if  ( this.imageScroll + this.width  > this.windowSize ) {
 				this.imageScroll += intDirection;
+				this.blnPanning = true;
+			} else { 
+				this.blnPanning = false;
+				game.fnEndPanning();
 			}
-
+		//Right
 		} else {
 			if ( this.imageScroll < 0) {
 				this.imageScroll += intDirection;
+				this.blnPanning = true;
+			} else { 
+				this.blnPanning = false;
+				game.fnEndPanning();
+				
 			}
 		}
 	}

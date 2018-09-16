@@ -15,6 +15,9 @@ var intClientMode = 0;
 var intServerMode = 0;
 var intPowerMode = 0;
 
+var intOfficeDoorLeftPosition = 0;
+var intOfficeDoorRightPosition = 0;
+
 var intMalfunctionCounter = 0;
 var intRobot1Counter = 0;
 

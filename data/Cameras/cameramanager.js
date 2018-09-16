@@ -150,6 +150,10 @@ function fnCameraPanner( direction = 0, method = "start", spriteCam )
 			game.fnPlaySound("CAM_PAN",true);
 			for ( var k =0; k < lstPanningSprites.length; k++ ) {
 				lstPanningSprites[k].scrollDirection = 10;
+				if (! lstPanningSprites[k].blnPanning ) {
+					game.fnStopSound("CAM_PAN");
+					game.fnPlaySound("CAM_PANLIMIT");
+				}
 			}
 		}
 		else
@@ -157,6 +161,10 @@ function fnCameraPanner( direction = 0, method = "start", spriteCam )
 			game.fnPlaySound("CAM_PAN",true);
 			for ( var k =0; k < lstPanningSprites.length; k++ ) {
 				lstPanningSprites[k].scrollDirection = -10;
+				if (! lstPanningSprites[k].blnPanning ) {
+					game.fnStopSound("CAM_PAN");
+					game.fnPlaySound("CAM_PANLIMIT");
+				}
 			}
 		}
 	} 
