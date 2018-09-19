@@ -122,6 +122,7 @@ function fnRobot1Coordinator()
 			strRobot1Room = "DEM2";
 			scnCameraDemoStage.fnGetSprite("DemoStage_Robot1_2").visible = true;
 			console.log("LOG: fnRobot1() - Resetting to: " + strRobot1Room);
+			game.fnPlaySound("DOOR_LEFT_BLOCK");
 			fnCameraDisrupter(0,5);
 		}
 		else

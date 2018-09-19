@@ -31,7 +31,7 @@ function fnEventCoordinator()
 {
 	if(intGameOver == 0 && intDebugMode == 0)
 	{
-		if(intRobot1Counter < 5)
+		if(intRobot1Counter < 2) // 5)
 		{
 			intRobot1Counter++;
 			console.log("LOG: fnEventCoordinator - intRobot1Counter is: " + intRobot1Counter);
