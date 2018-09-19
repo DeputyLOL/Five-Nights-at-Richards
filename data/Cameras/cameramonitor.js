@@ -4,7 +4,7 @@
 
 	//Create Menu scene
 	var scnCameraMonitor = new Scene("CameraMonitor");
-
+	
 	scnCameraMonitor.fnRefresh = function() {
 		if(intCameraLight == 1)
 		{
@@ -33,6 +33,38 @@
 		else
 		{
 			fnCameraLighter(false);		
+		}
+		if(intCameraPanning)
+		{
+			if(intCameraPanLeft || intCameraPanRight)
+			{
+				if(intCameraPanLeft)
+				{
+					fnCameraPanner("left", "start", imgLoad);
+				}
+				else if(intCameraPanRight)
+				{
+					fnCameraPanner("right", "start", imgLoad);
+				}
+				else
+				{
+					fnCameraPanner("left", "stop", imgLoad);
+					fnCameraPanner("right", "stop", imgLoad);
+					intCameraPanning = 0;
+					console.log("not panning");
+					game.fnStopSound("CAM_PAN");
+					game.fnPlaySound("CAM_PANLIMIT");
+				}
+			}
+			else
+			{
+				fnCameraPanner("left", "stop", imgLoad);
+				fnCameraPanner("right", "stop", imgLoad);
+				intCameraPanning = 0;
+				console.log("stop panning");
+				game.fnStopSound("CAM_PAN");
+				game.fnPlaySound("CAM_PANLIMIT");
+			}
 		}
 	}
 
@@ -66,8 +98,8 @@
 		game.fnStopSound("CAM_STATIC");
 		game.fnStopSound("CAM_JAM");
 		game.fnStopSound("CAM_INTERRUPT");
-		scnCameraMonitor.fnRemoveSubScene("CameraViewport");
-		scnDesktop.fnRemoveSubScene("CameraMonitor");
+		scnCameraMonitor.fnRemoveSubScene(scnCameraViewport);
+		scnDesktop.fnRemoveSubScene(scnCameraMonitor);
 		intCameraMonitorActive = 0;
 	}
 	scnCameraMonitor.fnAddButton(imgLoad);
@@ -84,10 +116,13 @@
 	"./assets/img/Common/null.png"
 	);
 	imgLoad.fnMouseDownEvent = function() {
-		fnCameraPanner("left", "start", imgLoad);
+		//fnCameraPanner("left", "start", imgLoad);
+		intCameraPanLeft = 1;
+		intCameraPanning = 1;
 	}
 	imgLoad.fnMouseUpEvent = function () {
-		fnCameraPanner("left", "stop", imgLoad);		
+		//fnCameraPanner("left", "stop", imgLoad);
+		intCameraPanLeft = 0;		
 	}
 	
 	scnCameraMonitor.fnAddButton(imgLoad);
@@ -103,10 +138,13 @@
 	"./assets/img/Common/null.png"
 	);
 	imgLoad.fnMouseDownEvent = function() {
-		fnCameraPanner("right", "start", imgLoad);
+		//fnCameraPanner("right", "start", imgLoad);
+		intCameraPanRight = 1;
+		intCameraPanning = 1;
 	}
 	imgLoad.fnMouseUpEvent = function () {
-		fnCameraPanner("right", "stop", imgLoad);		
+		//fnCameraPanner("right", "stop", imgLoad);
+		intCameraPanRight = 0;		
 	}
 	scnCameraMonitor.fnAddButton(imgLoad);
 

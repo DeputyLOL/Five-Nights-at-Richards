@@ -18,6 +18,8 @@ var intPowerMode = 0;
 var intOfficeDoorLeftPosition = 0;
 var intOfficeDoorRightPosition = 0;
 
+var intGameOver = 0;
+
 var intMalfunctionCounter = 0;
 var intRobot1Counter = 0;
 
@@ -25,32 +27,35 @@ var intRobot1Counter = 0;
 // RUN EVERY 5 SECONDS
 function fnEventCoordinator()
 {
-	if(intRobot1Counter < 5)
+	if(intGameOver == 0)
 	{
-		intRobot1Counter++;
-		console.log("LOG: fnEventCoordinator - intRobot1Counter is: " + intRobot1Counter);
+		if(intRobot1Counter < 5)
+		{
+			intRobot1Counter++;
+			console.log("LOG: fnEventCoordinator - intRobot1Counter is: " + intRobot1Counter);
+		}
+		else
+		{
+			console.log("LOG: fnEventCoordinator - intRobot1Counter reached: " + intRobot1Counter);
+			intRobot1Counter = 0;
+			fnRobot1Coordinator();
+		}
+		if(intMalfunctionCounter < 10)
+		{
+			intMalfunctionCounter++;
+			console.log("LOG: fnEventCoordinator - intMalfunctionCounter is: " + intMalfunctionCounter);
+		}
+		else
+		{
+			console.log("LOG: fnEventCoordinator - intMalfunctionCounter reached: " + intMalfunctionCounter);
+			intMalfunctionCounter = 0;
+			fnSystemBreaker();
+		}
+		setTimeout( function() 
+		{ 
+			fnEventCoordinator();
+		}, 5000);
 	}
-	else
-	{
-		console.log("LOG: fnEventCoordinator - intRobot1Counter reached: " + intRobot1Counter);
-		intRobot1Counter = 0;
-		fnRobot1Coordinator();
-	}
-	if(intMalfunctionCounter < 10)
-	{
-		intMalfunctionCounter++;
-		console.log("LOG: fnEventCoordinator - intMalfunctionCounter is: " + intMalfunctionCounter);
-	}
-	else
-	{
-		console.log("LOG: fnEventCoordinator - intMalfunctionCounter reached: " + intMalfunctionCounter);
-		intMalfunctionCounter = 0;
-		fnSystemBreaker();
-	}
-	setTimeout( function() 
-	{ 
-		fnEventCoordinator();
-	}, 5000);
 }
 
 function fnSystemBreaker()
@@ -97,7 +102,28 @@ function fnSystemBreaker()
 	}
 }
 
-
+function fnGameOver()
+{
+	intGameOver = 1;
+	if(game.monitorInUse == true)
+	{
+		fnMonitorFlipper( "down" );
+	}
+	scnOffice.fnAddSubScene(scnRobot1Jumpscare);
+	game.fnPlaySound("SCREAM");
+	setTimeout( function() 
+	{
+		game.fnStopSound("FAN_LOOP");
+		game.fnStopSound("OFFICE_AMBIENCE");
+		scnGame.fnRemoveAllSubScenes();
+		scnGame.fnGetSprite("MonitorFlipUp").visible = false;
+		scnGame.fnGetSprite("MonitorFlipDown").visible = false;
+		setTimeout( function() 
+		{
+			game.fnPlaySound("TAUNT_ROBOT1_A");
+		}, 4000);
+	}, 600);
+}
 
 
 

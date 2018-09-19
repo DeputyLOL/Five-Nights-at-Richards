@@ -127,7 +127,8 @@ function fnRobot1Coordinator()
 		else
 		{
 			console.log("LOG: fnRobot1 - ATTACKING!!!");
-			//jumpscare
+			scnOffice.fnGetSprite("Office_Robot1").visible = false;
+			fnGameOver();
 		}
 	}
 	else
@@ -138,3 +139,14 @@ function fnRobot1Coordinator()
 	}
 	strRobot1Target = "OFF";
 }
+
+		var scnRobot1Jumpscare = new Scene("Robot1Jumpscare");
+		//Add sprite
+		var imgJumpscare = new Sprite("Office");
+		imgJumpscare.fnLoadImage("./assets/img/Common/Robot1Jumpscare.gif");
+		imgJumpscare.x = 0;
+		imgJumpscare.y = 0;
+		imgJumpscare.width = 1369;
+		imgJumpscare.height = 756;
+		scnRobot1Jumpscare.fnAddSprite(imgJumpscare);
+		scnRobot1Jumpscare.fnSetLayer(2);

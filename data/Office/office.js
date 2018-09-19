@@ -1,9 +1,12 @@
 
+	var intOfficePanLeft = 0;
+	var intOfficePanRight = 0;
 
 		function fnMonitorFlipper( direction )
 		{
 			if (direction == "up")
 			{
+				game.fnPlaySound("MONITOR_UP");
 				scnGame.fnGetSprite("MonitorFlipUp").visible = false;
 				scnOffice.fnGetSprite("PanLeft").visible = false;
 				scnOffice.fnGetSprite("PanRight").visible = false;
@@ -15,23 +18,44 @@
 					scnOffice.fnAddSubScene(scnDesktop);
 					scnGame.fnGetSprite("MonitorFlipDown").visible = true;
 					imgMonitorUp.fnLoadImage("./assets/img/Monitor/MonitorUp.gif");
+					game.fnVolumeSound("CAM_ACTIVE",1);
+					game.fnVolumeSound("CAM_TRANSFER",1);
+					game.fnVolumeSound("CAM_STATIC",1);
+					game.fnVolumeSound("CAM_DANGER",1);
+					game.fnVolumeSound("CAM_BEEP",1);
+					game.fnVolumeSound("CAM_JAM",1);
+					game.fnVolumeSound("CAM_INTERRUPT",1);
+					game.fnVolumeSound("CAM_PAN",1);
+					game.fnVolumeSound("CAM_PANLIMIT",1);
+					game.fnVolumeSound("CAM_LIGHT",1);
 					game.monitorInUse = true;
 				},600)				
 			} 
 			else if (direction == "down")
 			{
 				game.monitorInUse = false;
+				game.fnPlaySound("MONITOR_DOWN");
 				scnGame.fnGetSprite("MonitorFlipDown").visible = false;
 				scnOffice.fnRemoveSubScene(scnDesktop);
 				scnOffice.fnRemoveSubScene(scnScreen);
 				scnOffice.fnAddSubScene(scnMonitorDown);
 				setTimeout( function() 
 				{
+					game.fnVolumeSound("CAM_ACTIVE",0);
+					game.fnVolumeSound("CAM_TRANSFER",0);
+					game.fnVolumeSound("CAM_STATIC",0);
+					game.fnVolumeSound("CAM_DANGER",0);
+					game.fnVolumeSound("CAM_BEEP",0);
+					game.fnVolumeSound("CAM_JAM",0);
+					game.fnVolumeSound("CAM_INTERRUPT",0);
+					game.fnVolumeSound("CAM_PAN",0);
+					game.fnVolumeSound("CAM_PANLIMIT",0);
+					game.fnVolumeSound("CAM_LIGHT",0);
 					scnOffice.fnRemoveSubScene(scnMonitorDown);
 					scnGame.fnGetSprite("MonitorFlipUp").visible = true;
 					scnOffice.fnGetSprite("PanLeft").visible = true;
 					scnOffice.fnGetSprite("PanRight").visible = true;
-					imgMonitorDown.fnLoadImage("./assets/img/Monitor/MonitorDown.gif");					
+					imgMonitorDown.fnLoadImage("./assets/img/Monitor/MonitorDown.gif");			
 				},600)					
 			}
 			else
@@ -182,30 +206,48 @@
 				{
 					for ( var k =0; k < lstPanningSprites.length; k++ ) {
 						lstPanningSprites[k].scrollDirection = 30;
-						/*if(!lstPanningSprites[k].blnPanning)
+						if(!lstPanningSprites[k].blnPanning)
 						{
-							console.log("Reached Right");
 							scnOffice.fnGetSprite("LightLeft").visible = true;
+							if(intOfficeDoorLeftPosition)
+							{
+								scnOffice.fnGetSprite("DoorLeftClose").visible = true;
+							}
+							else
+							{
+								scnOffice.fnGetSprite("DoorLeftOpen").visible = true;								
+							}
 						}
 						else
 						{
-							scnOffice.fnGetSprite("LightLeft").visible = false;							
-						}*/
+							scnOffice.fnGetSprite("LightLeft").visible = false;
+							scnOffice.fnGetSprite("DoorLeftOpen").visible = false;
+							scnOffice.fnGetSprite("DoorLeftClose").visible = false;							
+						}
 					}
 				}
 				else
 				{
 					for ( var k =0; k < lstPanningSprites.length; k++ ) {
 						lstPanningSprites[k].scrollDirection = -30;
-						/*if(!lstPanningSprites[k].blnPanning)
+						if(!lstPanningSprites[k].blnPanning)
 						{
-							console.log("Reached Left");
 							scnOffice.fnGetSprite("LightLeft").visible = true;
+							if(intOfficeDoorLeftPosition)
+							{
+								scnOffice.fnGetSprite("DoorLeftClose").visible = true;
+							}
+							else
+							{
+								scnOffice.fnGetSprite("DoorLeftOpen").visible = true;								
+							}
 						}
 						else
 						{
-							scnOffice.fnGetSprite("LightLeft").visible = false;							
-						}*/
+							scnOffice.fnGetSprite("LightLeft").visible = false;
+							scnOffice.fnGetSprite("DoorLeftOpen").visible = false;
+							scnOffice.fnGetSprite("DoorLeftClose").visible = false;							
+						}
 					}
 				}
 			} 
@@ -218,6 +260,25 @@
 
 		//Create Menu scene
 		var scnOffice = new Scene("OfficeScene");
+		
+		scnOffice.fnRefresh = function() {
+			// PANNER
+			if(intOfficePanLeft)
+			{
+				fnOfficePanner("left","start",imgOffice);
+			}
+			else if(intOfficePanRight)
+			{
+				fnOfficePanner("right","start",imgOffice);
+			}
+			else
+			{
+				fnOfficePanner("left","stop",imgOffice);
+				fnOfficePanner("right","stop",imgOffice);
+			}
+		}		
+		
+	
 		//Add sprite
 		var imgOffice = new PanningSprite("Office");
 		imgOffice.fnLoadImage("./assets/img/Office/Office_Default.png");
@@ -293,10 +354,10 @@
 		imgLoad.height = 756;
 		scnOffice.fnAddSprite(imgLoad);
 		imgLoad.fnMouseOverEvent = function () {
-			fnOfficePanner("left","start",imgOffice);
+			intOfficePanLeft = 1;
 		}
 		imgLoad.fnMouseOffEvent = function () {
-			fnOfficePanner("left","stop",imgOffice);
+			intOfficePanLeft = 0;
 		}
 		scnOffice.fnGetSprite("PanLeft").visible = true;
 		
@@ -312,10 +373,10 @@
 		imgLoad.height = 756;
 		scnOffice.fnAddSprite(imgLoad);
 		imgLoad.fnMouseOverEvent = function () {
-			fnOfficePanner("right","start",imgOffice);
+			intOfficePanRight = 1;
 		}
 		imgLoad.fnMouseOffEvent = function () {
-			fnOfficePanner("right","stop",imgOffice);
+			intOfficePanRight = 0;
 		}
 		scnOffice.fnGetSprite("PanRight").visible = true;
 

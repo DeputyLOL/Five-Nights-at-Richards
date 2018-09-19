@@ -23,7 +23,9 @@
 
 
 var intCameraTransferDelay = 500;
-var intCameraPan = 0;
+var intCameraPanning = 0;
+var intCameraPanLeft = 0;
+var intCameraPanRight = 0;
 var intPanDirection = 0;
 var intCameraPanable = 0;
 var intCameraActive = 0;
@@ -151,8 +153,7 @@ function fnCameraPanner( direction = 0, method = "start", spriteCam )
 			for ( var k =0; k < lstPanningSprites.length; k++ ) {
 				lstPanningSprites[k].scrollDirection = 10;
 				if (! lstPanningSprites[k].blnPanning ) {
-					game.fnStopSound("CAM_PAN");
-					game.fnPlaySound("CAM_PANLIMIT");
+					intCameraPanLeft = 0;
 				}
 			}
 		}
@@ -162,8 +163,7 @@ function fnCameraPanner( direction = 0, method = "start", spriteCam )
 			for ( var k =0; k < lstPanningSprites.length; k++ ) {
 				lstPanningSprites[k].scrollDirection = -10;
 				if (! lstPanningSprites[k].blnPanning ) {
-					game.fnStopSound("CAM_PAN");
-					game.fnPlaySound("CAM_PANLIMIT");
+					intCameraPanRight = 0;
 				}
 			}
 		}
@@ -172,8 +172,8 @@ function fnCameraPanner( direction = 0, method = "start", spriteCam )
 		for ( var k =0; k < lstPanningSprites.length; k++ ) {
 			lstPanningSprites[k].scrollDirection = 0;
 		}
-		game.fnStopSound("CAM_PAN");
-		game.fnPlaySound("CAM_PANLIMIT");
+		//game.fnStopSound("CAM_PAN");
+		//game.fnPlaySound("CAM_PANLIMIT");
 	}	
 }
 
@@ -295,3 +295,6 @@ function fnCameraDisrupter( camera , camera2)
 		},3000)
 	}
 }
+
+//	var scnCameraManager = new Scene("CameraManager");
+

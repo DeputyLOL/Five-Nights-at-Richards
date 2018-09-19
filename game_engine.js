@@ -129,6 +129,13 @@ function GameEngine()
 		this.dicSounds[strName].loop = loop;
 		this.dicSounds[strName].play();
 	}
+
+	/**
+	 * Set Volume
+	 */
+	this.fnVolumeSound = function( strName, volume = 1 ) {
+		this.dicSounds[strName].volume = volume;
+	}
 	
 	/**
 	 * Pause sound
@@ -507,7 +514,7 @@ function PanningSprite(strName) {
 	this.fnScroll = function ( intDirection ) {
 		//Left
 		if ( intDirection < 0 ) {
-			if  ( this.imageScroll + this.width  > this.windowSize ) {
+			if  ( this.imageScroll + this.width  > this.windowSize) {
 				this.imageScroll += intDirection;
 				this.blnPanning = true;
 			} else { 
@@ -515,15 +522,17 @@ function PanningSprite(strName) {
 				game.fnEndPanning();
 			}
 		//Right
-		} else {
+		} else if( intDirection > 0 ){
 			if ( this.imageScroll < 0) {
 				this.imageScroll += intDirection;
 				this.blnPanning = true;
 			} else { 
 				this.blnPanning = false;
 				game.fnEndPanning();
-				
 			}
+		}
+		else
+		{			
 		}
 	}
 	/**
