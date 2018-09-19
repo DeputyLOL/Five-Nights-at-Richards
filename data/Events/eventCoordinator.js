@@ -2,6 +2,8 @@
 
 // FUNCTIONS THAT CONTROL EVENTS/MALFUNCTIONS/MOVEMENT
 
+var intDebugMode = 0;
+
 // System Operation
 // 0 = Normal
 // 1 = Degraded - Needs Rebooting
@@ -27,7 +29,7 @@ var intRobot1Counter = 0;
 // RUN EVERY 5 SECONDS
 function fnEventCoordinator()
 {
-	if(intGameOver == 0)
+	if(intGameOver == 0 && intDebugMode == 0)
 	{
 		if(intRobot1Counter < 5)
 		{
