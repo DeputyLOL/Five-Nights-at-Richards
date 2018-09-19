@@ -33,6 +33,7 @@ function fnRobot1Coordinator()
 		strRobot1Room = "COR"; // ... move to Lobby Corridor
 		console.log("LOG: fnRobot1() - Moving to: " + strRobot1Room);
 		scnCameraLobbyCorridor.fnGetSprite("LobbyCorridor_Robot1").visible = true;
+		game.fnPlaySound("FOOTSTEP_ROBOT1");
 		fnCameraDisrupter(5,3);
 	}
 	else if(strRobot1Room == "MED") // If robot is in medbay...
@@ -42,6 +43,7 @@ function fnRobot1Coordinator()
 		strRobot1Room = "COR"; // ... move to Lobby Corridor
 		console.log("LOG: fnRobot1() - Moving to: " + strRobot1Room);
 		scnCameraLobbyCorridor.fnGetSprite("LobbyCorridor_Robot1").visible = true;
+		game.fnPlaySound("FOOTSTEP_ROBOT1");
 		fnCameraDisrupter(4,3);
 	}
 	else if(strRobot1Room == "VNT") // If robot is in vent room...
@@ -50,12 +52,14 @@ function fnRobot1Coordinator()
 		strRobot1Room = "LOB"; // ... move to Lobby
 		console.log("LOG: fnRobot1() - Moving to: " + strRobot1Room);
 		scnCameraLobby.fnGetSprite("Lobby_Robot1").visible = true;
+		game.fnPlaySound("FOOTSTEP_ROBOT1");
 		fnCameraDisrupter(0,1);
 	}
 	else if(strRobot1Room == "LOB") // If robot is in Lobby...
 	{
 		console.log("LOG: fnRobot1() - Moving from: " + strRobot1Room);
 		scnCameraLobby.fnGetSprite("Lobby_Robot1").visible = false;
+		game.fnPlaySound("FOOTSTEP_ROBOT1");		
 		if(strRobot1Room == "VNT")
 		{
 			strRobot1Room = "VNT";  // ... move to vent room
@@ -73,7 +77,7 @@ function fnRobot1Coordinator()
 	{
 		console.log("LOG: fnRobot1() - Moving from: " + strRobot1Room);
 		scnCameraLobbyCorridor.fnGetSprite("LobbyCorridor_Robot1").visible = false;
-		
+		game.fnPlaySound("FOOTSTEP_ROBOT1");		
 		if(strRobot1Target == "DEM")
 		{
 			strRobot1Room = "DEM2";
@@ -110,6 +114,7 @@ function fnRobot1Coordinator()
 		strRobot1Room = "OFF"; // ... move to office!
 		console.log("LOG: fnRobot1() - Moving to: " + strRobot1Room);
 		scnOffice.fnGetSprite("Office_Robot1").visible = true;
+		game.fnPlaySound("FOOTSTEP_ROBOT1");
 		fnCameraDisrupter(3,0);
 	}
 	else if(strRobot1Room == "OFF") // If robot is by the office...
@@ -123,6 +128,8 @@ function fnRobot1Coordinator()
 			scnCameraDemoStage.fnGetSprite("DemoStage_Robot1_2").visible = true;
 			console.log("LOG: fnRobot1() - Resetting to: " + strRobot1Room);
 			game.fnPlaySound("DOOR_LEFT_BLOCK");
+			//game.fnVolumeSound("FOOTSTEP_ROBOT1",1);
+			game.fnPlaySound("FOOTSTEP_ROBOT1");
 			fnCameraDisrupter(0,5);
 		}
 		else
