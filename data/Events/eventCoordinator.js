@@ -155,6 +155,7 @@ function fnGameOver()
 	{
 		game.fnStopSound("FAN_LOOP");
 		game.fnStopSound("OFFICE_AMBIENCE");
+		game.fnStopSound("DOOR_BEEP");
 		scnGame.fnRemoveAllSubScenes();
 		scnGame.fnGetSprite("MonitorFlipUp").visible = false;
 		scnGame.fnGetSprite("MonitorFlipDown").visible = false;

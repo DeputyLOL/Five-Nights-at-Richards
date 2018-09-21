@@ -60,7 +60,11 @@ function fnPowerManager()
 	{
 		scnBatteryIcon.fnGetSprite("BatteryFail").visible = true;
 		scnBatteryIcon.fnGetSprite("BatteryWarn").visible = false;
-	}		
+	}
+	if( intPower <= 0)
+	{
+		fnGameOver();
+	}
 }
 
 
