@@ -80,7 +80,7 @@
 			if(intLobbyLight == 1 && intLobbyLightAmount < 30)
 			{
 				intLobbyLightAmount++;
-				console.log(intLobbyLightAmount);
+				//console.log(intLobbyLightAmount);
 			}
 			else if(intLobbyLightAmount == 30)
 			{

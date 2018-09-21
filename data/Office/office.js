@@ -1,7 +1,8 @@
 
 	var intOfficePanLeft = 0;
 	var intOfficePanRight = 0;
-
+	var intOfficeDoorLeftInTransit = 0;
+	
 		function fnMonitorFlipper( direction )
 		{
 			if (direction == "up")
@@ -16,9 +17,7 @@
 					scnOffice.fnRemoveSubScene(scnMonitorUp);
 					scnOffice.fnAddSubScene(scnScreen);
 					scnOffice.fnAddSubScene(scnDesktop);
-					scnDesktop.fnAddSubScene(scnClockDigit1);
-					scnDesktop.fnAddSubScene(scnClockDigit2);
-					scnDesktop.fnAddSubScene(scnClockDigit3);
+					fnDesktopToggle("on");
 					scnGame.fnGetSprite("MonitorFlipDown").visible = true;
 					imgMonitorUp.fnLoadImage("./assets/img/Monitor/MonitorUp.gif");
 					game.fnVolumeSound("CAM_ACTIVE",1);
@@ -39,9 +38,6 @@
 				game.monitorInUse = false;
 				game.fnPlaySound("MONITOR_DOWN");
 				scnGame.fnGetSprite("MonitorFlipDown").visible = false;
-				scnDesktop.fnRemoveSubScene(scnClockDigit1);
-				scnDesktop.fnRemoveSubScene(scnClockDigit2);
-				scnDesktop.fnRemoveSubScene(scnClockDigit3);
 				scnOffice.fnRemoveSubScene(scnDesktop);
 				scnOffice.fnRemoveSubScene(scnScreen);
 				scnOffice.fnAddSubScene(scnMonitorDown);
@@ -57,6 +53,7 @@
 					game.fnVolumeSound("CAM_PAN",0);
 					game.fnVolumeSound("CAM_PANLIMIT",0);
 					game.fnVolumeSound("CAM_LIGHT",0);
+					fnDesktopToggle("off");
 					scnOffice.fnRemoveSubScene(scnMonitorDown);
 					scnGame.fnGetSprite("MonitorFlipUp").visible = true;
 					scnOffice.fnGetSprite("PanLeft").visible = true;
@@ -76,32 +73,37 @@
 			{
 				if (direction == "up")
 				{
+					game.fnPlaySound("DOOR_LEFT_OPEN");
+					intOfficeDoorLeftInTransit = 1;
 					console.log("LEFT DOOR OPENING");
 					scnOffice.fnGetSprite("DoorLeftClose").visible = false;
-					imgOfficeDoorLeftOpen.fnResetImage("./assets/img/Office/Office_DoorLeftOpen.gif");
 					scnOffice.fnGetSprite("Office_DoorLeftClose").visible = false;
-					scnOffice.fnGetSprite("Office_DoorLeftOpen").visible = true;					
+					imgOfficeDoorLeftOpen.fnResetImage("./assets/img/Office/Office_DoorLeftOpen.gif");
+					scnOffice.fnGetSprite("Office_DoorLeftOpen").visible = true;
+					game.fnStopSound("DOOR_BEEP");					
 					setTimeout( function() 
 					{
-						scnOffice.fnGetSprite("DoorLeftOpen").visible = true;
 						console.log("LEFT DOOR OPEN");
 						intOfficeDoorLeftPosition = 0;
-						scnOffice.fnGetSprite("LightLeft").visible = true;
+						intOfficeDoorLeftInTransit = 0;
 					},1000)
 				} 
 				else if (direction == "down")
 				{
+					game.fnPlaySound("DOOR_LEFT_CLOSE");
+					intOfficeDoorLeftInTransit = 1;
 					console.log("LEFT DOOR CLOSING");
 					scnOffice.fnGetSprite("LightLeft").visible = false;
 					scnOffice.fnGetSprite("DoorLeftOpen").visible = false;
-					imgOfficeDoorLeftClose.fnResetImage("./assets/img/Office/Office_DoorLeftClose.gif");
 					scnOffice.fnGetSprite("Office_DoorLeftClose").visible = true;
 					scnOffice.fnGetSprite("Office_DoorLeftOpen").visible = false;		
+					imgOfficeDoorLeftClose.fnResetImage("./assets/img/Office/Office_DoorLeftClose.gif");
 					setTimeout( function() 
 					{
-						scnOffice.fnGetSprite("DoorLeftClose").visible = true;
 						console.log("LEFT DOOR CLOSED");
 						intOfficeDoorLeftPosition = 1;
+						intOfficeDoorLeftInTransit = 0;
+						game.fnPlaySound("DOOR_BEEP",true);
 					},1000)			
 				}
 				else
@@ -212,16 +214,18 @@
 				{
 					for ( var k =0; k < lstPanningSprites.length; k++ ) {
 						lstPanningSprites[k].scrollDirection = 30;
-						if(!lstPanningSprites[k].blnPanning)
+						if(!lstPanningSprites[k].blnPanning && intOfficeDoorLeftInTransit == 0)
 						{
-							scnOffice.fnGetSprite("LightLeft").visible = true;
 							if(intOfficeDoorLeftPosition)
 							{
 								scnOffice.fnGetSprite("DoorLeftClose").visible = true;
+								scnOffice.fnGetSprite("DoorLeftOpen").visible = false;
 							}
 							else
 							{
-								scnOffice.fnGetSprite("DoorLeftOpen").visible = true;								
+								scnOffice.fnGetSprite("DoorLeftClose").visible = false;	
+								scnOffice.fnGetSprite("DoorLeftOpen").visible = true;		
+								scnOffice.fnGetSprite("LightLeft").visible = true;								
 							}
 						}
 						else
@@ -236,16 +240,18 @@
 				{
 					for ( var k =0; k < lstPanningSprites.length; k++ ) {
 						lstPanningSprites[k].scrollDirection = -30;
-						if(!lstPanningSprites[k].blnPanning)
+						if(!lstPanningSprites[k].blnPanning && intOfficeDoorLeftInTransit == 0)
 						{
-							scnOffice.fnGetSprite("LightLeft").visible = true;
 							if(intOfficeDoorLeftPosition)
 							{
 								scnOffice.fnGetSprite("DoorLeftClose").visible = true;
+								scnOffice.fnGetSprite("DoorLeftOpen").visible = false;
 							}
 							else
 							{
-								scnOffice.fnGetSprite("DoorLeftOpen").visible = true;								
+								scnOffice.fnGetSprite("DoorLeftClose").visible = false;	
+								scnOffice.fnGetSprite("DoorLeftOpen").visible = true;		
+								scnOffice.fnGetSprite("LightLeft").visible = true;								
 							}
 						}
 						else

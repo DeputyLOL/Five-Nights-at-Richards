@@ -85,7 +85,7 @@
 			if(intDemoStageLight == 1 && intDemoStageLightAmount < 30)
 			{
 				intDemoStageLightAmount++;
-				console.log(intDemoStageLightAmount);
+				//console.log(intDemoStageLightAmount);
 			}
 			else if(intDemoStageLightAmount == 30)
 			{

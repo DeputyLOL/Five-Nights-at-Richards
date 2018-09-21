@@ -80,7 +80,7 @@
 			if(intMedbayLight == 1 && intMedbayLightAmount < 30)
 			{
 				intMedbayLightAmount++;
-				console.log(intMedbayLightAmount);
+				//console.log(intMedbayLightAmount);
 			}
 			else if(intMedbayLightAmount == 30)
 			{

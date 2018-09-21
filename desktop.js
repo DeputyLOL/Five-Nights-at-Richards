@@ -1,3 +1,32 @@
+
+
+function fnDesktopToggle(toggle)
+{
+	if (toggle == "on")
+	{
+		scnDesktop.fnAddSubScene(scnBatteryIcon);
+		scnDesktop.fnAddSubScene(scnClockDigit1);
+		scnDesktop.fnAddSubScene(scnClockDigit2);
+		scnDesktop.fnAddSubScene(scnClockDigit3);
+		scnDesktop.fnAddSubScene(scnClockDigit4);
+	}
+	else if(toggle == "off")
+	{
+		scnDesktop.fnRemoveSubScene(scnBatteryIcon);
+		scnDesktop.fnRemoveSubScene(scnClockDigit1);
+		scnDesktop.fnRemoveSubScene(scnClockDigit2);
+		scnDesktop.fnRemoveSubScene(scnClockDigit3);
+		scnDesktop.fnRemoveSubScene(scnClockDigit4);
+	}
+	else
+	{
+		console.log("ERROR: fnDesktopToggle() - Can't toggle to " + toggle);
+	}
+}
+
+
+
+
 	//Create Menu scene
 	var scnDesktop = new Scene("Desktop");
 	//Add sprite

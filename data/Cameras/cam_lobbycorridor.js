@@ -83,7 +83,7 @@
 			if(intLobbyCorridorLight == 1 && intLobbyCorridorLightAmount < 30)
 			{
 				intLobbyCorridorLightAmount++;
-				console.log(intLobbyCorridorLightAmount);
+				//console.log(intLobbyCorridorLightAmount);
 			}
 			else if(intLobbyCorridorLightAmount == 30)
 			{

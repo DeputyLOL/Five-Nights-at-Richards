@@ -38,6 +38,7 @@ function fnEventCoordinator()
 	}
 	if(intDebugMode == 0)
 	{
+		// MOVE ROBOTS
 		if(intRobot1Counter < 10)
 		{
 			intRobot1Counter++;
@@ -49,7 +50,9 @@ function fnEventCoordinator()
 			intRobot1Counter = 0;
 			fnRobot1Coordinator();
 		}
-		if(intMalfunctionCounter < 16)
+		
+		// BREAK SOMETHING
+		if(intMalfunctionCounter < 20)
 		{
 			intMalfunctionCounter++;
 			//console.log("LOG: fnEventCoordinator - intMalfunctionCounter is: " + intMalfunctionCounter);
@@ -60,6 +63,8 @@ function fnEventCoordinator()
 			intMalfunctionCounter = 0;
 			fnSystemBreaker();
 		}
+		
+		fnPowerManager();
 	}
 	if(intGameOver == 0)
 	{

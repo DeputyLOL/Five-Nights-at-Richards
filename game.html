@@ -33,9 +33,13 @@
 			}
 		};
 		// Load Sounds
-		game.fnAddSound( "OFFICE_AMBIENCE", "./assets/audio/OFFICE_AMBIENCE.ogg");
+		game.fnAddSound( "OFFICE_AMBIENCE", "./assets/audio/OFFICE_AMBIENCE.wav");
 
+		game.fnAddSound( "DOOR_BEEP", "./assets/audio/DOOR_BEEP.ogg");		
+		
 		game.fnAddSound( "DOOR_LEFT_BLOCK", "./assets/audio/DOOR_LEFT_BLOCK.ogg");
+		game.fnAddSound( "DOOR_LEFT_CLOSE", "./assets/audio/DOOR_LEFT_CLOSE.ogg");
+		game.fnAddSound( "DOOR_LEFT_OPEN", "./assets/audio/DOOR_LEFT_OPEN.ogg");
 		
 		game.fnAddSound( "MONITOR_DOWN", "./assets/audio/MONITOR_DOWN.ogg");
 		game.fnAddSound( "MONITOR_UP", "./assets/audio/MONITOR_UP.ogg");
@@ -194,13 +198,6 @@
 	    <script src = "help_menu.js"></script>
 	    <script src = "options.js"></script>
 	    <script src = "email.js"></script>
-
-	    <script src = "./data/Device/devicemanager.js"></script>		
-	    <script src = "./data/Device/devicemonitor.js"></script>
-	    <script src = "./data/Device/dev_overview.js"></script>
-
-	    <script src = "./data/Device/dev_cameras.js"></script>		
-	    <script src = "./data/Device/dev_lighting.js"></script>
 		
 	    <script src = "./data/Cameras/cameramanager.js"></script>
 	    <script src = "./data/Cameras/cameramonitor.js"></script>
@@ -214,8 +211,18 @@
 		
 	    <script src = "./data/Cameras/cam_manufacturing.js"></script>
 
-		<script src = "./data/Events/clock.js"></script>
+		<script src = "./data/Desktop/clock.js"></script>
+		<script src = "./data/Desktop/battery.js"></script>
+		
+	    <script src = "./data/Device/devicemanager.js"></script>		
+	    <script src = "./data/Device/devicemonitor.js"></script>
+	    <script src = "./data/Device/dev_overview.js"></script>
+
+	    <script src = "./data/Device/dev_cameras.js"></script>		
+	    <script src = "./data/Device/dev_lighting.js"></script>	
+		
 		<script src = "./data/Events/eventCoordinator.js"></script>
+		<script src = "./data/Events/power.js"></script>
 	    <script src = "./data/Events/robot1.js"></script>
 
 		<script src = "./data/Office/office.js"></script>
