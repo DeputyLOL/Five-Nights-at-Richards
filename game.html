@@ -40,6 +40,8 @@
 		game.fnAddSound( "MONITOR_DOWN", "./assets/audio/MONITOR_DOWN.ogg");
 		game.fnAddSound( "MONITOR_UP", "./assets/audio/MONITOR_UP.ogg");
 
+		game.fnAddSound( "GAME_ENDALARM", "./assets/audio/GAME_ENDALARM.ogg");
+		game.fnAddSound( "GAME_END", "./assets/audio/GAME_END.ogg");
 		game.fnAddSound( "SCREAM", "./assets/audio/SCREAM.ogg");
 
 		game.fnAddSound( "TAUNT_ROBOT1_A", "./assets/audio/TAUNT_ROBOT1_A.ogg");
@@ -69,7 +71,7 @@
 
 		game.fnPlaySound("FAN_LOOP",true);
 		game.fnPlaySound("OFFICE_AMBIENCE",true);
-		//Create Menu scene
+		//Create scene
 		var scnGame = new Scene("Game");
 		scnGame.fnSetLayer(10);
 		//Add sprite
@@ -165,6 +167,26 @@
 		var intScreenOffsetX = 294;
 		var intScreenOffsetY = 72;	
 		scnScreen.fnSetLayer(6);
+		
+		//Create scene
+		var scnNightWin = new Scene("NightWin");
+		//Add sprite
+		var imgGameWin = new Sprite("Background");
+		imgGameWin.fnLoadImage("./assets/img/Common/background.png");
+		imgGameWin.x = 0;
+		imgGameWin.y = 0;
+		imgGameWin.width = 1369;
+		imgGameWin.height = 756;
+		scnNightWin.fnAddSprite(imgGameWin);
+
+		var imgGameWin = new Sprite("6AM");
+		imgGameWin.fnLoadImage("./assets/img/Common/6AM.gif");
+		imgGameWin.x = 536;
+		imgGameWin.y = 315;
+		imgGameWin.width = 300;
+		imgGameWin.height = 126;
+		scnNightWin.fnAddSprite(imgGameWin);
+		
 	</script>	
 		<script src = "loading.js"></script>
 		<script src = "menu.js"></script>
@@ -192,6 +214,7 @@
 		
 	    <script src = "./data/Cameras/cam_manufacturing.js"></script>
 
+		<script src = "./data/Events/clock.js"></script>
 		<script src = "./data/Events/eventCoordinator.js"></script>
 	    <script src = "./data/Events/robot1.js"></script>
 

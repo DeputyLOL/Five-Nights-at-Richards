@@ -16,6 +16,9 @@
 					scnOffice.fnRemoveSubScene(scnMonitorUp);
 					scnOffice.fnAddSubScene(scnScreen);
 					scnOffice.fnAddSubScene(scnDesktop);
+					scnDesktop.fnAddSubScene(scnClockDigit1);
+					scnDesktop.fnAddSubScene(scnClockDigit2);
+					scnDesktop.fnAddSubScene(scnClockDigit3);
 					scnGame.fnGetSprite("MonitorFlipDown").visible = true;
 					imgMonitorUp.fnLoadImage("./assets/img/Monitor/MonitorUp.gif");
 					game.fnVolumeSound("CAM_ACTIVE",1);
@@ -36,6 +39,9 @@
 				game.monitorInUse = false;
 				game.fnPlaySound("MONITOR_DOWN");
 				scnGame.fnGetSprite("MonitorFlipDown").visible = false;
+				scnDesktop.fnRemoveSubScene(scnClockDigit1);
+				scnDesktop.fnRemoveSubScene(scnClockDigit2);
+				scnDesktop.fnRemoveSubScene(scnClockDigit3);
 				scnOffice.fnRemoveSubScene(scnDesktop);
 				scnOffice.fnRemoveSubScene(scnScreen);
 				scnOffice.fnAddSubScene(scnMonitorDown);

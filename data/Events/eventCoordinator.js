@@ -22,6 +22,7 @@ var intOfficeDoorRightPosition = 0;
 
 var intGameOver = 0;
 
+var intNightCounter = 0;
 var intMalfunctionCounter = 0;
 var intRobot1Counter = 0;
 
@@ -29,35 +30,46 @@ var intRobot1Counter = 0;
 // RUN EVERY 5 SECONDS
 function fnEventCoordinator()
 {
-	if(intGameOver == 0 && intDebugMode == 0)
+	fnClock();
+	//console.log(intNightCounter);
+	if(intNightCounter >= 360)
 	{
-		if(intRobot1Counter < 2) // 5)
+		fnEndNight();
+	}
+	if(intDebugMode == 0)
+	{
+		if(intRobot1Counter < 10)
 		{
 			intRobot1Counter++;
-			console.log("LOG: fnEventCoordinator - intRobot1Counter is: " + intRobot1Counter);
+			//console.log("LOG: fnEventCoordinator - intRobot1Counter is: " + intRobot1Counter);
 		}
 		else
 		{
-			console.log("LOG: fnEventCoordinator - intRobot1Counter reached: " + intRobot1Counter);
+			//console.log("LOG: fnEventCoordinator - intRobot1Counter reached: " + intRobot1Counter);
 			intRobot1Counter = 0;
 			fnRobot1Coordinator();
 		}
-		if(intMalfunctionCounter < 10)
+		if(intMalfunctionCounter < 16)
 		{
 			intMalfunctionCounter++;
-			console.log("LOG: fnEventCoordinator - intMalfunctionCounter is: " + intMalfunctionCounter);
+			//console.log("LOG: fnEventCoordinator - intMalfunctionCounter is: " + intMalfunctionCounter);
 		}
 		else
 		{
-			console.log("LOG: fnEventCoordinator - intMalfunctionCounter reached: " + intMalfunctionCounter);
+			//console.log("LOG: fnEventCoordinator - intMalfunctionCounter reached: " + intMalfunctionCounter);
 			intMalfunctionCounter = 0;
 			fnSystemBreaker();
 		}
+	}
+	if(intGameOver == 0)
+	{
 		setTimeout( function() 
 		{ 
+			intNightCounter++;
 			fnEventCoordinator();
-		}, 5000);
+		}, 1000);
 	}
+
 }
 
 function fnSystemBreaker()
@@ -104,9 +116,30 @@ function fnSystemBreaker()
 	}
 }
 
+function fnEndNight()
+{
+	intGameOver = 1;
+	console.log("NIGHT END");
+	game.fnPlaySound("GAME_END");
+	scnGame.fnGetSprite("MonitorFlipUp").visible = false;
+	scnGame.fnGetSprite("MonitorFlipDown").visible = false;
+	setTimeout( function() 
+	{
+		scnGame.fnRemoveAllSubScenes();
+		scnGame.fnAddSubScene(scnNightWin);
+		game.fnPlaySound("GAME_ENDALARM", true);
+		game.fnStopSound("FAN_LOOP");
+		game.fnStopSound("OFFICE_AMBIENCE");
+		scnGame.fnGetSprite("MonitorFlipUp").visible = false;
+		scnGame.fnGetSprite("MonitorFlipDown").visible = false;
+	}, 300);
+}
+
+
 function fnGameOver()
 {
 	intGameOver = 1;
+	console.log("GAME OVER");
 	if(game.monitorInUse == true)
 	{
 		fnMonitorFlipper( "down" );
@@ -126,10 +159,4 @@ function fnGameOver()
 		}, 4000);
 	}, 600);
 }
-
-
-
-
-
-
 

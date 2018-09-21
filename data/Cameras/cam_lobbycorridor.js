@@ -10,11 +10,11 @@
 			if(toggle == true){
 				game.fnPlaySound("CAM_ACTIVE",true);
 				game.fnPauseSound("CAM_STATIC");
-				fnCameraLightable(true);
 				if(intCameraLobbyCorridorMode == 0){
+					fnCameraLightable(true);
 					game.fnPlaySound("CAM_TRANSFER");
 					game.fnPlaySound("CAM_BEEP");
-					if(intCameraLobbyCorridorWeak == 1){
+					if(intCameraLobbyCorridorWeak == 1 || intCameraMode == 1){
 						scnCameraViewport.fnGetSprite("StaticInterrupt").visible = true;
 						scnCameraViewport.fnGetSprite("StatusInterrupt").visible = true;						
 						game.fnPlaySound("CAM_INTERRUPT",true);
@@ -27,13 +27,17 @@
 					scnCameraViewport.fnAddSubScene(scnCameraLobbyCorridorOverlay);
 				}
 				else if(intCameraLobbyCorridorMode == 1){
+					fnCameraLightable(false);
 					scnCameraViewport.fnGetSprite("StaticEffect").visible = false;
 					scnCameraViewport.fnGetSprite("StatusOnline").visible = false;
+					scnCameraViewport.fnGetSprite("StatusInterrupt").visible = false;
 					scnCameraViewport.fnGetSprite("StatusLost").visible = true;
 					scnCameraViewport.fnGetSprite("Static").visible = true;
 					game.fnPlaySound("CAM_TRANSFER");
 					game.fnPlaySound("CAM_STATIC",true);
-					//game.fnPlaySound("CAM_INTERRUPT",true);
+					game.fnPauseSound("CAM_DANGER");
+					game.fnPauseSound("CAM_INTERRUPT");
+					game.fnPauseSound("CAM_ACTIVE");
 				}
 				if(strRobot1Room == "COR" || strRobot1Room == "COR2")
 				{
