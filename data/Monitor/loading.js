@@ -1,6 +1,30 @@
 
 
+	var scnMonitorBootGood = new Scene("BootScreenNormal");
+	scnMonitorBootGood.fnSetLayer(2);
+	scnMonitorBootGood.intOffsetX = intScreenOffsetX;
+	scnMonitorBootGood.intOffsetY = intScreenOffsetY;
+	var imgLoad = new Sprite("BootScreen");
+	imgLoad.fnLoadImage("./assets/img/Console/System/Boot_Normal.gif");
+	imgLoad.x = 0;
+	imgLoad.y = 0;
+	imgLoad.width = 800;
+	imgLoad.height = 600;		
+	scnMonitorBootGood.fnAddSprite(imgLoad);
 
+	var scnMonitorStartUp = new Scene("StartUpScreen");
+	scnMonitorStartUp.fnSetLayer(2);
+	scnMonitorStartUp.intOffsetX = intScreenOffsetX;
+	scnMonitorStartUp.intOffsetY = intScreenOffsetY;
+	var imgLoad = new Sprite("BootScreen");
+	imgLoad.fnLoadImage("./assets/img/Console/System/StartUp.gif");
+	imgLoad.x = 0;
+	imgLoad.y = 0;
+	imgLoad.width = 800;
+	imgLoad.height = 600;		
+	scnMonitorStartUp.fnAddSprite(imgLoad);
+	
+	
 	var scnLoading = new Scene("Loading");
 	//Splash
 	var imgLoad = new Sprite("Background");
@@ -71,6 +95,7 @@
 	
 	
 	//Screen
+
 	scnLoading.intOffsetX = intScreenOffsetX;
 	scnLoading.intOffsetY = intScreenOffsetY;
 	scnLoading.fnSetLayer(1);

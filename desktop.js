@@ -36,9 +36,7 @@ function fnDesktopToggle(toggle)
 	imgLoad.y = 0;
 	imgLoad.width = 800;
 	imgLoad.height = 600;
-	scnDesktop.fnAddSprite(imgLoad);	
-	var intCameraLobbyCorridorOffsetX = 0;
-	var intCameraLobbyCorridorOffsetY = 0;
+	scnDesktop.fnAddSprite(imgLoad);
 	
 	var imgLoad = new Sprite("TaskBar");
 	imgLoad.fnLoadImage("./assets/img/Console/Desktop/Desktop_Taskbar.png");

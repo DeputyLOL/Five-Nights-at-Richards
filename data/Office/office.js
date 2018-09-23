@@ -2,76 +2,12 @@
 	var intOfficePanLeft = 0;
 	var intOfficePanRight = 0;
 	var intOfficeDoorLeftInTransit = 0;
-	
-		function fnMonitorFlipper( direction )
-		{
-			if (direction == "up")
-			{
-				game.fnPlaySound("MONITOR_UP");
-				scnGame.fnGetSprite("MonitorFlipUp").visible = false;
-				scnOffice.fnGetSprite("PanLeft").visible = false;
-				scnOffice.fnGetSprite("PanRight").visible = false;
-				scnOffice.fnAddSubScene(scnMonitorUp);
-				setTimeout( function() 
-				{
-					scnOffice.fnRemoveSubScene(scnMonitorUp);
-					scnOffice.fnAddSubScene(scnScreen);
-					scnOffice.fnAddSubScene(scnDesktop);
-					fnDesktopToggle("on");
-					scnGame.fnGetSprite("MonitorFlipDown").visible = true;
-					imgMonitorUp.fnLoadImage("./assets/img/Monitor/MonitorUp.gif");
-					game.fnVolumeSound("CAM_ACTIVE",1);
-					game.fnVolumeSound("CAM_TRANSFER",1);
-					game.fnVolumeSound("CAM_STATIC",1);
-					game.fnVolumeSound("CAM_DANGER",1);
-					game.fnVolumeSound("CAM_BEEP",1);
-					game.fnVolumeSound("CAM_JAM",1);
-					game.fnVolumeSound("CAM_INTERRUPT",1);
-					game.fnVolumeSound("CAM_PAN",1);
-					game.fnVolumeSound("CAM_PANLIMIT",1);
-					game.fnVolumeSound("CAM_LIGHT",1);
-					game.monitorInUse = true;
-				},600)				
-			} 
-			else if (direction == "down")
-			{
-				game.monitorInUse = false;
-				game.fnPlaySound("MONITOR_DOWN");
-				scnGame.fnGetSprite("MonitorFlipDown").visible = false;
-				scnOffice.fnRemoveSubScene(scnDesktop);
-				scnOffice.fnRemoveSubScene(scnScreen);
-				scnOffice.fnAddSubScene(scnMonitorDown);
-				setTimeout( function() 
-				{
-					game.fnVolumeSound("CAM_ACTIVE",0);
-					game.fnVolumeSound("CAM_TRANSFER",0);
-					game.fnVolumeSound("CAM_STATIC",0);
-					game.fnVolumeSound("CAM_DANGER",0);
-					game.fnVolumeSound("CAM_BEEP",0);
-					game.fnVolumeSound("CAM_JAM",0);
-					game.fnVolumeSound("CAM_INTERRUPT",0);
-					game.fnVolumeSound("CAM_PAN",0);
-					game.fnVolumeSound("CAM_PANLIMIT",0);
-					game.fnVolumeSound("CAM_LIGHT",0);
-					fnDesktopToggle("off");
-					scnOffice.fnRemoveSubScene(scnMonitorDown);
-					scnGame.fnGetSprite("MonitorFlipUp").visible = true;
-					scnOffice.fnGetSprite("PanLeft").visible = true;
-					scnOffice.fnGetSprite("PanRight").visible = true;
-					imgMonitorDown.fnLoadImage("./assets/img/Monitor/MonitorDown.gif");			
-				},600)					
-			}
-			else
-			{
-				console.log("ERROR: fnMonitorFlipper - Can't flip " + direction);
-			}
-		}
 
 		function fnOfficeDoor( side , direction )
 		{
 			if (side == "left")
 			{
-				if (direction == "up")
+				if (direction == "up" && (intOfficeDoorLeftPosition == 1 || intOfficeDoorLeftInTransit == 1))
 				{
 					game.fnPlaySound("DOOR_LEFT_OPEN");
 					intOfficeDoorLeftInTransit = 1;
@@ -88,7 +24,7 @@
 						intOfficeDoorLeftInTransit = 0;
 					},1000)
 				} 
-				else if (direction == "down")
+				else if (direction == "down" && (intOfficeDoorLeftPosition == 0 || intOfficeDoorLeftInTransit == 1))
 				{
 					game.fnPlaySound("DOOR_LEFT_CLOSE");
 					intOfficeDoorLeftInTransit = 1;
@@ -214,7 +150,7 @@
 				{
 					for ( var k =0; k < lstPanningSprites.length; k++ ) {
 						lstPanningSprites[k].scrollDirection = 30;
-						if(!lstPanningSprites[k].blnPanning && intOfficeDoorLeftInTransit == 0)
+						if(!lstPanningSprites[k].blnPanning && intOfficeDoorLeftInTransit == 0 && intPower > 0)
 						{
 							if(intOfficeDoorLeftPosition)
 							{
@@ -240,7 +176,7 @@
 				{
 					for ( var k =0; k < lstPanningSprites.length; k++ ) {
 						lstPanningSprites[k].scrollDirection = -30;
-						if(!lstPanningSprites[k].blnPanning && intOfficeDoorLeftInTransit == 0)
+						if(!lstPanningSprites[k].blnPanning && intOfficeDoorLeftInTransit == 0 && intPower > 0)
 						{
 							if(intOfficeDoorLeftPosition)
 							{

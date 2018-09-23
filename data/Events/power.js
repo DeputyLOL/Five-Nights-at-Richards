@@ -1,17 +1,15 @@
 
 
 var intPower = 1000;
-
-
+var intPoweredDown = 0;
+var intPoweredDrain = 0;
 
 function fnPowerManager()
 {
-	intPower = intPower - (intOfficeDoorLeftPosition*3) - game.monitorInUse - intCameraLight - 1;
-	console.log("POWER USAGE:");
-	console.log("MONITOR - " + game.monitorInUse);
-	console.log("LIGHTS - " + intCameraLight);
-	console.log("LEFT DOOR - " + intOfficeDoorLeftPosition*3);
-	console.log("POWER LEFT: " + intPower);
+	intPoweredDrain = (intOfficeDoorLeftPosition*10) + (game.monitorInUse * intMonitorOn) + intCameraLight + 1;
+	intPower = intPower - intPoweredDrain
+	console.log("POWER USAGE: -" + intPoweredDrain);
+
 	if(intPowerMode == 0)
 	{
 		scnBatteryIcon.fnGetSprite("BatteryFail").visible = false;
@@ -49,11 +47,14 @@ function fnPowerManager()
 			scnBatteryIcon.fnGetSprite("BatteryIcon30").visible = false;
 			scnBatteryIcon.fnGetSprite("BatteryIcon20").visible = true;
 		}
+		else if(intPower > 100)
+		{
+			scnBatteryIcon.fnGetSprite("BatteryIcon20").visible = false;
+			scnBatteryIcon.fnGetSprite("BatteryIcon5").visible = true;
+		}	
 		else if(intPower > 50)
 		{
 			scnBatteryIcon.fnGetSprite("BatteryWarn").visible = true;
-			scnBatteryIcon.fnGetSprite("BatteryIcon20").visible = false;
-			scnBatteryIcon.fnGetSprite("BatteryIcon5").visible = true;
 		}	
 	}
 	else
@@ -63,10 +64,39 @@ function fnPowerManager()
 	}
 	if( intPower <= 0)
 	{
-		fnGameOver();
+		fnPowerDown()
 	}
 }
 
+function fnPowerDown()
+{
+	if(intPoweredDown == 0)
+	{
+		game.fnStopSound("ALL");
+		fnOfficeDoor( "left" , "up" )
+		fnOfficeDoor( "right" , "up" )
+		fnMonitorFlipper("down");
+		scnGame.fnGetSprite("MonitorFlipUp").visible = false;
+		scnOffice.fnGetSprite("LightLeft").visible = false;
+		scnOffice.fnGetSprite("DoorLeftOpen").visible = false;
+		scnOffice.fnGetSprite("DoorLeftClose").visible = false;
+		game.fnPlaySound("OFFICE_POWERDOWN");
+		game.fnPlaySound("BUILDING_AMBIENCE",true);
+		if(intMonitorOn)
+		{
+			game.fnPlaySound("FAN_STOP");
+		}
+		intPoweredDown = 1;
+		setTimeout( function() 
+		{
+			game.fnPlaySound("QUARANTINE_ALARM");
+		},10000)	
+
+	}
+	else
+	{
+	}
+}
 
 	var scnBatteryIcon = new Scene("BatteryIcon");
 	scnBatteryIcon.fnSetLayer(1);

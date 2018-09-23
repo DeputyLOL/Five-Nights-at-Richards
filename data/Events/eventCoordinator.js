@@ -36,7 +36,7 @@ function fnEventCoordinator()
 	{
 		fnEndNight();
 	}
-	if(intDebugMode == 0)
+	if(intDebugMode == 0 && intGameOver == 0)
 	{
 		// MOVE ROBOTS
 		if(intRobot1Counter < 10)
@@ -52,7 +52,7 @@ function fnEventCoordinator()
 		}
 		
 		// BREAK SOMETHING
-		if(intMalfunctionCounter < 20)
+		if(intMalfunctionCounter < 30)
 		{
 			intMalfunctionCounter++;
 			//console.log("LOG: fnEventCoordinator - intMalfunctionCounter is: " + intMalfunctionCounter);
@@ -87,27 +87,27 @@ function fnSystemBreaker()
 		if(intCameraMode == 0 && intRandom <= 20)
 		{
 			console.log("LOG: fnSystemBreaker - Failed Camera. Random number was: " + intRandom);
-			intCameraMode = 2;
+			intCameraMode = 1;
 		}
 		else if(intLightingMode == 0 && (intRandom > 20 && intRandom <= 40))
 		{
 			console.log("LOG: fnSystemBreaker - Failed Lights. Random number was: " + intRandom);
-			intLightingMode = 2;		
+			intLightingMode = 1;		
 		}
 		else if(intClientMode == 0 && (intRandom > 40 && intRandom <= 60))
 		{
 			console.log("LOG: fnSystemBreaker - Failed Client. Random number was: " + intRandom);
-			intClientMode = 2;		
+			intClientMode = 1;		
 		}
 		else if(intServerMode == 0 && (intRandom > 60 && intRandom <= 80))
 		{
 			console.log("LOG: fnSystemBreaker - Failed Server. Random number was: " + intRandom);
-			intServerMode = 2;			
+			intServerMode = 1;			
 		}
 		else if(intPowerMode == 0 && (intRandom > 80 && intRandom <= 100))
 		{
 			console.log("LOG: fnSystemBreaker - Failed Power. Random number was: " + intRandom);
-			intPowerMode = 2;		
+			//intPowerMode = 1;		
 		}
 		else
 		{
@@ -144,7 +144,7 @@ function fnEndNight()
 function fnGameOver()
 {
 	intGameOver = 1;
-	console.log("GAME OVER");
+	console.log("GAME OVER! You survived for " + intNightCounter + " seconds." );
 	if(game.monitorInUse == true)
 	{
 		fnMonitorFlipper( "down" );
@@ -153,16 +153,14 @@ function fnGameOver()
 	game.fnPlaySound("SCREAM");
 	setTimeout( function() 
 	{
-		game.fnStopSound("FAN_LOOP");
-		game.fnStopSound("OFFICE_AMBIENCE");
-		game.fnStopSound("DOOR_BEEP");
+		game.fnStopSound("ALL");
 		scnGame.fnRemoveAllSubScenes();
 		scnGame.fnGetSprite("MonitorFlipUp").visible = false;
 		scnGame.fnGetSprite("MonitorFlipDown").visible = false;
 		setTimeout( function() 
 		{
 			game.fnPlaySound("TAUNT_ROBOT1_A");
-		}, 4000);
+		}, 1000);
 	}, 600);
 }
 

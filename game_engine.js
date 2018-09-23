@@ -134,7 +134,17 @@ function GameEngine()
 	 * Set Volume
 	 */
 	this.fnVolumeSound = function( strName, volume = 1 ) {
-		this.dicSounds[strName].volume = volume;
+		if (strName == "ALL")
+		{
+			for (key in this.dicSounds) 
+			{
+				this.dicSounds[strName].volume = volume;
+			}
+		}
+		else
+		{
+			this.dicSounds[strName].volume = volume;
+		}
 	}
 	
 	/**

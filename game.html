@@ -15,7 +15,43 @@
 	  -- THE GAME
 	  --
 	  -->
+		<script src = "./data/Monitor/clock.js"></script>
+		<script src = "./data/Monitor/screen.js"></script>	  
+
+		<script src = "./data/Monitor/loading.js"></script>
+		<script src = "menu.js"></script>
+		<script src = "desktop.js"></script>
+	    <script src = "help_menu.js"></script>
+	    <script src = "options.js"></script>
+	    <script src = "email.js"></script>
+		
+	    <script src = "./data/Cameras/cameramanager.js"></script>
+	    <script src = "./data/Cameras/cameramonitor.js"></script>
+	    <script src = "./data/Cameras/cam_common.js"></script>
+	    <script src = "./data/Cameras/cam_lobby.js"></script>
+	    <script src = "./data/Cameras/cam_lobbycorridor.js"></script>
+	    <script src = "./data/Cameras/cam_medbay.js"></script>
+	    <script src = "./data/Cameras/cam_demostage.js"></script>
+	    <script src = "./data/Cameras/cam_executiveoffice.js"></script>
+	    <script src = "./data/Cameras/cam_executivecorridor.js"></script>
+		
+	    <script src = "./data/Cameras/cam_manufacturing.js"></script>
+
+		
+	    <script src = "./data/Device/devicemanager.js"></script>		
+	    <script src = "./data/Device/devicemonitor.js"></script>
+	    <script src = "./data/Device/dev_overview.js"></script>
+
+	    <script src = "./data/Device/dev_cameras.js"></script>		
+	    <script src = "./data/Device/dev_lighting.js"></script>	
+		
+		<script src = "./data/Events/eventCoordinator.js"></script>
+		<script src = "./data/Events/power.js"></script>
+	    <script src = "./data/Events/robot1.js"></script>
+
+		<script src = "./data/Office/office.js"></script>
 	<script>
+	
 		//Disable image dragging
 		window.ondragstart = function() { return false; }
 		//Create game object
@@ -33,8 +69,11 @@
 			}
 		};
 		// Load Sounds
-		game.fnAddSound( "OFFICE_AMBIENCE", "./assets/audio/OFFICE_AMBIENCE.wav");
-
+		game.fnAddSound( "BUILDING_AMBIENCE", "./assets/audio/BUILDING_AMBIENCE.ogg");
+		game.fnAddSound( "OFFICE_AMBIENCE", "./assets/audio/OFFICE_AMBIENCE.ogg");
+		game.fnAddSound( "OFFICE_POWERDOWN", "./assets/audio/OFFICE_POWERDOWN.ogg");
+		
+		game.fnAddSound( "QUARANTINE_ALARM", "./assets/audio/QUARANTINE_ALARM.ogg");
 		game.fnAddSound( "DOOR_BEEP", "./assets/audio/DOOR_BEEP.ogg");		
 		
 		game.fnAddSound( "DOOR_LEFT_BLOCK", "./assets/audio/DOOR_LEFT_BLOCK.ogg");
@@ -56,8 +95,12 @@
 		game.fnAddSound( "SYSTEM_START", "./assets/audio/SYSTEM_START.ogg");
 		game.fnAddSound( "SYSTEM_PROCESS", "./assets/audio/SYSTEM_PROCESS.ogg");
 		game.fnAddSound( "SYSTEM_PROCESSCOMPLETE", "./assets/audio/SYSTEM_PROCESSCOMPLETE.ogg");
+
+		game.fnAddSound( "FAN_START", "./assets/audio/SYSTEM_FANSTART.ogg");		
 		game.fnAddSound( "FAN_LOOP", "./assets/audio/SYSTEM_FANLOOP.ogg");
 		game.fnAddSound( "FAN_BUSY", "./assets/audio/SYSTEM_FANBUSY.ogg");
+		game.fnAddSound( "FAN_STOP", "./assets/audio/SYSTEM_FANSTOP.ogg");
+		
 		game.fnAddSound( "BUTTON", "./assets/audio/SYSTEM_BUTTON.ogg");
 		game.fnAddSound( "CLICK", "./assets/audio/SYSTEM_CLICK.ogg");
 		game.fnAddSound( "CAM_ACTIVE", "./assets/audio/CAM_ACTIVE.ogg");
@@ -70,10 +113,11 @@
 		game.fnAddSound( "CAM_PAN", "./assets/audio/CAM_PAN.ogg");
 		game.fnAddSound( "CAM_PANLIMIT", "./assets/audio/CAM_PANLIMIT.ogg");
 		game.fnAddSound( "CAM_LIGHT", "./assets/audio/CAM_LIGHT.ogg");
+		
 		game.fnAddSound( "FLASHLIGHT_ON", "./assets/audio/FLASHLIGHT_ON.ogg");
 		game.fnAddSound( "FLASHLIGHT_OFF", "./assets/audio/FLASHLIGHT_OFF.ogg");
 
-		game.fnPlaySound("FAN_LOOP",true);
+		game.fnPlaySound("BUILDING_AMBIENCE",true);
 		game.fnPlaySound("OFFICE_AMBIENCE",true);
 		//Create scene
 		var scnGame = new Scene("Game");
@@ -109,68 +153,25 @@
 		imgLoad.fnMouseOverEvent = function () {
 			fnMonitorFlipper("down");
 		}		
-		scnGame.fnGetSprite("MonitorFlipDown").visible = false;		
+		scnGame.fnGetSprite("MonitorFlipDown").visible = false;
+		
+		var imgLoad = new Button("MonitorPowerOn");
+		imgLoad.fnLoadImage("./assets/img/Common/null.png", 
+		"./assets/img/Common/null.png",
+		"./assets/img/Common/null.png",
+		"./assets/img/Monitor/Monitor_ButtonPowerOn.png"
+		);
+		imgLoad.x = 1175;
+		imgLoad.y = 55;
+		imgLoad.width = 93;
+		imgLoad.height = 93;
+		scnGame.fnAddSprite(imgLoad);
+		imgLoad.fnMouseDownEvent = function () {
+			fnMonitorPower("on");
+		}		
+		scnGame.fnGetSprite("MonitorPowerOn").visible = false;		
 
 
-		
-		var scnMonitorUp = new Scene("MonitorUpAnimation");
-		scnMonitorUp.fnSetLayer(10);
-		var imgMonitorUp = new Sprite("MonitorUp");
-		imgMonitorUp.fnLoadImage("./assets/img/Monitor/MonitorUp.gif");
-		imgMonitorUp.x = 0;
-		imgMonitorUp.y = 0;
-		imgMonitorUp.width = 1369;
-		imgMonitorUp.height = 756;		
-		scnMonitorUp.fnAddSprite(imgMonitorUp);
-
-		var scnMonitorDown = new Scene("MonitorDownAnimation");
-		scnMonitorDown.fnSetLayer(10);
-		var imgMonitorDown = new Sprite("MonitorDown");
-		imgMonitorDown.fnLoadImage("./assets/img/Monitor/MonitorDown.gif");
-		imgMonitorDown.x = 0;
-		imgMonitorDown.y = 0;
-		imgMonitorDown.width = 1369;
-		imgMonitorDown.height = 756;		
-		scnMonitorDown.fnAddSprite(imgMonitorDown);
-
-		
-		//Set up the screen
-		var scnScreen = new Scene("Screen");
-		var imgScreen = new Sprite("ScreenTop");
-		imgScreen.fnLoadImage("./assets/img/Monitor/MonitorTop.png");
-		imgScreen.x = 294;
-		imgScreen.y = 0;
-		imgScreen.width = 800;
-		imgScreen.height = 72;
-		scnScreen.fnAddSprite(imgScreen);
-		
-		var imgScreen = new Sprite("ScreenBottom");
-		imgScreen.fnLoadImage("./assets/img/Monitor/MonitorBottom.png");
-		imgScreen.x = 294;
-		imgScreen.y = 672;
-		imgScreen.width = 800;
-		imgScreen.height = 84;
-		scnScreen.fnAddSprite(imgScreen);
-		
-		var imgScreen = new Sprite("ScreenLeft");
-		imgScreen.fnLoadImage("./assets/img/Monitor/MonitorLeft.png");
-		imgScreen.x = 0;
-		imgScreen.y = 0;
-		imgScreen.width = 294;
-		imgScreen.height = 756;
-		scnScreen.fnAddSprite(imgScreen);
-		
-		var imgScreen = new Sprite("ScreenRight");
-		imgScreen.fnLoadImage("./assets/img/Monitor/MonitorRight.png");
-		imgScreen.x = 1094;
-		imgScreen.y = 0;
-		imgScreen.width = 275;
-		imgScreen.height = 756;
-		scnScreen.fnAddSprite(imgScreen);
-				
-		var intScreenOffsetX = 294;
-		var intScreenOffsetY = 72;	
-		scnScreen.fnSetLayer(6);
 		
 		//Create scene
 		var scnNightWin = new Scene("NightWin");
@@ -192,40 +193,6 @@
 		scnNightWin.fnAddSprite(imgGameWin);
 		
 	</script>	
-		<script src = "loading.js"></script>
-		<script src = "menu.js"></script>
-		<script src = "desktop.js"></script>
-	    <script src = "help_menu.js"></script>
-	    <script src = "options.js"></script>
-	    <script src = "email.js"></script>
-		
-	    <script src = "./data/Cameras/cameramanager.js"></script>
-	    <script src = "./data/Cameras/cameramonitor.js"></script>
-	    <script src = "./data/Cameras/cam_common.js"></script>
-	    <script src = "./data/Cameras/cam_lobby.js"></script>
-	    <script src = "./data/Cameras/cam_lobbycorridor.js"></script>
-	    <script src = "./data/Cameras/cam_medbay.js"></script>
-	    <script src = "./data/Cameras/cam_demostage.js"></script>
-	    <script src = "./data/Cameras/cam_executiveoffice.js"></script>
-	    <script src = "./data/Cameras/cam_executivecorridor.js"></script>
-		
-	    <script src = "./data/Cameras/cam_manufacturing.js"></script>
-
-		<script src = "./data/Desktop/clock.js"></script>
-		<script src = "./data/Desktop/battery.js"></script>
-		
-	    <script src = "./data/Device/devicemanager.js"></script>		
-	    <script src = "./data/Device/devicemonitor.js"></script>
-	    <script src = "./data/Device/dev_overview.js"></script>
-
-	    <script src = "./data/Device/dev_cameras.js"></script>		
-	    <script src = "./data/Device/dev_lighting.js"></script>	
-		
-		<script src = "./data/Events/eventCoordinator.js"></script>
-		<script src = "./data/Events/power.js"></script>
-	    <script src = "./data/Events/robot1.js"></script>
-
-		<script src = "./data/Office/office.js"></script>
 	<script>
 
 		
