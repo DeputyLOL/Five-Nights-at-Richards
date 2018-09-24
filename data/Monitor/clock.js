@@ -386,6 +386,6 @@
 	scnClockDigit3.fnGetSprite("1").visible = false;
 	
 	
-	scnClockDigit1.fnSetLayer(1);
-	scnClockDigit2.fnSetLayer(1);
-	scnClockDigit3.fnSetLayer(1);
+	scnClockDigit1.fnSetLayer(8);
+	scnClockDigit2.fnSetLayer(8);
+	scnClockDigit3.fnSetLayer(8);

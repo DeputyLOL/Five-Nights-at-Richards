@@ -4,19 +4,22 @@ function fnDesktopToggle(toggle)
 {
 	if (toggle == "on")
 	{
-		scnDesktop.fnAddSubScene(scnBatteryIcon);
-		scnDesktop.fnAddSubScene(scnClockDigit1);
-		scnDesktop.fnAddSubScene(scnClockDigit2);
-		scnDesktop.fnAddSubScene(scnClockDigit3);
-		scnDesktop.fnAddSubScene(scnClockDigit4);
+		scnDesktop.fnAddSubScene(scnTaskbar);
+		scnTaskbar.fnAddSubScene(scnBatteryIcon);
+		scnTaskbar.fnAddSubScene(scnClockDigit1);
+		scnTaskbar.fnAddSubScene(scnClockDigit2);
+		scnTaskbar.fnAddSubScene(scnClockDigit3);
+		scnTaskbar.fnAddSubScene(scnClockDigit4);
 	}
 	else if(toggle == "off")
 	{
-		scnDesktop.fnRemoveSubScene(scnBatteryIcon);
-		scnDesktop.fnRemoveSubScene(scnClockDigit1);
-		scnDesktop.fnRemoveSubScene(scnClockDigit2);
-		scnDesktop.fnRemoveSubScene(scnClockDigit3);
-		scnDesktop.fnRemoveSubScene(scnClockDigit4);
+		scnTaskbar.fnRemoveSubScene(scnBatteryIcon);
+		scnTaskbar.fnRemoveSubScene(scnClockDigit1);
+		scnTaskbar.fnRemoveSubScene(scnClockDigit2);
+		scnTaskbar.fnRemoveSubScene(scnClockDigit3);
+		scnTaskbar.fnRemoveSubScene(scnClockDigit4);
+		scnDesktop.fnRemoveSubScene(scnTaskbar);
+		scnOffice.fnRemoveSubScene(scnDesktop);	
 	}
 	else
 	{
@@ -37,15 +40,7 @@ function fnDesktopToggle(toggle)
 	imgLoad.width = 800;
 	imgLoad.height = 600;
 	scnDesktop.fnAddSprite(imgLoad);
-	
-	var imgLoad = new Sprite("TaskBar");
-	imgLoad.fnLoadImage("./assets/img/Console/Desktop/Desktop_Taskbar.png");
-	imgLoad.x = 0;
-	imgLoad.y = 566;
-	imgLoad.width = 800;
-	imgLoad.height = 34;
-	scnDesktop.fnAddSprite(imgLoad);
-	
+
 	var imgLoad = new Button("IconDeviceMonitor");
 	imgLoad.x = 20;
 	imgLoad.y = 20;
@@ -72,8 +67,8 @@ function fnDesktopToggle(toggle)
 	"./assets/img/Common/null.png"
 	);
 	imgLoad.fnMouseUpEvent = function () {
-		scnScreen.fnRemoveSubScene("Desktop");
-		scnScreen.fnAddSubScene(scnEmail);
+		//scnScreen.fnRemoveSubScene("Desktop");
+		//scnScreen.fnAddSubScene(scnEmail);
 	}
 	scnDesktop.fnAddButton(imgLoad);
 

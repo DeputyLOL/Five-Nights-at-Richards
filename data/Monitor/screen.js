@@ -1,19 +1,28 @@
 
 
+	intMonitorPower = 0;
 	intMonitorOn = 0;
 	
-		function fnMonitorFlipper( direction )
+		function fnMonitorToggler( toggle )
 		{
-			if (direction == "up" && game.monitorInUse == false )
+			scnOffice.fnRemoveSubScene(scnScreenOff);		
+			scnOffice.fnRemoveSubScene(scnDesktop);
+			scnOffice.fnRemoveSubScene(scnScreen);
+			game.fnVolumeSound("CAM_ACTIVE",0);
+			game.fnVolumeSound("CAM_TRANSFER",0);
+			game.fnVolumeSound("CAM_STATIC",0);
+			game.fnVolumeSound("CAM_DANGER",0);
+			game.fnVolumeSound("CAM_BEEP",0);
+			game.fnVolumeSound("CAM_JAM",0);
+			game.fnVolumeSound("CAM_INTERRUPT",0);
+			game.fnVolumeSound("CAM_PAN",0);
+			game.fnVolumeSound("CAM_PANLIMIT",0);
+			game.fnVolumeSound("CAM_LIGHT",0);
+			fnDesktopToggle("off");
+			if (toggle == "on")
 			{
-				game.fnPlaySound("MONITOR_UP");
-				scnGame.fnGetSprite("MonitorFlipUp").visible = false;
-				scnOffice.fnGetSprite("PanLeft").visible = false;
-				scnOffice.fnGetSprite("PanRight").visible = false;
-				scnOffice.fnAddSubScene(scnMonitorUp);
-				setTimeout( function() 
+				if (game.monitorInUse == true)
 				{
-					scnOffice.fnRemoveSubScene(scnMonitorUp);
 					if(intMonitorOn)
 					{
 						scnOffice.fnAddSubScene(scnScreen);
@@ -30,12 +39,35 @@
 						game.fnVolumeSound("CAM_PANLIMIT",1);
 						game.fnVolumeSound("CAM_LIGHT",1);
 					}
+					else if(intMonitorPower)
+					{
+						scnOffice.fnAddSubScene(scnScreen);		
+					}
 					else
 					{
 						scnOffice.fnAddSubScene(scnScreenOff);
 						scnGame.fnGetSprite("MonitorPowerOn").visible = true;							
 					}
+				}
+			}
+		}
+		
+		
+		
+		function fnMonitorFlipper( direction )
+		{
+			if (direction == "up" && game.monitorInUse == false )
+			{
+				game.fnPlaySound("MONITOR_UP");
+				scnGame.fnGetSprite("MonitorFlipUp").visible = false;
+				scnOffice.fnGetSprite("PanLeft").visible = false;
+				scnOffice.fnGetSprite("PanRight").visible = false;
+				scnOffice.fnAddSubScene(scnMonitorUp);
+				setTimeout( function() 
+				{
+					scnOffice.fnRemoveSubScene(scnMonitorUp);
 					game.monitorInUse = true;
+					fnMonitorToggler("on");
 					scnGame.fnGetSprite("MonitorFlipDown").visible = true;
 					imgMonitorUp.fnLoadImage("./assets/img/Monitor/MonitorUp.gif");
 				},600)				
@@ -46,23 +78,10 @@
 				game.fnPlaySound("MONITOR_DOWN");
 				scnGame.fnGetSprite("MonitorPowerOn").visible = false;	
 				scnGame.fnGetSprite("MonitorFlipDown").visible = false;
-				scnOffice.fnRemoveSubScene(scnScreenOff);		
-				scnOffice.fnRemoveSubScene(scnDesktop);
-				scnOffice.fnRemoveSubScene(scnScreen);
 				scnOffice.fnAddSubScene(scnMonitorDown);
+				fnMonitorToggler("off");
 				setTimeout( function() 
 				{
-					game.fnVolumeSound("CAM_ACTIVE",0);
-					game.fnVolumeSound("CAM_TRANSFER",0);
-					game.fnVolumeSound("CAM_STATIC",0);
-					game.fnVolumeSound("CAM_DANGER",0);
-					game.fnVolumeSound("CAM_BEEP",0);
-					game.fnVolumeSound("CAM_JAM",0);
-					game.fnVolumeSound("CAM_INTERRUPT",0);
-					game.fnVolumeSound("CAM_PAN",0);
-					game.fnVolumeSound("CAM_PANLIMIT",0);
-					game.fnVolumeSound("CAM_LIGHT",0);
-					fnDesktopToggle("off");
 					scnOffice.fnRemoveSubScene(scnMonitorDown);
 					scnOffice.fnGetSprite("PanLeft").visible = true;
 					scnOffice.fnGetSprite("PanRight").visible = true;
@@ -81,13 +100,16 @@
 
 		function fnMonitorPower( toggle )
 		{
-			if (toggle == "on" && intMonitorOn == 0 )
+			if (toggle == "on" && intMonitorPower == 0 )
 			{
-				intMonitorOn = 1;
+				intMonitorPower = 1;
 				game.fnPlaySound("FAN_START");
 				scnGame.fnGetSprite("MonitorPowerOn").visible = false;
-				scnOffice.fnAddSubScene(scnScreen);
-				scnScreen.fnAddSubScene(scnMonitorBootGood);	
+				if(game.monitorInUse == true)
+				{
+					scnOffice.fnAddSubScene(scnScreen);
+				}
+				scnScreen.fnAddSubScene(scnMonitorBootGood);
 				setTimeout( function() 
 				{
 					game.fnPlaySound("FAN_LOOP",true);
@@ -96,12 +118,43 @@
 				setTimeout( function() 
 				{
 					scnScreen.fnRemoveSubScene(scnMonitorBootGood);
+					imgMonitorBootGood.fnResetImage("./assets/img/Console/System/Boot_Normal.gif");
 					fnMonitorStartUp();
-				},7500);				
+				},5500);		
 			} 
-			else if (toggle == "off" &&	intMonitorOn == 1 )
+			else if ((toggle == "off" || toggle == "restart") && intMonitorPower == 1 )
 			{
-
+				fnDesktopToggle("off");
+				fnCloseCameraMonitor();
+				intMonitorOn = 0;
+				scnScreen.fnAddSubScene(scnMonitorShutdown);
+				setTimeout( function() 
+				{
+					intMonitorPower = 0;
+					scnScreen.fnRemoveSubScene(scnMonitorShutdown);
+					scnOffice.fnRemoveSubScene(scnScreen);
+					if(game.monitorInUse == true)
+					{
+						scnOffice.fnAddSubScene(scnScreenOff);
+					}
+					if(toggle == "off")
+					{
+						game.fnStopSound("FAN_LOOP");
+						game.fnPlaySound("FAN_STOP");
+						if(game.monitorInUse == true)
+						{
+							scnGame.fnGetSprite("MonitorPowerOn").visible = true;
+						}							
+					}
+					else
+					{
+						game.fnVolumeSound("FAN_START",0);
+						setTimeout( function() 
+						{
+							fnMonitorPower("on");
+						},1000);	
+					}
+				},4000);					
 			}
 			else
 			{
@@ -114,13 +167,12 @@
 				setTimeout( function() 
 				{
 					scnScreen.fnRemoveSubScene(scnMonitorStartUp);
-					if (game.monitorInUse == true){
-						scnOffice.fnAddSubScene(scnDesktop);
-						fnDesktopToggle("on");
-					}
-					scnOffice.fnRemoveSubScene(scnScreenOff);
+					imgMonitorStartUp.fnResetImage("./assets/img/Console/System/StartUp.gif");
 					game.fnPlaySound("SYSTEM_START");
+					game.fnVolumeSound("FAN_START",1);		
 					game.fnStopSound("FAN_BUSY");
+					intMonitorOn = 1;
+					fnMonitorToggler("on");
 				},4000);				
 			}
 		}

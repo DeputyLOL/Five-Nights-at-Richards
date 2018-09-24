@@ -15,12 +15,17 @@
 	  -- THE GAME
 	  --
 	  -->
+		<script src = "./data/Monitor/screen.js"></script>	
+		
+		<script src = "./data/Monitor/battery.js"></script>	
 		<script src = "./data/Monitor/clock.js"></script>
-		<script src = "./data/Monitor/screen.js"></script>	  
+		<script src = "./data/Monitor/desktop.js"></script>		  
 
 		<script src = "./data/Monitor/loading.js"></script>
+		<script src = "./data/Monitor/taskbar.js"></script>
+		
 		<script src = "menu.js"></script>
-		<script src = "desktop.js"></script>
+
 	    <script src = "help_menu.js"></script>
 	    <script src = "options.js"></script>
 	    <script src = "email.js"></script>
@@ -63,7 +68,7 @@
 		}
 		game.monitorInUse = false;
 		document.body.onmousedown = function() {
-			if (game.monitorInUse)
+			if (intMonitorOn == 1)
 			{
 				game.fnPlaySound("CLICK");				
 			}

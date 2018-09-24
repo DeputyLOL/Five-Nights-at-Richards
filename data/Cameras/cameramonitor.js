@@ -2,7 +2,23 @@
  * This is the actual scene in which we can move the cameras around
  */
 
-	//Create Menu scene
+	function fnCloseCameraMonitor()
+	{
+		game.fnPlaySound("BUTTON");			
+		game.fnStopSound("CAM_BEEP");
+		game.fnStopSound("CAM_ACTIVE");
+		game.fnStopSound("CAM_TRANSFER");
+		game.fnStopSound("CAM_DANGER");
+		game.fnStopSound("CAM_STATIC");
+		game.fnStopSound("CAM_JAM");
+		game.fnStopSound("CAM_INTERRUPT");
+		scnCameraMonitor.fnRemoveSubScene(scnCameraViewport);
+		scnDesktop.fnRemoveSubScene(scnCameraMonitor);
+		intCameraMonitorActive = 0;
+	}
+
+	
+	//Create scene
 	var scnCameraMonitor = new Scene("CameraMonitor");
 	
 	scnCameraMonitor.fnRefresh = function() {
@@ -90,17 +106,7 @@
 	"./assets/img/Console/Common/CloseButtonPressed.png",
 	"./assets/img/Common/null.png");
 	imgLoad.fnMouseUpEvent = function () {
-		game.fnPlaySound("BUTTON");			
-		game.fnStopSound("CAM_BEEP");
-		game.fnStopSound("CAM_ACTIVE");
-		game.fnStopSound("CAM_TRANSFER");
-		game.fnStopSound("CAM_DANGER");
-		game.fnStopSound("CAM_STATIC");
-		game.fnStopSound("CAM_JAM");
-		game.fnStopSound("CAM_INTERRUPT");
-		scnCameraMonitor.fnRemoveSubScene(scnCameraViewport);
-		scnDesktop.fnRemoveSubScene(scnCameraMonitor);
-		intCameraMonitorActive = 0;
+		fnCloseCameraMonitor();
 	}
 	scnCameraMonitor.fnAddButton(imgLoad);
 
