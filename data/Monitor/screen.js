@@ -1,7 +1,7 @@
 
 
-	intMonitorPower = 0;
-	intMonitorOn = 0;
+	intMonitorPower = 1;
+	intMonitorOn = 1;
 	
 		function fnMonitorToggler( toggle )
 		{
@@ -18,6 +18,7 @@
 			game.fnVolumeSound("CAM_PAN",0);
 			game.fnVolumeSound("CAM_PANLIMIT",0);
 			game.fnVolumeSound("CAM_LIGHT",0);
+			game.fnVolumeSound("CAM_VNT_AMBIENCE",0);			
 			fnDesktopToggle("off");
 			if (toggle == "on")
 			{
@@ -38,6 +39,7 @@
 						game.fnVolumeSound("CAM_PAN",1);
 						game.fnVolumeSound("CAM_PANLIMIT",1);
 						game.fnVolumeSound("CAM_LIGHT",1);
+						game.fnVolumeSound("CAM_VNT_AMBIENCE",1);	
 					}
 					else if(intMonitorPower)
 					{

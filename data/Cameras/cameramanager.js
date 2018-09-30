@@ -20,7 +20,7 @@
 // 13 - SHIPPING
 // 14 - STAFF ACCESS
 // 15 - SERVER ROOM
-
+// 16 - NULL ROOM
 
 var intCameraTransferDelay = 500;
 var intCameraPanning = 0;
@@ -75,6 +75,7 @@ function fnCameraManager()
 		game.fnPauseSound("CAM_ACTIVE");
 		game.fnPauseSound("CAM_DANGER");
 		game.fnPauseSound("CAM_INTERRUPT");
+		game.fnPauseSound("CAM_VNT_AMBIENCE");
 		//Find out what has been pressed
 		var strActiveButton = cameraMonitorSelection.fnWhichButtonActive();	
 		
@@ -103,9 +104,10 @@ function fnCameraManager()
 					intCameraActive = 1;
 					fnCameraManagerLobby();
 				}
-				//else if( strActiveButton == "PowerRoom" ) {
-				//	scnCameraViewport.fnAddSubScene(scnCameraPower);
-				//}
+				else if( strActiveButton == "VentRoom" ) {
+					intCameraActive = 2;
+					fnCameraManagerVentRoom();
+				}
 				else if( strActiveButton == "LobbyCorridor" ) {
 					intCameraActive = 3;
 					fnCameraManagerLobbyCorridor();
@@ -199,10 +201,9 @@ function fnCameraLighter(toggle = 0)
 		if( strActiveButton == "Lobby" ) {
 			fnCameraManagerLobbyLighter(toggle);
 		}	
-		//else if( strActiveButton == "VentRoom" ) {
-		//	intCameraActive = 3;
-		//	fnCameraManagerLobbyCorridor();
-		//}
+		else if( strActiveButton == "VentRoom" ) {
+			fnCameraManagerVentRoomLighter(toggle);
+		}
 		else if( strActiveButton == "LobbyCorridor" ) {
 			fnCameraManagerLobbyCorridorLighter(toggle);
 		}
@@ -232,14 +233,14 @@ function fnCameraLightable( toggle = 1 )
 }
 
 
-function fnCameraDisrupter( camera , camera2)
+function fnCameraDisrupter( camera , camera2, time = 3000)
 {
 	if(camera == 1 || camera2 == 1) // LOBBY
 	{
 		intCameraLobbyMode = 1;
 		intLobbyLightAmount = 0;
 		if(intCameraActive == 1 && intCameraMonitorActive == 1){
-			fnCameraManagerLobby(true)
+			fnCameraManagerLobby(true);
 		}
 		setTimeout( function() 
 		{
@@ -247,14 +248,29 @@ function fnCameraDisrupter( camera , camera2)
 			if(intCameraActive == 1 && intCameraMonitorActive == 1){
 				fnCameraManager();
 			}
-		},3000)
+		},time)
+	}
+	if(camera == 2 || camera2 == 2) // VENTROOM
+	{
+		intCameraVentRoomMode = 1;
+		intVentRoomLightAmount = 0;
+		if(intCameraActive == 2 && intCameraMonitorActive == 1){
+			fnCameraManagerVentRoom(true);
+		}
+		setTimeout( function() 
+		{
+			intCameraVentRoomMode = 0;			
+			if(intCameraActive == 2 && intCameraMonitorActive == 1){
+				fnCameraManager();
+			}
+		},time)
 	}
 	if(camera == 3 || camera2 == 3) // LOBBY CORRIDOR
 	{
 		intCameraLobbyCorridorMode = 1;
 		intLobbyCorridorLightAmount = 0;
 		if(intCameraActive == 3 && intCameraMonitorActive == 1){
-			fnCameraManagerLobbyCorridor(true)
+			fnCameraManagerLobbyCorridor(true);
 		}
 		setTimeout( function() 
 		{
@@ -262,14 +278,14 @@ function fnCameraDisrupter( camera , camera2)
 			if(intCameraActive == 3 && intCameraMonitorActive == 1){
 				fnCameraManager();
 			}
-		},3000)
+		},time)
 	}
 	if(camera == 4 || camera2 == 4) // MEDBAY
 	{
 		intCameraMedbayMode = 1;
 		intMedbayLightAmount = 0;
 		if(intCameraActive == 4 && intCameraMonitorActive == 1){
-			fnCameraManagerMedbay(true)
+			fnCameraManagerMedbay(true);
 		}
 		setTimeout( function() 
 		{
@@ -277,14 +293,14 @@ function fnCameraDisrupter( camera , camera2)
 			if(intCameraActive == 4 && intCameraMonitorActive == 1){
 				fnCameraManager();
 			}
-		},3000)
+		},time)
 	}
 	if(camera == 5 || camera2 == 5) // DEMOSTAGE
 	{
 		intCameraDemoStageMode = 1;
 		intDemoStageLightAmount = 0;
 		if(intCameraActive == 5 && intCameraMonitorActive == 1){
-			fnCameraManagerDemoStage(true)
+			fnCameraManagerDemoStage(true);
 		}
 		setTimeout( function() 
 		{
@@ -292,7 +308,7 @@ function fnCameraDisrupter( camera , camera2)
 			if(intCameraActive == 5 && intCameraMonitorActive == 1){
 				fnCameraManager();
 			}
-		},3000)
+		},time)
 	}
 }
 

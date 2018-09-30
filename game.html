@@ -39,7 +39,7 @@
 	    <script src = "./data/Cameras/cam_demostage.js"></script>
 	    <script src = "./data/Cameras/cam_executiveoffice.js"></script>
 	    <script src = "./data/Cameras/cam_executivecorridor.js"></script>
-		
+	    <script src = "./data/Cameras/cam_ventroom.js"></script>		
 	    <script src = "./data/Cameras/cam_manufacturing.js"></script>
 
 		
@@ -49,11 +49,15 @@
 
 	    <script src = "./data/Device/dev_cameras.js"></script>		
 	    <script src = "./data/Device/dev_lighting.js"></script>	
+
+	    <script src = "./data/EngineerHelper/engineerhelpermanager.js"></script>	
+		<script src = "./data/EngineerHelper/engineerhelpermonitor.js"></script>	
 		
 		<script src = "./data/Events/eventCoordinator.js"></script>
 		<script src = "./data/Events/power.js"></script>
 	    <script src = "./data/Events/robot1.js"></script>
-
+	    <script src = "./data/Events/engineerhelper.js"></script>
+		
 		<script src = "./data/Office/office.js"></script>
 	<script>
 	
@@ -68,7 +72,7 @@
 		}
 		game.monitorInUse = false;
 		document.body.onmousedown = function() {
-			if (intMonitorOn == 1)
+			if (intMonitorOn == 1 && game.monitorInUse == true)
 			{
 				game.fnPlaySound("CLICK");				
 			}
@@ -118,12 +122,63 @@
 		game.fnAddSound( "CAM_PAN", "./assets/audio/CAM_PAN.ogg");
 		game.fnAddSound( "CAM_PANLIMIT", "./assets/audio/CAM_PANLIMIT.ogg");
 		game.fnAddSound( "CAM_LIGHT", "./assets/audio/CAM_LIGHT.ogg");
-		
+		game.fnAddSound( "CAM_VNT_AMBIENCE", "./assets/audio/CAM_VNT_AMBIENCE.ogg");
+				
 		game.fnAddSound( "FLASHLIGHT_ON", "./assets/audio/FLASHLIGHT_ON.ogg");
 		game.fnAddSound( "FLASHLIGHT_OFF", "./assets/audio/FLASHLIGHT_OFF.ogg");
 
+		game.fnAddSound( "EH_IDLE", "./assets/audio/vox/EngineerHelper/EH_N_IDLE.ogg");
+		game.fnAddSound( "EH_IDLE2", "./assets/audio/vox/EngineerHelper/EH_N_IDLE2.ogg");
+		game.fnAddSound( "EH_IDLE3", "./assets/audio/vox/EngineerHelper/EH_N_IDLE3.ogg");
+		game.fnAddSound( "EH_IDLE4", "./assets/audio/vox/EngineerHelper/EH_N_IDLE4.ogg");
+		game.fnAddSound( "EH_DISPATCH", "./assets/audio/vox/EngineerHelper/EH_N_DISPATCH.ogg");
+		game.fnAddSound( "EH_DISPATCH2", "./assets/audio/vox/EngineerHelper/EH_N_DISPATCH2.ogg");
+		game.fnAddSound( "EH_DISPATCH3", "./assets/audio/vox/EngineerHelper/EH_N_DISPATCH3.ogg");
+		game.fnAddSound( "EH_REPAIR_CANCEL", "./assets/audio/vox/EngineerHelper/EH_N_REPAIR_CANCEL.ogg");
+		game.fnAddSound( "EH_REPAIR_CANCEL2", "./assets/audio/vox/EngineerHelper/EH_N_REPAIR_CANCEL2.ogg");	
+		game.fnAddSound( "EH_REPAIR_CHECK", "./assets/audio/vox/EngineerHelper/EH_N_REPAIR_CHECK.ogg");
+		game.fnAddSound( "EH_REPAIR_CHECK2", "./assets/audio/vox/EngineerHelper/EH_N_REPAIR_CHECK2.ogg");
+		game.fnAddSound( "EH_REPAIR_DONE", "./assets/audio/vox/EngineerHelper/EH_N_REPAIR_DONE.ogg");
+		game.fnAddSound( "EH_REPAIR_DONE2", "./assets/audio/vox/EngineerHelper/EH_N_REPAIR_DONE2.ogg");			
+		game.fnAddSound( "EH_REPAIR_START", "./assets/audio/vox/EngineerHelper/EH_N_REPAIR_START.ogg");
+		game.fnAddSound( "EH_REPAIR_START2", "./assets/audio/vox/EngineerHelper/EH_N_REPAIR_START2.ogg");
+		game.fnAddSound( "EH_REBOOT", "./assets/audio/vox/EngineerHelper/EH_N_REBOOT.ogg");
+		game.fnAddSound( "EH_SHUTDOWN", "./assets/audio/vox/EngineerHelper/EH_N_SHUTDOWN.ogg");
+		
+		game.fnAddSound( "EH_IDLE_C", "./assets/audio/vox/EngineerHelper/EH_C_IDLE.ogg");
+		game.fnAddSound( "EH_IDLE2_C", "./assets/audio/vox/EngineerHelper/EH_C_IDLE2.ogg");
+		game.fnAddSound( "EH_IDLE3_C", "./assets/audio/vox/EngineerHelper/EH_C_IDLE3.ogg");
+		game.fnAddSound( "EH_IDLE4_C", "./assets/audio/vox/EngineerHelper/EH_C_IDLE4.ogg");
+		game.fnAddSound( "EH_IDLE5_C", "./assets/audio/vox/EngineerHelper/EH_C_IDLE5.ogg");
+		game.fnAddSound( "EH_IDLE6_C", "./assets/audio/vox/EngineerHelper/EH_C_IDLE6.ogg");
+		game.fnAddSound( "EH_DISPATCH_C", "./assets/audio/vox/EngineerHelper/EH_C_DISPATCH.ogg");
+		game.fnAddSound( "EH_DISPATCH2_C", "./assets/audio/vox/EngineerHelper/EH_C_DISPATCH2.ogg");
+		game.fnAddSound( "EH_DISPATCH3_C", "./assets/audio/vox/EngineerHelper/EH_C_DISPATCH3.ogg");
+		game.fnAddSound( "EH_POWERTAUNT", "./assets/audio/vox/EngineerHelper/EH_C_POWERTAUNT.ogg");		
+		game.fnAddSound( "EH_POWERWARN", "./assets/audio/vox/EngineerHelper/EH_C_POWERWARN.ogg");		
+		game.fnAddSound( "EH_REPAIR_CANCEL_C", "./assets/audio/vox/EngineerHelper/EH_C_REPAIR_CANCEL.ogg");
+		game.fnAddSound( "EH_REPAIR_CANCEL2_C", "./assets/audio/vox/EngineerHelper/EH_C_REPAIR_CANCEL2.ogg");	
+		game.fnAddSound( "EH_REPAIR_CHECK_C", "./assets/audio/vox/EngineerHelper/EH_C_REPAIR_CHECK.ogg");
+		game.fnAddSound( "EH_REPAIR_CHECK2_C", "./assets/audio/vox/EngineerHelper/EH_C_REPAIR_CHECK2.ogg");
+		game.fnAddSound( "EH_REPAIR_CHECK3_C", "./assets/audio/vox/EngineerHelper/EH_C_REPAIR_CHECK3.ogg");
+		game.fnAddSound( "EH_REPAIR_DONE_C", "./assets/audio/vox/EngineerHelper/EH_C_REPAIR_DONE.ogg");
+		game.fnAddSound( "EH_REPAIR_DONE2_C", "./assets/audio/vox/EngineerHelper/EH_C_REPAIR_DONE2.ogg");
+		game.fnAddSound( "EH_REPAIR_DONE3_C", "./assets/audio/vox/EngineerHelper/EH_C_REPAIR_DONE3.ogg");
+		game.fnAddSound( "EH_REPAIR_DONE4_C", "./assets/audio/vox/EngineerHelper/EH_C_REPAIR_DONE4.ogg");
+		game.fnAddSound( "EH_REPAIR_FAIL_C", "./assets/audio/vox/EngineerHelper/EH_C_REPAIR_FAIL.ogg");
+		game.fnAddSound( "EH_REPAIR_FAIL2_C", "./assets/audio/vox/EngineerHelper/EH_C_REPAIR_FAIL2.ogg");
+		game.fnAddSound( "EH_REPAIR_START_C", "./assets/audio/vox/EngineerHelper/EH_C_REPAIR_START.ogg");
+		game.fnAddSound( "EH_REPAIR_START2_C", "./assets/audio/vox/EngineerHelper/EH_C_REPAIR_START2.ogg");			
+		game.fnAddSound( "EH_REPAIR_START3_C", "./assets/audio/vox/EngineerHelper/EH_C_REPAIR_START3.ogg");	
+		game.fnAddSound( "EH_RETURN_C", "./assets/audio/vox/EngineerHelper/EH_C_RETURN.ogg");
+		game.fnAddSound( "EH_RETURN2_C", "./assets/audio/vox/EngineerHelper/EH_C_RETURN2.ogg");
+		game.fnAddSound( "EH_SHUTDOWN_C", "./assets/audio/vox/EngineerHelper/EH_C_SHUTDOWN.ogg");
+		game.fnAddSound( "EH_SHUTDOWN2_C", "./assets/audio/vox/EngineerHelper/EH_C_SHUTDOWN2.ogg");		
+		
 		game.fnPlaySound("BUILDING_AMBIENCE",true);
 		game.fnPlaySound("OFFICE_AMBIENCE",true);
+		game.fnPlaySound("FAN_LOOP",true);
+		
 		//Create scene
 		var scnGame = new Scene("Game");
 		scnGame.fnSetLayer(10);

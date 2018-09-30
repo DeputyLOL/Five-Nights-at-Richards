@@ -26,6 +26,10 @@
 					}
 					scnCameraViewport.fnAddSubScene(scnCameraDemoStage);
 					scnCameraViewport.fnAddSubScene(scnCameraDemoStageOverlay);
+					if(strRobot1Room == "DEM" || strRobot1Room == "DEM2")
+					{
+						game.fnPlaySound("CAM_DANGER",true);
+					}					
 				}
 				else if(intCameraDemoStageMode == 1){
 					fnCameraPanable(false);
@@ -40,10 +44,6 @@
 					game.fnPauseSound("CAM_DANGER");
 					game.fnPauseSound("CAM_INTERRUPT");
 					game.fnPauseSound("CAM_ACTIVE");	
-				}
-				if(strRobot1Room == "DEM" || strRobot1Room == "DEM2")
-				{
-					game.fnPlaySound("CAM_DANGER",true);
 				}
 			}
 			else{

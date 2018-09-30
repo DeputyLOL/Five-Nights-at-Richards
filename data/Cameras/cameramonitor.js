@@ -12,6 +12,7 @@
 		game.fnStopSound("CAM_STATIC");
 		game.fnStopSound("CAM_JAM");
 		game.fnStopSound("CAM_INTERRUPT");
+		game.fnStopSound("CAM_VNT_AMBIENCE");
 		scnCameraMonitor.fnRemoveSubScene(scnCameraViewport);
 		scnDesktop.fnRemoveSubScene(scnCameraMonitor);
 		intCameraMonitorActive = 0;

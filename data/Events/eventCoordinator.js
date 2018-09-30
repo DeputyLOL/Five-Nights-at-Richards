@@ -2,7 +2,7 @@
 
 // FUNCTIONS THAT CONTROL EVENTS/MALFUNCTIONS/MOVEMENT
 
-var intDebugMode = 0;
+var intDebugMode = 1;
 
 // System Operation
 // 0 = Normal
@@ -13,7 +13,7 @@ var intDebugMode = 0;
 
 var intCameraMode = 0;
 var intLightingMode = 0;
-var intClientMode = 0;
+var intVentMode = 0;
 var intServerMode = 0;
 var intPowerMode = 0;
 
@@ -30,14 +30,10 @@ var intRobot1Counter = 0;
 // RUN EVERY 5 SECONDS
 function fnEventCoordinator()
 {
-	fnClock();
 	//console.log(intNightCounter);
-	if(intNightCounter >= 360)
-	{
-		fnEndNight();
-	}
 	if(intDebugMode == 0 && intGameOver == 0)
 	{
+		fnEngineerHelperCoordinator();
 		// MOVE ROBOTS
 		if(intRobot1Counter < 10)
 		{
@@ -63,18 +59,21 @@ function fnEventCoordinator()
 			intMalfunctionCounter = 0;
 			fnSystemBreaker();
 		}
-		
+		fnClock();		
 		fnPowerManager();
+		intNightCounter++;
+	}
+	if(intNightCounter >= 360)
+	{
+		fnEndNight();
 	}
 	if(intGameOver == 0)
 	{
 		setTimeout( function() 
 		{ 
-			intNightCounter++;
 			fnEventCoordinator();
 		}, 1000);
 	}
-
 }
 
 function fnSystemBreaker()
@@ -94,14 +93,15 @@ function fnSystemBreaker()
 			console.log("LOG: fnSystemBreaker - Failed Lights. Random number was: " + intRandom);
 			intLightingMode = 1;		
 		}
-		else if(intClientMode == 0 && (intRandom > 40 && intRandom <= 60))
+		else if(intVentMode == 0 && (intRandom > 40 && intRandom <= 60))
 		{
-			console.log("LOG: fnSystemBreaker - Failed Client. Random number was: " + intRandom);
-			intClientMode = 1;		
+			console.log("LOG: fnSystemBreaker - Failed Vent. Random number was: " + intRandom);
+			intVentMode = 1;		
 		}
 		else if(intServerMode == 0 && (intRandom > 60 && intRandom <= 80))
 		{
 			console.log("LOG: fnSystemBreaker - Failed Server. Random number was: " + intRandom);
+			intEngineerHelperCorrupted = 1;
 			intServerMode = 1;			
 		}
 		else if(intPowerMode == 0 && (intRandom > 80 && intRandom <= 100))

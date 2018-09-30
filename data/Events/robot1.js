@@ -5,7 +5,7 @@
 // STARTS: 5-DEMOROOM
 // NAVIGATION: 5.5-DEMOROOM 3-LOBBY CORRIDOR 3.5-LOBBY CORRIDOR 4-MEDBAY 1-LOBBY 2-VENTILATION
 // GOAL: 0-OFFICE
-// SPECIAL:NONE
+// SPECIAL: ATTRACTED TO LIGHT
 
 var strRobot1Room = "DEM";
 var strRobot1Target = "OFF";
@@ -21,6 +21,8 @@ scnCameraLobbyCorridor.fnGetSprite("LobbyCorridor_Robot1_2_Lit").visible = false
 scnCameraMedbay.fnGetSprite("Medbay_Robot1").visible = false;
 scnCameraMedbay.fnGetSprite("Medbay_Robot1_Lit").visible = false;
 scnCameraLobby.fnGetSprite("Lobby_Robot1").visible = false;
+scnCameraVentRoom.fnGetSprite("VentRoom_Robot1").visible = false;
+scnCameraVentRoom.fnGetSprite("VentRoom_Robot1_Lit").visible = false;
 
 function fnRobot1Coordinator()
 {
@@ -49,21 +51,24 @@ function fnRobot1Coordinator()
 	else if(strRobot1Room == "VNT") // If robot is in vent room...
 	{
 		console.log("LOG: fnRobot1() - Moving from: " + strRobot1Room);
+		scnCameraVentRoom.fnGetSprite("VentRoom_Robot1").visible = false;
 		strRobot1Room = "LOB"; // ... move to Lobby
 		console.log("LOG: fnRobot1() - Moving to: " + strRobot1Room);
 		scnCameraLobby.fnGetSprite("Lobby_Robot1").visible = true;
 		game.fnPlaySound("FOOTSTEP_ROBOT1");
-		fnCameraDisrupter(0,1);
+		fnCameraDisrupter(2,1);
 	}
 	else if(strRobot1Room == "LOB") // If robot is in Lobby...
 	{
 		console.log("LOG: fnRobot1() - Moving from: " + strRobot1Room);
 		scnCameraLobby.fnGetSprite("Lobby_Robot1").visible = false;
 		game.fnPlaySound("FOOTSTEP_ROBOT1");		
-		if(strRobot1Room == "VNT")
+		if(strRobot1Target == "VNT")
 		{
 			strRobot1Room = "VNT";  // ... move to vent room
-			console.log("LOG: fnRobot1() - Moving to: " + strRobot1Room);	
+			console.log("LOG: fnRobot1() - Moving to: " + strRobot1Room);
+			scnCameraVentRoom.fnGetSprite("VentRoom_Robot1").visible = true;
+			fnCameraDisrupter(1,2);			
 		}
 		else
 		{

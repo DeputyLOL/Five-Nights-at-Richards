@@ -99,23 +99,23 @@ function fnDeviceStatus()
 		scnDeviceMonitorOverview.fnGetSprite("StatusServerNotResponding").visible = true;			
 	}
 
-	if(intClientMode == 0)
+	if(intVentMode == 0)
 	{
-		scnDeviceMonitorOverview.fnGetSprite("StatusClientOK").visible = true;
-		scnDeviceMonitorOverview.fnGetSprite("StatusClientError").visible = false;	
-		scnDeviceMonitorOverview.fnGetSprite("StatusClientNotResponding").visible = false;			
+		//scnDeviceMonitorOverview.fnGetSprite("StatusVentOK").visible = true;
+		//scnDeviceMonitorOverview.fnGetSprite("StatusVentError").visible = false;	
+		//scnDeviceMonitorOverview.fnGetSprite("StatusVentNotResponding").visible = false;			
 	}
-	else if(intClientMode == 1 || intClientMode == 2)
+	else if(intVentMode == 1 || intVentMode == 2)
 	{
-		scnDeviceMonitorOverview.fnGetSprite("StatusClientOK").visible = false;
-		scnDeviceMonitorOverview.fnGetSprite("StatusClientError").visible = true;	
-		scnDeviceMonitorOverview.fnGetSprite("StatusClientNotResponding").visible = false;			
+		//scnDeviceMonitorOverview.fnGetSprite("StatusVentOK").visible = false;
+		//scnDeviceMonitorOverview.fnGetSprite("StatusVentError").visible = true;	
+		//scnDeviceMonitorOverview.fnGetSprite("StatusVentNotResponding").visible = false;			
 	}
 	else
 	{
-		scnDeviceMonitorOverview.fnGetSprite("StatusClientOK").visible = false;
-		scnDeviceMonitorOverview.fnGetSprite("StatusClientError").visible = false;	
-		scnDeviceMonitorOverview.fnGetSprite("StatusClientNotResponding").visible = true;			
+		//scnDeviceMonitorOverview.fnGetSprite("StatusVentOK").visible = false;
+		//scnDeviceMonitorOverview.fnGetSprite("StatusVentError").visible = false;	
+		//scnDeviceMonitorOverview.fnGetSprite("StatusVentNotResponding").visible = true;			
 	}
 	
 	if(intPowerMode == 0)

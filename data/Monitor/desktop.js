@@ -90,6 +90,21 @@ function fnDesktopToggle(toggle)
 		fnCameraManager();
 	}
 	scnDesktop.fnAddButton(imgLoad);
+
+	var imgLoad = new Button("IconEngineerHelper");
+	imgLoad.x = 20;
+	imgLoad.y = 380;
+	imgLoad.width = 110;
+	imgLoad.height = 140;
+	imgLoad.fnLoadImage("./assets/img/Console/Desktop/Desktop_Icon_EngineerHelper.png", 
+	"./assets/img/Console/Desktop/Desktop_Icon_EngineerHelperHighlighted.png",
+	"./assets/img/Console/Desktop/Desktop_Icon_EngineerHelperSelected.png",
+	"./assets/img/Common/null.png"
+	);
+	imgLoad.fnMouseUpEvent = function () {
+		scnDesktop.fnAddSubScene(scnEngineerHelperMonitor);
+	}
+	scnDesktop.fnAddButton(imgLoad);
 	
 	//Screen
 	scnDesktop.intOffsetX = intScreenOffsetX;

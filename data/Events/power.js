@@ -89,7 +89,11 @@ function fnPowerDown()
 		intPoweredDown = 1;
 		setTimeout( function() 
 		{
-			game.fnPlaySound("QUARANTINE_ALARM");
+			fnEngineerHelperAudioResponse("power");	
+		},4000)	
+		setTimeout( function() 
+		{
+			//game.fnPlaySound("QUARANTINE_ALARM",true);
 		},10000)	
 
 	}

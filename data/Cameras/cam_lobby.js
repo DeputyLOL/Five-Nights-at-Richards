@@ -26,6 +26,10 @@
 					}
 					scnCameraViewport.fnAddSubScene(scnCameraLobby);
 					scnCameraViewport.fnAddSubScene(scnCameraLobbyOverlay);
+					if(strRobot1Room == "LOB")
+					{
+						game.fnPlaySound("CAM_DANGER",true);					
+					}
 				}
 				else if(intCameraLobbyMode == 1){
 					fnCameraPanable(false);
@@ -40,10 +44,6 @@
 					game.fnPauseSound("CAM_DANGER");
 					game.fnPauseSound("CAM_INTERRUPT");
 					game.fnPauseSound("CAM_ACTIVE");
-				}
-				if(strRobot1Room == "LOB")
-				{
-					game.fnPlaySound("CAM_DANGER",true);					
 				}
 			}
 			else{

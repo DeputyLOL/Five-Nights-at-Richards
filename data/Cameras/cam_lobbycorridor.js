@@ -25,6 +25,10 @@
 					}
 					scnCameraViewport.fnAddSubScene(scnCameraLobbyCorridor);
 					scnCameraViewport.fnAddSubScene(scnCameraLobbyCorridorOverlay);
+					if(strRobot1Room == "COR" || strRobot1Room == "COR2")
+					{
+						game.fnPlaySound("CAM_DANGER",true);					
+					}
 				}
 				else if(intCameraLobbyCorridorMode == 1){
 					fnCameraLightable(false);
@@ -38,10 +42,6 @@
 					game.fnPauseSound("CAM_DANGER");
 					game.fnPauseSound("CAM_INTERRUPT");
 					game.fnPauseSound("CAM_ACTIVE");
-				}
-				if(strRobot1Room == "COR" || strRobot1Room == "COR2")
-				{
-					game.fnPlaySound("CAM_DANGER",true);					
 				}
 			}
 			else{
